@@ -42,4 +42,5 @@ Pakatun tiedoston tavoitteellinen koko on 40-60% alkuperäisestä.
 ## Lähteet
 
 https://en.wikipedia.org/wiki/Huffman_coding
+
 https://en.wikipedia.org/wiki/Lempel–Ziv–Welch
