@@ -1,5 +1,5 @@
 
-package io;
+package main.java.io;
 
 import java.io.BufferedInputStream;
 import java.io.File;

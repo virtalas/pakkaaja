@@ -1,7 +1,7 @@
-package pakkaaja;
+package main.java.pakkaaja;
 
-import io.FileInput;
-import io.FileOutput;
+import main.java.io.FileInput;
+import main.java.io.FileOutput;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
