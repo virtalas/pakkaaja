@@ -11,6 +11,7 @@
 apply plugin: 'java'
 
 mainClassName = "pakkaaja.Main"
+sourceSets.main.java.srcDirs = ['src']
 
 // In this section you declare where to find the dependencies of your project
 repositories {
