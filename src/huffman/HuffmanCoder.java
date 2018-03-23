@@ -17,7 +17,7 @@ public class HuffmanCoder {
     /**
      * A string array where the index represents the character/byte, and the value represents the huffman code of the character/byte.
      */
-    private String[] codes;
+    public String[] codes;
 
     /**
      * Initializes byteFrequencies and codes.
@@ -48,7 +48,7 @@ public class HuffmanCoder {
      * @param sourcePath path of the source file
      * @param destinationPath path of the destination file
      */
-    private void writeCompressedContent(String sourcePath, String destinationPath) {
+    public void writeCompressedContent(String sourcePath, String destinationPath) {
         FileInput in = new FileInput(sourcePath);
         FileOutput out = new FileOutput(destinationPath);
 
@@ -64,7 +64,7 @@ public class HuffmanCoder {
      * Builds the Huffman tree by combining the least frequent trees until the tree is complete.
      * @return the root of the tree
      */
-    private HuffmanTree buildTree() {
+    public HuffmanTree buildTree() {
         PriorityQueue<HuffmanTree> trees = new PriorityQueue<HuffmanTree>();
         // Initially, there are only leaves, one for each non-empty character
         for (int i = 0; i < byteFrequencies.length; i++) {
@@ -90,7 +90,7 @@ public class HuffmanCoder {
      * @param tree complete Huffman tree
      * @param prefix initializes the prefix/code
      */
-    private void buildCodeList(HuffmanTree tree, StringBuffer prefix) {
+    public void buildCodeList(HuffmanTree tree, StringBuffer prefix) {
         if (tree instanceof HuffmanLeaf) {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
 
