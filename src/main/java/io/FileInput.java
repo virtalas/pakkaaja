@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileInput {
     
@@ -18,7 +20,12 @@ public class FileInput {
         path = path;
     }
     
-    public int read() throws IOException {
-        return is.read();
+    public int readNext() {
+        try {
+            return is.read();
+        } catch (IOException ex) {
+            System.out.println("Could not read file.");
+            return -1;
+        }
     }
 }
