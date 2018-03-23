@@ -7,24 +7,38 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * Class for reading bytes from the source file.
+ */
 public class FileInput {
     
-    InputStream is;
-    String path;
+    /**
+     * Used for reading bytes from the source file.
+     */
+    private InputStream is;
 
-    public FileInput(String path) throws FileNotFoundException {
-        is = new BufferedInputStream(new FileInputStream(new File(path)));
-        path = path;
+    /**
+     * Initializes the InputStream
+     * @param path path for the source file
+     */
+    public FileInput(String path) {
+        try {
+            is = new BufferedInputStream(new FileInputStream(new File(path)));
+        } catch (FileNotFoundException ex) {
+            System.out.println("File was not found: " + ex);
+        }
     }
     
+    /**
+     * Reads the next byte.
+     * @return the next byte or -1 if the file has ended or could not be read
+     */
     public int readNext() {
         try {
             return is.read();
         } catch (IOException ex) {
-            System.out.println("Could not read file.");
+            System.out.println("Could not read file: " + ex);
             return -1;
         }
     }

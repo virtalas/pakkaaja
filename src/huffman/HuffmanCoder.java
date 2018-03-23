@@ -18,7 +18,7 @@ public class HuffmanCoder {
         this.codes = new String[alphabetSize];
     }
 
-    public void compress(String sourcePath, String destinationPath) throws FileNotFoundException {
+    public void compress(String sourcePath, String destinationPath) {
         HuffmanTree root = buildTree();
         buildCodeList(root, new StringBuffer());
 
@@ -26,7 +26,7 @@ public class HuffmanCoder {
         writeCompressedContent(sourcePath, destinationPath);
     }
 
-    private void writeCompressedContent(String sourcePath, String destinationPath) throws FileNotFoundException {
+    private void writeCompressedContent(String sourcePath, String destinationPath) {
         FileInput in = new FileInput(sourcePath);
         FileOutput out = new FileOutput(destinationPath);
 

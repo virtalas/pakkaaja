@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Class for reading bytes from the source file.
+ * Class for writing bytes to the destination file.
  */
 public class FileOutput {
 

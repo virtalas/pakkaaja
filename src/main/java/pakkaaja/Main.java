@@ -20,7 +20,7 @@ public class Main {
      * It reads the file and generates the character frequencies into a list that is passed on to the coder that will compress the file.
      * @param args the command line arguments are: source, destination.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // TODO: agruments for compression/decompression
         if (args.length != 2) {
             System.out.println("Usage: [source] [destination]");
