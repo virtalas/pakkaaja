@@ -1,5 +1,5 @@
 
-package huffman;
+package main.java.huffman;
 
 /**
  * A leaf in the Huffman tree that has a value and its frequency.

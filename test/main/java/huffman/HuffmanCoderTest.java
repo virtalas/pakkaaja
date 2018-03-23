@@ -1,6 +1,10 @@
 
-package huffman;
+package main.java.huffman;
 
+import main.java.huffman.HuffmanLeaf;
+import main.java.huffman.HuffmanTree;
+import main.java.huffman.HuffmanCoder;
+import main.java.huffman.HuffmanInternalNode;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

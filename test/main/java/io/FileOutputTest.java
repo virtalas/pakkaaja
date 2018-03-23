@@ -31,21 +31,6 @@ public class FileOutputTest {
 
     @Test
     public void testWriteBits() {
-        System.out.println("writeBits");
-        String bitsToWrite = "";
-        FileOutput instance = null;
-        instance.writeBits(bitsToWrite);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
-
-    @Test
-    public void testClose() {
-        System.out.println("close");
-        FileOutput instance = null;
-        instance.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }

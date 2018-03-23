@@ -1,6 +1,6 @@
 package main.java.pakkaaja;
 
-import huffman.HuffmanCoder;
+import main.java.huffman.HuffmanCoder;
 import main.java.io.FileInput;
 import java.io.IOException;
 

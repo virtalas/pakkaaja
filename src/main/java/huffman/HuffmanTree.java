@@ -1,4 +1,4 @@
-package huffman;
+package main.java.huffman;
 
 /**
  * Used for HuffmanLeaf and HuffmanInternalNode.

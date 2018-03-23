@@ -1,5 +1,5 @@
 
-package huffman;
+package main.java.huffman;
 
 import org.junit.After;
 import org.junit.AfterClass;

@@ -1,4 +1,4 @@
-package huffman;
+package main.java.huffman;
 
 import java.util.PriorityQueue;
 import main.java.io.FileInput;
