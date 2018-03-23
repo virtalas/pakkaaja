@@ -11,6 +11,7 @@ public class Main {
 
     /**
      * Size of the array used to store character frequencies, or how many unique characters there are.
+     * In this case it is the different values of one byte.
      */
     public static final int ALPHABET_SIZE = 256;
 
