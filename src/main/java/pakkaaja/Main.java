@@ -2,7 +2,7 @@ package main.java.pakkaaja;
 
 import main.java.huffman.HuffmanCoder;
 import main.java.io.FileInput;
-import java.io.IOException;
+import main.java.io.InputByteStream;
 
 /**
  * Main class.
@@ -32,7 +32,7 @@ public class Main {
         String destinationPath = args[1];
         int[] byteFrequencies = new int[ALPHABET_SIZE];
 
-        FileInput in = new FileInput(sourcePath);
+        FileInput in = new FileInput(new InputByteStream(sourcePath));
         int readByte = in.readNext();
 
         while (readByte != -1) {
@@ -44,7 +44,7 @@ public class Main {
         coder.compress(sourcePath, destinationPath);
 
         // View some of the compressed content
-        FileInput in2 = new FileInput(destinationPath);
+        FileInput in2 = new FileInput(new InputByteStream(destinationPath));
         int readByte2 = in2.readNext();
         for (int i = 0; i < 30; i++) {
             System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));

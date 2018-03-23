@@ -1,11 +1,9 @@
 package main.java.huffman;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.PriorityQueue;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
+import main.java.io.InputByteStream;
 import main.java.io.OutputByteStream;
 
 /**
@@ -53,8 +51,8 @@ public class HuffmanCoder {
      * @param destinationPath path of the destination file
      */
     public void writeCompressedContent(String sourcePath, String destinationPath) {
-        FileInput in = new FileInput(sourcePath);
-        FileOutput out = new FileOutput(new OutputByteStream(sourcePath));
+        FileInput in = new FileInput(new InputByteStream(sourcePath));
+        FileOutput out = new FileOutput(new OutputByteStream(destinationPath));
 
         int readByte = in.readNext();
 
