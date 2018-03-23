@@ -15,7 +15,11 @@ abstract class HuffmanTree implements Comparable<HuffmanTree> {
      * @param freq frequency of the character, or combined frequency of subtrees
      */
     public HuffmanTree(int freq) {
-        frequency = freq;
+        if (freq < 0) {
+            frequency = 0;
+        } else {
+            frequency = freq;
+        }
     }
 
     /**
