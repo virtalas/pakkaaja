@@ -46,7 +46,21 @@ jacocoTestReport {
     reports {
         xml.enabled = true
         html.enabled = true
+        html.destination file("testCoverage")
     }
+}
+
+sourceSets {
+  main {
+    java {
+      srcDir 'src'
+    }
+  }
+  test {
+      java {
+          srcDir 'test'
+      }
+  }
 }
 
 check.dependsOn jacocoTestReport
