@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fi"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileOutput.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pakkaaja</a> &gt; <a href="index.source.html" class="el_package">main.java.io</a> &gt; <span class="el_source">FileOutput.java</span></div><h1>FileOutput.java</h1><pre class="source lang-java linenums">package main.java.io;
+
+/**
+ * Class for writing bytes to the destination file.
+ */
+public class FileOutput {
+
+    /**
+     * Used for writing bytes into the destination file.
+     */
+    private OutStream out;
+
+    /**
+     * Keeps count for how many bits out of a byte are to be written.
+     */
+    private int bitCount;
+
+    /**
+     * Bits that are to be written are added to this byte. It is written when
+     * bitCount reaches eight.
+     */
+    private int currentByte;
+
+    /**
+     * Initializes OutputStream, bitCount and currentByte.
+     *
+     * @param output used for writing to the destination file
+     */
+<span class="fc" id="L29">    public FileOutput(OutStream output) {</span>
+<span class="fc" id="L30">        out = output;</span>
+<span class="fc" id="L31">        bitCount = 0;</span>
+<span class="fc" id="L32">        currentByte = 0;</span>
+<span class="fc" id="L33">    }</span>
+
+    /**
+     * Write a string of bits to the destination file.
+     *
+     * @param bitsToWrite a string representation of the bits to be written
+     */
+    public void writeBits(String bitsToWrite) {
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        for (int i = 0; i &lt; bitsToWrite.length(); i++) {</span>
+<span class="fc" id="L42">            char c = bitsToWrite.charAt(i);</span>
+            // Convert char to integer
+<span class="fc" id="L44">            writeBit(c - '0');</span>
+        }
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * Method for writing a single bit.
+     *
+     * @param bitToWrite bit to write as an integer that must be 0 or 1
+     */
+    public void writeBit(int bitToWrite) {
+<span class="fc bfc" id="L54" title="All 4 branches covered.">        if (bitToWrite != 0 &amp;&amp; bitToWrite != 1) {</span>
+<span class="fc" id="L55">            throw new IllegalArgumentException(&quot;bitToWrite must be 0 or 1&quot;);</span>
+        }
+
+<span class="fc" id="L58">        currentByte = (currentByte &lt;&lt; 1) | bitToWrite; // Shift bits to the left by one and place the new bit to the end.</span>
+<span class="fc" id="L59">        bitCount++;</span>
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (bitCount == 8) {</span>
+            // Full byte reached, write byte and start again.
+<span class="fc" id="L63">            out.write(currentByte);</span>
+<span class="fc" id="L64">            currentByte = 0;</span>
+<span class="fc" id="L65">            bitCount = 0;</span>
+        }
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * Closes the OutputStream. If the current byte is not full, zeros are
+     * written to the end so the final byte can be written.
+     */
+    public void close() {
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        while (bitCount != 0) {</span>
+<span class="nc" id="L75">            writeBit(0);</span>
+        }
+<span class="nc" id="L77">        out.close();</span>
+<span class="nc" id="L78">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
