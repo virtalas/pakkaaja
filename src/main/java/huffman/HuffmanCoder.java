@@ -34,8 +34,8 @@ public class HuffmanCoder {
     }
 
     /**
-     * Run the Huffman coding algorithm and write the compressed file.
-     * Writes the Huffman tree first and then the compressed content.
+     * Run the Huffman coding algorithm and write the compressed file. Writes
+     * the Huffman tree first and then the compressed content.
      */
     public void compress(FileInput in, FileOutput out) {
         HuffmanTree root = buildTree();
@@ -61,9 +61,10 @@ public class HuffmanCoder {
     }
 
     /**
-     * First the structure of the tree is written, ending with the output at the beginning of the next byte.
-     * Then the leaf values are written, one value per byte.
-     * 
+     * First the structure of the tree is written, ending with the output at the
+     * beginning of the next byte. Then the leaf values are written, one value
+     * per byte.
+     *
      * @param out FileOutput for the bits.
      * @param root Root of the tree to be written.
      */
@@ -74,8 +75,9 @@ public class HuffmanCoder {
     }
 
     /**
-     * Traverses the tree in pre-order and writes 0 for leaf, 1 for internal node.
-     * 
+     * Traverses the tree in pre-order and writes 0 for leaf, 1 for internal
+     * node.
+     *
      * @param out FileOutput for the bits.
      * @param tree subtree to be written and traversed
      */
@@ -91,15 +93,17 @@ public class HuffmanCoder {
     }
 
     /**
-     * Traverses the tree in pre-order and writes leaf values, one value/leaf per byte.
-     * 
+     * Traverses the tree in pre-order and writes leaf values, one value/leaf
+     * per byte.
+     *
      * @param out FileOutput for the bytes.
      * @param tree subtree to be written and traversed
      */
     public void writeTreeLeaves(FileOutput out, HuffmanTree tree) {
         if (tree instanceof HuffmanLeaf) {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
-                out.writeByte(leaf.value);
+            System.out.println("value to write: "+leaf.value);
+            out.writeByte(leaf.value);
         } else {
             HuffmanInternalNode node = (HuffmanInternalNode) tree;
             writeTreeLeaves(out, node.left);

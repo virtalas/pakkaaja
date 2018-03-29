@@ -27,9 +27,8 @@ class HuffmanLeaf extends HuffmanTree {
     public HuffmanLeaf(int frequency, int value) {
         super(frequency);
         if (value < 0) {
-            this.value = 0;
-        } else {
-            this.value = value;
+            throw new RuntimeException("Leaf value has to be above zero to represent a character code.");
         }
+        this.value = value;
     }
 }

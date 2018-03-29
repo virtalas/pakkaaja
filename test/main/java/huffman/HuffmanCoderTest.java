@@ -19,6 +19,8 @@ public class HuffmanCoderTest {
 
     private final int[] bFreq = new int[]{5, 10, 15, 1};
 
+    private MockOutStream out;
+
     public HuffmanCoderTest() {
     }
 
@@ -32,6 +34,7 @@ public class HuffmanCoderTest {
 
     @Before
     public void setUp() {
+        out = new MockOutStream();
     }
 
     @After
@@ -81,6 +84,10 @@ public class HuffmanCoderTest {
         MockInStream in = new MockInStream("test");
     }
 
+    /*
+    Simple test
+    file="test"
+     */
     @Test
     public void testWriteTreeSimple() {
         HuffmanTree root = createSimpleTree();
@@ -90,15 +97,14 @@ public class HuffmanCoderTest {
         freq[115] = 1;
         freq[116] = 2;
         HuffmanCoder coder = new HuffmanCoder(freq, 256);
-        MockOutStream out = new MockOutStream();
         coder.writeTree(new FileOutput(out), root);
-                
+
         assertEquals("10100000", out.output.get(0)); // tree structure "10100" + padding
         assertEquals("01110100", out.output.get(1)); // leaf1 = 116 = t
         assertEquals("01100101", out.output.get(2)); // leaf2 = 101 = e
         assertEquals("01110011", out.output.get(3)); // leaf3 = 115 = s
     }
-    
+
     @Test
     public void testWriteCompressedContent() {
         HuffmanTree root = createSimpleTree();
@@ -109,12 +115,68 @@ public class HuffmanCoderTest {
         freq[116] = 2;
         HuffmanCoder coder = new HuffmanCoder(freq, 256);
         MockInStream in = new MockInStream("test");
-        MockOutStream out = new MockOutStream();
         coder.compress(new FileInput(in), new FileOutput(out));
-        
+
         assertEquals("01011000", out.output.get(4)); // compressed content "010110"
     }
+
+    @Test
+    public void testWriteTreeLeavesAscii() {
+        HuffmanLeaf leaf1 = new HuffmanLeaf(2, 116); // "t"
+        HuffmanLeaf leaf2 = new HuffmanLeaf(1, 33); // "!"
+        HuffmanLeaf leaf3 = new HuffmanLeaf(1, 84); // "T"
+
+        HuffmanInternalNode node1 = new HuffmanInternalNode(leaf2, leaf3);
+        HuffmanInternalNode root = new HuffmanInternalNode(leaf1, node1);
+
+        HuffmanCoder coder = new HuffmanCoder(null, 256);
+        coder.writeTreeLeaves(new FileOutput(out), root);
+
+        assertEquals("01110100", out.output.get(0));
+        assertEquals("00100001", out.output.get(1));
+        assertEquals("01010100", out.output.get(2));
+    }
+
+    @Test
+    public void testWriteTreeLeavesNegativeCharacterNotWritten() {
+        HuffmanInternalNode root = null;
+
+        try {
+            HuffmanLeaf leaf1 = new HuffmanLeaf(2, 32); // "(space)" ok
+            HuffmanLeaf leaf2 = new HuffmanLeaf(1, -116);
+            HuffmanLeaf leaf3 = new HuffmanLeaf(1, 32);
+
+            HuffmanInternalNode node1 = new HuffmanInternalNode(leaf2, leaf3);
+            root = new HuffmanInternalNode(leaf1, node1);
+
+            HuffmanCoder coder = new HuffmanCoder(null, 256);
+            coder.writeTreeLeaves(new FileOutput(out), root);
+        } catch (Exception e) {
+        }
+
+        assertEquals(0, out.output.size());
+    }
     
+    @Test
+    public void testWriteTreeLeavesTooLargeCharacterNotWritten() {
+        HuffmanInternalNode root = null;
+
+        try {
+            HuffmanLeaf leaf1 = new HuffmanLeaf(2, 24179); // "平"
+            HuffmanLeaf leaf2 = new HuffmanLeaf(1, 32);
+            HuffmanLeaf leaf3 = new HuffmanLeaf(1, 32);
+
+            HuffmanInternalNode node1 = new HuffmanInternalNode(leaf2, leaf3);
+            root = new HuffmanInternalNode(leaf1, node1);
+
+            HuffmanCoder coder = new HuffmanCoder(null, 256);
+            coder.writeTreeLeaves(new FileOutput(out), root);
+        } catch (Exception e) {
+        }
+
+        assertEquals(0, out.output.size());
+    }
+
     private HuffmanTree createSimpleTree() {
         HuffmanLeaf leaf1 = new HuffmanLeaf(2, 116);
         HuffmanLeaf leaf2 = new HuffmanLeaf(1, 101);

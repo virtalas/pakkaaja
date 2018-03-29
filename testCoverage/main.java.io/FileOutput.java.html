@@ -83,32 +83,33 @@ public class FileOutput {
      * @param byteToWrite byte to be written, must be &lt;= 256
      */
     public void writeByte(int byteToWrite) {
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (byteToWrite &gt; 256) {</span>
-<span class="nc" id="L87">            throw new RuntimeException(&quot;Tried to write an integer bigger than 256 into one byte.&quot;);</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (byteToWrite &gt; 256) {</span>
+<span class="fc" id="L87">            throw new RuntimeException(&quot;Tried to write an integer bigger than 256 into one byte.&quot;);</span>
         }
-<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (bitCount != 0) {</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (bitCount != 0) {</span>
 <span class="nc" id="L90">            throw new RuntimeException(&quot;Tried to write a byte when the previos byte was not yet completed and written.&quot;);</span>
         }
-<span class="nc" id="L92">        out.write(byteToWrite);</span>
-<span class="nc" id="L93">    }</span>
+<span class="fc" id="L92">        System.out.println(&quot;byte to be written: &quot;+byteToWrite);</span>
+<span class="fc" id="L93">        out.write(byteToWrite);</span>
+<span class="fc" id="L94">    }</span>
     
     /**
      * If the current byte is not full, write zeros until the beginning of the next byte.
      */
     public void advanceToNextByte() {
-<span class="nc bnc" id="L99" title="All 2 branches missed.">        while (bitCount != 0) {</span>
-<span class="nc" id="L100">            writeBit(0);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        while (bitCount != 0) {</span>
+<span class="fc" id="L101">            writeBit(0);</span>
         }
-<span class="nc" id="L102">    }</span>
+<span class="fc" id="L103">    }</span>
 
     /**
      * Closes the OutputStream. If the current byte is not full, zeros are
      * written to the end so the final byte can be written.
      */
     public void close() {
-<span class="nc" id="L109">        advanceToNextByte();</span>
-<span class="nc" id="L110">        out.close();</span>
-<span class="nc" id="L111">    }</span>
+<span class="fc" id="L110">        advanceToNextByte();</span>
+<span class="fc" id="L111">        out.close();</span>
+<span class="fc" id="L112">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

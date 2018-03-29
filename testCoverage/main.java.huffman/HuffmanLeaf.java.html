@@ -27,10 +27,9 @@ class HuffmanLeaf extends HuffmanTree {
     public HuffmanLeaf(int frequency, int value) {
 <span class="fc" id="L28">        super(frequency);</span>
 <span class="fc bfc" id="L29" title="All 2 branches covered.">        if (value &lt; 0) {</span>
-<span class="fc" id="L30">            this.value = 0;</span>
-        } else {
-<span class="fc" id="L32">            this.value = value;</span>
+<span class="fc" id="L30">            throw new RuntimeException(&quot;Leaf value has to be above zero to represent a character code.&quot;);</span>
         }
-<span class="fc" id="L34">    }</span>
+<span class="fc" id="L32">        this.value = value;</span>
+<span class="fc" id="L33">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

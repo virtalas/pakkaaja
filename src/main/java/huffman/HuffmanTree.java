@@ -16,10 +16,9 @@ abstract class HuffmanTree implements Comparable<HuffmanTree> {
      */
     public HuffmanTree(int freq) {
         if (freq < 0) {
-            frequency = 0;
-        } else {
-            frequency = freq;
+            throw new RuntimeException("Frequency can't be negative.");
         }
+        frequency = freq;
     }
 
     /**

@@ -38,11 +38,27 @@ public class HuffmanTreeTest {
     }
     
     @Test
-    public void testCantCreateHuffmanLeafWithNegativeArguments() {
-        HuffmanLeaf leaf = new HuffmanLeaf(-3, -6);
-        assertNotNull(leaf);
-        assertEquals(0, leaf.frequency);
-        assertEquals(0, leaf.value);
+    public void testCantCreateHuffmanLeafWithNegativeValue() {
+        HuffmanLeaf leaf = null;
+        
+        try {
+            leaf = new HuffmanLeaf(3, -6);
+        } catch (Exception e) {
+        }
+        
+        assertNull(leaf);
+    }
+    
+    @Test
+    public void testCantCreateHuffmanLeafWithNegativeFrequency() {
+        HuffmanLeaf leaf = null;
+        
+        try {
+            leaf = new HuffmanLeaf(-3, 6);
+        } catch (Exception e) {
+        }
+        
+        assertNull(leaf);
     }
     
     @Test
