@@ -13,7 +13,15 @@ public class MockOutStream implements OutStream {
 
     @Override
     public void write(int b) {
-        output.add(Integer.toBinaryString(b));
+        if (b > 256) {
+            throw new RuntimeException("Byte value can't be over 256.");
+        }
+        
+        String s = Integer.toBinaryString(b);
+        while (s.length() != 8) {
+            s = "0" + s;
+        }
+        output.add(s);
     }
 
     @Override

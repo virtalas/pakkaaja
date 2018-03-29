@@ -13,6 +13,9 @@ public class MockInStream implements InStream {
 
     @Override
     public int read() {
+        if (i == input.length()) {
+            return -1;
+        }
         char c = input.charAt(i);
         i++;
         return c;

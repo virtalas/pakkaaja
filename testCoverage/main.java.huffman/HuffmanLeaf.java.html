@@ -8,7 +8,15 @@ class HuffmanLeaf extends HuffmanTree {
     /**
      * The value is the character/byte as an integer.
      */
-    public final int value;
+    public int value;
+    
+    /**
+     * Initializes an empty leaf.
+     */
+    public HuffmanLeaf() {
+<span class="nc" id="L17">        super(-1);</span>
+<span class="nc" id="L18">        this.value = -1;</span>
+<span class="nc" id="L19">    }</span>
 
     /**
      * Sets the value and its frequency.
@@ -17,12 +25,12 @@ class HuffmanLeaf extends HuffmanTree {
      * @param value
      */
     public HuffmanLeaf(int frequency, int value) {
-<span class="fc" id="L20">        super(frequency);</span>
-<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (value &lt; 0) {</span>
-<span class="fc" id="L22">            this.value = 0;</span>
+<span class="fc" id="L28">        super(frequency);</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (value &lt; 0) {</span>
+<span class="fc" id="L30">            this.value = 0;</span>
         } else {
-<span class="fc" id="L24">            this.value = value;</span>
+<span class="fc" id="L32">            this.value = value;</span>
         }
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L34">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

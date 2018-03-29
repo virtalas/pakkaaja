@@ -3,6 +3,7 @@ package main.java.pakkaaja;
 import main.java.huffman.HuffmanCoder;
 import main.java.huffman.HuffmanDecoder;
 import main.java.io.FileInput;
+import main.java.io.FileOutput;
 
 /**
  * Main class.
@@ -20,8 +21,9 @@ public class Main {
      * Main program for compressing. A character is assumed to be one byte long.
      * In the case it is not, the program will still work, just not as
      * efficiently space saving wise.
-     * 
-     * The command argument is either hc for huffman compress or hd for huffman decompress.
+     *
+     * The command argument is either hc for huffman compress or hd for huffman
+     * decompress.
      *
      * @param args the command line arguments are: command, source, destination.
      */
@@ -35,8 +37,7 @@ public class Main {
         String command = args[0];
         String sourcePath = args[1];
         String destinationPath = args[2];
-        
-        
+
         // Pre-coded content:
         FileInput in3 = new FileInput(sourcePath);
         int readByte3 = in3.readByte();
@@ -46,7 +47,6 @@ public class Main {
         }
         in3.close();
 
-        
         switch (command) {
             case "hc":
                 huffmanCompress(sourcePath, destinationPath);
@@ -71,34 +71,35 @@ public class Main {
     }
 
     /**
-     * Reads the file and generates the
-     * character frequencies into a list that is passed on to the coder that
-     * will huffman compress the file.
-     * 
+     * Reads the file and generates the character frequencies into a list that
+     * is passed on to the coder that will huffman compress the file.
+     *
      * @param sourcePath
-     * @param destinationPath 
+     * @param destinationPath
      */
     public static void huffmanCompress(String sourcePath, String destinationPath) {
         int[] byteFrequencies = new int[ALPHABET_SIZE];
 
-        FileInput in = new FileInput(sourcePath);
-        int readByte = in.readByte();
+        FileInput freqInput = new FileInput(sourcePath);
+        int readByte = freqInput.readByte();
 
         while (readByte != -1) {
             byteFrequencies[readByte]++; // Character as index, frequency count as value.
-            readByte = in.readByte();
+            readByte = freqInput.readByte();
         }
-        in.close();
+        freqInput.close();
 
         HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);
-        coder.compress(sourcePath, destinationPath);
+        FileInput coderInput = new FileInput(sourcePath);
+        FileOutput out = new FileOutput(destinationPath);
+        coder.compress(coderInput, out);
     }
 
     /**
      * Initiates the huffman decompressing.
-     * 
+     *
      * @param sourcePath
-     * @param destinationPath 
+     * @param destinationPath
      */
     public static void huffmanDecompress(String sourcePath, String destinationPath) {
         HuffmanDecoder decoder = new HuffmanDecoder();

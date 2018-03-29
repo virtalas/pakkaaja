@@ -36,31 +36,21 @@ public class HuffmanCoder {
     /**
      * Run the Huffman coding algorithm and write the compressed file.
      * Writes the Huffman tree first and then the compressed content.
-     *
-     * @param sourcePath path of the source file
-     * @param destinationPath path of the destination file
      */
-    public void compress(String sourcePath, String destinationPath) {
+    public void compress(FileInput in, FileOutput out) {
         HuffmanTree root = buildTree();
         buildCodeList(root, new StringBuffer());
 
-        FileOutput out = new FileOutput(destinationPath);
-
         writeTree(out, root);
-        writeCompressedContent(sourcePath, out);
+        writeCompressedContent(in, out);
         out.close();
     }
 
     /**
      * Reads the source file and writes the compressed destination file using
      * huffman codes.
-     *
-     * @param sourcePath path of the source file
-     * @param destinationPath path of the destination file
      */
-    public void writeCompressedContent(String sourcePath, FileOutput out) {
-        FileInput in = new FileInput(sourcePath);
-
+    public void writeCompressedContent(FileInput in, FileOutput out) {
         int readByte = in.readByte();
 
         while (readByte != -1) {

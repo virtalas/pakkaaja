@@ -11,21 +11,90 @@ public class FileInput {
     private InStream in;
 
     /**
-     * Initializes the InStream
+     * The byte that is currently being read bit by bit.
+     */
+    private int currentByte;
+
+    /**
+     * Number of bits that have not yet been read from the current byte.
+     */
+    private int numBitsRemaining;
+
+    /**
+     * Default constructor that initializes an InputByteStream.
+     *
+     * @param sourcePath path of the file to read
+     */
+<span class="nc" id="L28">    public FileInput(String sourcePath) {</span>
+<span class="nc" id="L29">        this.in = new InputByteStream(sourcePath);</span>
+<span class="nc" id="L30">        currentByte = 0;</span>
+<span class="nc" id="L31">        numBitsRemaining = 0;</span>
+<span class="nc" id="L32">    }</span>
+
+    /**
+     * Initializes the InStream.
      *
      * @param path path for the source file
      */
-<span class="fc" id="L18">    public FileInput(InStream in) {</span>
-<span class="fc" id="L19">        this.in = in;</span>
-<span class="fc" id="L20">    }</span>
+<span class="fc" id="L39">    public FileInput(InStream in) {</span>
+<span class="fc" id="L40">        this.in = in;</span>
+<span class="fc" id="L41">        currentByte = 0;</span>
+<span class="fc" id="L42">        numBitsRemaining = 0;</span>
+<span class="fc" id="L43">    }</span>
 
     /**
      * Reads the next byte.
      *
      * @return the next byte or -1 if the file has ended or could not be read
      */
-    public int readNext() {
-<span class="fc" id="L28">        return in.read();</span>
+    public int readByte() {
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if (numBitsRemaining != 0) {</span>
+<span class="nc" id="L52">            throw new RuntimeException(&quot;Tried to read a byte when a previous byte was not yet fully read.&quot;);</span>
+        }
+<span class="fc" id="L54">        return in.read();</span>
     }
+
+    /**
+     * Reads one bit from the current byte. If the end of the byte is reached, a
+     * new byte is read into memory.
+     *
+     * @return
+     */
+    public int readBit() {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (currentByte == -1) {</span>
+<span class="nc" id="L65">            return -1;</span>
+        }
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (numBitsRemaining == 0) {</span>
+<span class="nc" id="L68">            currentByte = in.read();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">            if (currentByte == -1) {</span>
+<span class="nc" id="L70">                return -1;</span>
+            }
+<span class="nc" id="L72">            numBitsRemaining = 8;</span>
+        }
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (numBitsRemaining &lt;= 0) {</span>
+<span class="nc" id="L75">            throw new AssertionError();</span>
+        }
+<span class="nc" id="L77">        numBitsRemaining--;</span>
+<span class="nc" id="L78">        return (currentByte &gt;&gt;&gt; numBitsRemaining) &amp; 1;</span>
+    }
+
+    /**
+     * Advance to the beginning of the next byte, and don't read the rest of the
+     * current byte.
+     */
+    public void advanceToNextByte() {
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        while (numBitsRemaining != 0) {</span>
+<span class="nc" id="L87">            readBit();</span>
+        }
+<span class="nc" id="L89">    }</span>
+
+    /**
+     * Closes the input.
+     */
+    public void close() {
+<span class="nc" id="L95">        in.close();</span>
+<span class="nc" id="L96">        currentByte = -1;</span>
+<span class="nc" id="L97">        numBitsRemaining = 0;</span>
+<span class="nc" id="L98">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
