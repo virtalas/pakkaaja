@@ -14,8 +14,8 @@ class HuffmanLeaf extends HuffmanTree {
      * Initializes an empty leaf.
      */
     public HuffmanLeaf() {
-        super(-1);
-        this.value = -1;
+        super(0);
+        this.value = 0;
     }
 
     /**

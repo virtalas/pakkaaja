@@ -38,6 +38,12 @@ public class HuffmanTreeTest {
     }
     
     @Test
+    public void testCanCreateHuffmanLeafWithNoParameters() {
+        HuffmanLeaf leaf = new HuffmanLeaf();
+        assertNotNull(leaf);
+    }
+    
+    @Test
     public void testCantCreateHuffmanLeafWithNegativeValue() {
         HuffmanLeaf leaf = null;
         
@@ -69,5 +75,11 @@ public class HuffmanTreeTest {
         assertNotNull(node);
         assertEquals(3, node.left.frequency);
         assertEquals(1, node.right.frequency);
+    }
+    
+    @Test
+    public void testCanCreateHuffmanInternalNodeWithNoParameters() {
+        HuffmanInternalNode node = new HuffmanInternalNode();
+        assertNotNull(node);
     }
 }

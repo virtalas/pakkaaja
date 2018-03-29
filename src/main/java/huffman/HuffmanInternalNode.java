@@ -20,7 +20,7 @@ class HuffmanInternalNode extends HuffmanTree {
      * Initializes an empty node.
      */
     public HuffmanInternalNode() {
-        super(-1);
+        super(0);
     }
  
     /**
