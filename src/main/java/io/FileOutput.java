@@ -65,15 +65,38 @@ public class FileOutput {
             bitCount = 0;
         }
     }
+    
+    /**
+     * Writes a full byte at once.
+     * En error is produced if a previos byte is not completed and written yet.
+     * 
+     * @param byteToWrite byte to be written, must be <= 256
+     */
+    public void writeByte(int byteToWrite) {
+        if (byteToWrite > 256) {
+            throw new RuntimeException("Tried to write an integer bigger than 256 into one byte.");
+        }
+        if (bitCount != 0) {
+            throw new RuntimeException("Tried to write a byte when the previos byte was not yet completed and written.");
+        }
+        out.write(byteToWrite);
+    }
+    
+    /**
+     * If the current byte is not full, write zeros until the beginning of the next byte.
+     */
+    public void advanceToNextByte() {
+        while (bitCount != 0) {
+            writeBit(0);
+        }
+    }
 
     /**
      * Closes the OutputStream. If the current byte is not full, zeros are
      * written to the end so the final byte can be written.
      */
     public void close() {
-        while (bitCount != 0) {
-            writeBit(0);
-        }
+        advanceToNextByte();
         out.close();
     }
 

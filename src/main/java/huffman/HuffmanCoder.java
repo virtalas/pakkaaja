@@ -12,19 +12,23 @@ import main.java.io.OutputByteStream;
 public class HuffmanCoder {
 
     /**
-     * An integer array where the index represents the character/byte, and the value represents the frequency of the character/byte.
+     * An integer array where the index represents the character/byte, and the
+     * value represents the frequency of the character/byte.
      */
     private final int[] byteFrequencies;
-    
+
     /**
-     * A string array where the index represents the character/byte, and the value represents the huffman code of the character/byte.
+     * A string array where the index represents the character/byte, and the
+     * value represents the huffman code of the character/byte.
      */
     public String[] codes;
 
     /**
      * Initializes byteFrequencies and codes.
+     *
      * @param bytes array of character/byte frequencies
-     * @param alphabetSize size of the alphabet, or how many unique characters there can be.
+     * @param alphabetSize size of the alphabet, or how many unique characters
+     * there can be.
      */
     public HuffmanCoder(int[] bytes, int alphabetSize) {
         this.byteFrequencies = bytes;
@@ -32,7 +36,9 @@ public class HuffmanCoder {
     }
 
     /**
-     * Run the Huffman coding algorithm and write the compressed file
+     * Run the Huffman coding algorithm and write the compressed file.
+     * Writes the Huffman tree first and then the compressed content.
+     *
      * @param sourcePath path of the source file
      * @param destinationPath path of the destination file
      */
@@ -40,19 +46,21 @@ public class HuffmanCoder {
         HuffmanTree root = buildTree();
         buildCodeList(root, new StringBuffer());
 
-        // TODO: Save root tree to the beginning of the file.
-        
-        writeCompressedContent(sourcePath, destinationPath);
+        FileOutput out = new FileOutput(new OutputByteStream(destinationPath));
+
+        writeTree(out, root);
+        writeCompressedContent(sourcePath, out);
     }
 
     /**
-     * Reads the source file and writes the compressed destination file using huffman codes.
+     * Reads the source file and writes the compressed destination file using
+     * huffman codes.
+     *
      * @param sourcePath path of the source file
      * @param destinationPath path of the destination file
      */
-    public void writeCompressedContent(String sourcePath, String destinationPath) {
+    public void writeCompressedContent(String sourcePath, FileOutput out) {
         FileInput in = new FileInput(new InputByteStream(sourcePath));
-        FileOutput out = new FileOutput(new OutputByteStream(destinationPath));
 
         int readByte = in.readNext();
 
@@ -63,7 +71,56 @@ public class HuffmanCoder {
     }
 
     /**
-     * Builds the Huffman tree by combining the least frequent trees until the tree is complete.
+     * First the structure of the tree is written, ending with the output at the beginning of the next byte.
+     * Then the leaf values are written, one value per byte.
+     * 
+     * @param out FileOutput for the bits.
+     * @param root Root of the tree to be written.
+     */
+    public void writeTree(FileOutput out, HuffmanTree root) {
+        writeTreeStructure(out, root);
+        out.advanceToNextByte();
+        writeTreeLeaves(out, root);
+    }
+
+    /**
+     * Traverses the tree in pre-order and writes 0 for leaf, 1 for internal node.
+     * 
+     * @param out FileOutput for the bits.
+     * @param tree subtree to be written and traversed
+     */
+    public void writeTreeStructure(FileOutput out, HuffmanTree tree) {
+        if (tree instanceof HuffmanLeaf) {
+            out.writeBit(0);
+        } else {
+            out.writeBit(1);
+            HuffmanInternalNode node = (HuffmanInternalNode) tree;
+            writeTreeStructure(out, node.left);
+            writeTreeStructure(out, node.right);
+        }
+    }
+
+    /**
+     * Traverses the tree in pre-order and writes leaf values, one value/leaf per byte.
+     * 
+     * @param out FileOutput for the bytes.
+     * @param tree subtree to be written and traversed
+     */
+    public void writeTreeLeaves(FileOutput out, HuffmanTree tree) {
+        if (tree instanceof HuffmanLeaf) {
+            HuffmanLeaf leaf = (HuffmanLeaf) tree;
+            out.writeByte(leaf.value);
+        } else {
+            HuffmanInternalNode node = (HuffmanInternalNode) tree;
+            writeTreeLeaves(out, node.left);
+            writeTreeLeaves(out, node.right);
+        }
+    }
+
+    /**
+     * Builds the Huffman tree by combining the least frequent trees until the
+     * tree is complete.
+     *
      * @return the root of the tree
      */
     public HuffmanTree buildTree() {
@@ -89,6 +146,7 @@ public class HuffmanCoder {
 
     /**
      * Builds an array of characters and their corresponding Huffman codes
+     *
      * @param tree complete Huffman tree
      * @param prefix initializes the prefix/code
      */
