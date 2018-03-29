@@ -8,7 +8,15 @@ class HuffmanLeaf extends HuffmanTree {
     /**
      * The value is the character/byte as an integer.
      */
-    public final int value;
+    public int value;
+    
+    /**
+     * Initializes an empty leaf.
+     */
+    public HuffmanLeaf() {
+        super(-1);
+        this.value = -1;
+    }
 
     /**
      * Sets the value and its frequency.

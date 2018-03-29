@@ -17,4 +17,8 @@ public class MockInStream implements InStream {
         i++;
         return c;
     }
+
+    @Override
+    public void close() {
+    }
 }

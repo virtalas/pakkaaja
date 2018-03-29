@@ -33,7 +33,7 @@ public class FileInputTest {
     public void testReadNext() {
         FileInput in = new FileInput(new MockInStream("te"));
         
-        assertEquals(116, in.readNext());
-        assertEquals(101, in.readNext());
+        assertEquals(116, in.readByte());
+        assertEquals(101, in.readByte());
     }
 }

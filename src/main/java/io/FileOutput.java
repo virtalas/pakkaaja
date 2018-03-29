@@ -22,6 +22,16 @@ public class FileOutput {
     private int currentByte;
 
     /**
+     * Default constroctor that initializes an OutputByteStream.
+     * @param destinationPath 
+     */
+    public FileOutput(String destinationPath) {
+        out = new OutputByteStream(destinationPath);
+        bitCount = 0;
+        currentByte = 0;
+    }
+    
+    /**
      * Initializes OutputStream, bitCount and currentByte.
      *
      * @param output used for writing to the destination file

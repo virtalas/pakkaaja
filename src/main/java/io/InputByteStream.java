@@ -48,4 +48,16 @@ public class InputByteStream implements InStream {
             return -1;
         }
     }
+    
+    /**
+     * Closes the input stream.
+     */
+    @Override
+    public void close() {
+        try {
+            in.close();
+        } catch (IOException ex) {
+            System.out.println("Could not close OutputStream: " + ex);
+        }
+    }
 }

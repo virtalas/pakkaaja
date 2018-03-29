@@ -3,8 +3,6 @@ package main.java.huffman;
 import java.util.PriorityQueue;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
-import main.java.io.InputByteStream;
-import main.java.io.OutputByteStream;
 
 /**
  * Implements the Huffman coding and writes the compressed file.
@@ -46,10 +44,11 @@ public class HuffmanCoder {
         HuffmanTree root = buildTree();
         buildCodeList(root, new StringBuffer());
 
-        FileOutput out = new FileOutput(new OutputByteStream(destinationPath));
+        FileOutput out = new FileOutput(destinationPath);
 
         writeTree(out, root);
         writeCompressedContent(sourcePath, out);
+        out.close();
     }
 
     /**
@@ -60,14 +59,15 @@ public class HuffmanCoder {
      * @param destinationPath path of the destination file
      */
     public void writeCompressedContent(String sourcePath, FileOutput out) {
-        FileInput in = new FileInput(new InputByteStream(sourcePath));
+        FileInput in = new FileInput(sourcePath);
 
-        int readByte = in.readNext();
+        int readByte = in.readByte();
 
         while (readByte != -1) {
             out.writeBits(codes[readByte]);
-            readByte = in.readNext();
+            readByte = in.readByte();
         }
+        in.close();
     }
 
     /**
@@ -109,7 +109,7 @@ public class HuffmanCoder {
     public void writeTreeLeaves(FileOutput out, HuffmanTree tree) {
         if (tree instanceof HuffmanLeaf) {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
-            out.writeByte(leaf.value);
+                out.writeByte(leaf.value);
         } else {
             HuffmanInternalNode node = (HuffmanInternalNode) tree;
             writeTreeLeaves(out, node.left);

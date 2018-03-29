@@ -9,12 +9,19 @@ class HuffmanInternalNode extends HuffmanTree {
     /**
      * Left subtree.
      */
-    public final HuffmanTree left;
+    public HuffmanTree left;
     
     /**
      * Right subtree.
      */
-    public final HuffmanTree right;
+    public HuffmanTree right;
+    
+    /**
+     * Initializes an empty node.
+     */
+    public HuffmanInternalNode() {
+        super(-1);
+    }
  
     /**
      * Initializes the subtrees and sums their frequencies.
