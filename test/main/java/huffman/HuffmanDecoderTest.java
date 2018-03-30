@@ -52,7 +52,7 @@ public class HuffmanDecoderTest {
         String structureIncludingRestOfFile = simpleCompressedContent();
 
         MockInStream inIncludingRestOfFile = new MockInStream(structureIncludingRestOfFile, false);
-        HuffmanTree tree1 = decoder.readHuffmanTreeStructure(new FileInput(inIncludingRestOfFile));
+        HuffmanTree tree1 = decoder.readHuffmanTree(new FileInput(inIncludingRestOfFile));
         assertNotNull(tree1);
         
         HuffmanInternalNode root1 = (HuffmanInternalNode) tree1;
@@ -74,7 +74,7 @@ public class HuffmanDecoderTest {
         String structure2 = "11001000"; // symmetric three-layer tree: "1100100" + padding "0"
         
         MockInStream in = new MockInStream(structure2, false);
-        HuffmanTree tree = decoder.readHuffmanTreeStructure(new FileInput(in));
+        HuffmanTree tree = decoder.readHuffmanTree(new FileInput(in));
         assertNotNull(tree);
         
         HuffmanInternalNode root = (HuffmanInternalNode) tree;
@@ -102,7 +102,7 @@ public class HuffmanDecoderTest {
         String structure3 = "10000000"; // symmetric two-layer tree: "100" + padding "00000"
         
         MockInStream in = new MockInStream(structure3, false);
-        HuffmanTree tree = decoder.readHuffmanTreeStructure(new FileInput(in));
+        HuffmanTree tree = decoder.readHuffmanTree(new FileInput(in));
         assertNotNull(tree);
         
         HuffmanInternalNode root = (HuffmanInternalNode) tree;
@@ -112,6 +112,36 @@ public class HuffmanDecoderTest {
         
         HuffmanLeaf leaf2 = (HuffmanLeaf) root.right;
         assertNotNull(leaf2);
+    }
+    
+    @Test
+    public void testReadTreeLeavesSimple() {
+        MockInStream in = new MockInStream(simpleCompressedContent(), false);
+        HuffmanTree tree = decoder.readHuffmanTree(new FileInput(in));
+        
+        HuffmanInternalNode root = (HuffmanInternalNode) tree;
+        HuffmanLeaf leaf1 = (HuffmanLeaf) root.left;
+        assertEquals(116, leaf1.value);
+        
+        HuffmanInternalNode node2 = (HuffmanInternalNode) root.right;      
+        
+        HuffmanLeaf leaf3 = (HuffmanLeaf) node2.left;
+        assertEquals(101, leaf3.value);
+        
+        HuffmanLeaf leaf2 = (HuffmanLeaf) node2.right;
+        assertEquals(115, leaf2.value);
+    }
+    
+    @Test
+    public void testReadNextCharacterByteSimple() {
+        MockInStream in = new MockInStream(simpleCompressedContent(), false);
+        FileInput input = new FileInput(in);
+        HuffmanTree tree = decoder.readHuffmanTree(input);
+        
+        assertEquals(116, decoder.readNextCharacterByte(input, tree, input.readBit()));
+        assertEquals(101, decoder.readNextCharacterByte(input, tree, input.readBit()));
+        assertEquals(115, decoder.readNextCharacterByte(input, tree, input.readBit()));
+        assertEquals(116, decoder.readNextCharacterByte(input, tree, input.readBit()));
     }
 
     private String simpleCompressedContent() {

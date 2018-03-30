@@ -10,17 +10,15 @@ public class HuffmanDecoder {
 
     /**
      * Creates the Huffman tree and writes the decompressed file. First the tree
-     * structire is read from the beginning of the file. Then the values for the
-     * tree leaves are read and updated to the tree. Finally the file is read
-     * again and decompressed and written out according to the tree.
+     * is read from the beginning of the file. Finally the file is read again
+     * and decompressed and written out according to the tree.
      *
      * @param sourcePath path of the compressed file
      * @param destinationPath path of the file to be decompressed
      */
     public void decompress(FileInput in, FileOutput out) {
-        HuffmanTree root = readHuffmanTreeStructure(in);
-        readTreeLeaves(in, root);
-        
+        HuffmanTree root = readHuffmanTree(in);
+
         writeDecompressedContent(in, out, root);
         out.close();
     }
@@ -28,15 +26,17 @@ public class HuffmanDecoder {
     /**
      * Reads the tree's structure. The byte containing the final part of the
      * structure is possibly not a full byte padded with zeros at the end, so
-     * the FileInput is advanced to the beginning of the next full byte.
+     * the FileInput is advanced to the beginning of the next full byte. Then
+     * the values for the tree leaves are read and updated to the tree.
      *
      * @param in reads the file
      * @return the root of the HuffmanTree that contains the structure with
      * empty leaves.
      */
-    public HuffmanTree readHuffmanTreeStructure(FileInput in) {
+    public HuffmanTree readHuffmanTree(FileInput in) {
         HuffmanTree root = readTreeStructure(in);
         in.advanceToNextByte();
+        readTreeLeaves(in, root);
         return root;
     }
 
@@ -67,7 +67,7 @@ public class HuffmanDecoder {
      * @param in reads the file
      * @param tree HuffmanTree with empty leaves, but correct structure
      */
-    private void readTreeLeaves(FileInput in, HuffmanTree tree) {
+    public void readTreeLeaves(FileInput in, HuffmanTree tree) {
         if (tree instanceof HuffmanLeaf) {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
             leaf.value = in.readByte();
@@ -101,10 +101,11 @@ public class HuffmanDecoder {
      *
      * @param in reads the file
      * @param tree Huffman tree to traverse
-     * @param readBit tells which direction to traverse to next, unless a leaf is found
+     * @param readBit tells which direction to traverse to next, unless a leaf
+     * is found
      * @return
      */
-    private int readNextCharacterByte(FileInput in, HuffmanTree tree, int readBit) {
+    public int readNextCharacterByte(FileInput in, HuffmanTree tree, int readBit) {
         if (readBit == -1) {
             return readBit;
         }
