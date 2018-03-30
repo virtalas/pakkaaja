@@ -10,33 +10,33 @@ import main.java.io.FileOutput;
 
     /**
      * Creates the Huffman tree and writes the decompressed file. First the tree
-     * structire is read from the beginning of the file. Then the values for the
-     * tree leaves are read and updated to the tree. Finally the file is read
-     * again and decompressed and written out according to the tree.
+     * is read from the beginning of the file. Finally the file is read again
+     * and decompressed and written out according to the tree.
      *
      * @param sourcePath path of the compressed file
      * @param destinationPath path of the file to be decompressed
      */
     public void decompress(FileInput in, FileOutput out) {
-<span class="fc" id="L21">        HuffmanTree root = readHuffmanTreeStructure(in);</span>
-<span class="fc" id="L22">        readTreeLeaves(in, root);</span>
-        
-<span class="fc" id="L24">        writeDecompressedContent(in, out, root);</span>
-<span class="fc" id="L25">        out.close();</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L20">        HuffmanTree root = readHuffmanTree(in);</span>
+
+<span class="fc" id="L22">        writeDecompressedContent(in, out, root);</span>
+<span class="fc" id="L23">        out.close();</span>
+<span class="fc" id="L24">    }</span>
 
     /**
      * Reads the tree's structure. The byte containing the final part of the
      * structure is possibly not a full byte padded with zeros at the end, so
-     * the FileInput is advanced to the beginning of the next full byte.
+     * the FileInput is advanced to the beginning of the next full byte. Then
+     * the values for the tree leaves are read and updated to the tree.
      *
      * @param in reads the file
      * @return the root of the HuffmanTree that contains the structure with
      * empty leaves.
      */
-    private HuffmanTree readHuffmanTreeStructure(FileInput in) {
-<span class="fc" id="L38">        HuffmanTree root = readTreeStructure(in);</span>
-<span class="fc" id="L39">        in.advanceToNextByte();</span>
+    public HuffmanTree readHuffmanTree(FileInput in) {
+<span class="fc" id="L37">        HuffmanTree root = readTreeStructure(in);</span>
+<span class="fc" id="L38">        in.advanceToNextByte();</span>
+<span class="fc" id="L39">        readTreeLeaves(in, root);</span>
 <span class="fc" id="L40">        return root;</span>
     }
 
@@ -67,7 +67,7 @@ import main.java.io.FileOutput;
      * @param in reads the file
      * @param tree HuffmanTree with empty leaves, but correct structure
      */
-    private void readTreeLeaves(FileInput in, HuffmanTree tree) {
+    public void readTreeLeaves(FileInput in, HuffmanTree tree) {
 <span class="fc bfc" id="L71" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
 <span class="fc" id="L72">            HuffmanLeaf leaf = (HuffmanLeaf) tree;</span>
 <span class="fc" id="L73">            leaf.value = in.readByte();</span>
@@ -101,28 +101,29 @@ import main.java.io.FileOutput;
      *
      * @param in reads the file
      * @param tree Huffman tree to traverse
-     * @param readBit tells which direction to traverse to next, unless a leaf is found
+     * @param readBit tells which direction to traverse to next, unless a leaf
+     * is found
      * @return
      */
-    private int readNextCharacterByte(FileInput in, HuffmanTree tree, int readBit) {
-<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (readBit == -1) {</span>
-<span class="fc" id="L109">            return readBit;</span>
+    public int readNextCharacterByte(FileInput in, HuffmanTree tree, int readBit) {
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (readBit == -1) {</span>
+<span class="fc" id="L110">            return readBit;</span>
         }
 
-<span class="fc" id="L112">        int readByte = -1;</span>
+<span class="fc" id="L113">        int readByte = -1;</span>
 
-<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
-<span class="fc" id="L115">            HuffmanLeaf leaf = (HuffmanLeaf) tree;</span>
-<span class="fc" id="L116">            readByte = leaf.value;</span>
-<span class="fc bfc" id="L117" title="All 2 branches covered.">        } else if (readBit == 0) {</span>
-<span class="fc" id="L118">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
-<span class="fc" id="L119">            readByte = readNextCharacterByte(in, node.left, readBit);</span>
-<span class="fc" id="L120">        } else {</span>
-<span class="fc" id="L121">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
-<span class="fc" id="L122">            readByte = readNextCharacterByte(in, node.right, in.readBit());</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
+<span class="fc" id="L116">            HuffmanLeaf leaf = (HuffmanLeaf) tree;</span>
+<span class="fc" id="L117">            readByte = leaf.value;</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        } else if (readBit == 0) {</span>
+<span class="fc" id="L119">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
+<span class="fc" id="L120">            readByte = readNextCharacterByte(in, node.left, readBit);</span>
+<span class="fc" id="L121">        } else {</span>
+<span class="fc" id="L122">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
+<span class="fc" id="L123">            readByte = readNextCharacterByte(in, node.right, in.readBit());</span>
         }
 
-<span class="fc" id="L125">        return readByte;</span>
+<span class="fc" id="L126">        return readByte;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

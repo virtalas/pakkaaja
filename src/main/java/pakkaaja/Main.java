@@ -18,6 +18,13 @@ public class Main {
     public static final int ALPHABET_SIZE = 256;
 
     /**
+     * Starts the program. Used for testing.
+     */
+    public static void main(String[] args) {
+        System.out.println(start(args));
+    }
+
+    /**
      * Main program for compressing. A character is assumed to be one byte long.
      * In the case it is not, the program will still work, just not as
      * efficiently space saving wise.
@@ -27,11 +34,10 @@ public class Main {
      *
      * @param args the command line arguments are: command, source, destination.
      */
-    public static void main(String[] args) {
+    public static String start(String[] args) {
         // TODO: agruments for compression/decompression
         if (args.length != 3) {
-            printUsage();
-            return;
+            return usageInstructions();
         }
 
         String command = args[0];
@@ -39,35 +45,34 @@ public class Main {
         String destinationPath = args[2];
 
         // Pre-coded content:
-        FileInput in3 = new FileInput(sourcePath);
-        int readByte3 = in3.readByte();
-        while (readByte3 != -1) {
-            System.out.println(String.format("%8s", Integer.toBinaryString(readByte3 & 0xFF)).replace(' ', '0'));
-            readByte3 = in3.readByte();
-        }
-        in3.close();
+//        FileInput in3 = new FileInput(sourcePath);
+//        int readByte3 = in3.readByte();
+//        while (readByte3 != -1) {
+//            System.out.println(String.format("%8s", Integer.toBinaryString(readByte3 & 0xFF)).replace(' ', '0'));
+//            readByte3 = in3.readByte();
+//        }
+//        in3.close();
 
         switch (command) {
             case "hc":
                 huffmanCompress(sourcePath, destinationPath);
-                break;
+                return "Compressed using Huffman coding.";
             case "hd":
                 huffmanDecompress(sourcePath, destinationPath);
-                break;
+                return "Decompressed using Huffman coding.";
             default:
-                printUsage();
-                break;
+                return usageInstructions();
         }
 
         // View some of the destination content
-        System.out.println("\n\nDestination content:");
-        FileInput in2 = new FileInput(destinationPath);
-        int readByte2 = in2.readByte();
-        for (int i = 0; i < 30 && readByte2 != -1; i++) {
-            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
-            readByte2 = in2.readByte();
-        }
-        in2.close();
+//        System.out.println("\n\nDestination content:");
+//        FileInput in2 = new FileInput(destinationPath);
+//        int readByte2 = in2.readByte();
+//        for (int i = 0; i < 30 && readByte2 != -1; i++) {
+//            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
+//            readByte2 = in2.readByte();
+//        }
+//        in2.close();
     }
 
     /**
@@ -88,11 +93,10 @@ public class Main {
             readByte = freqInput.readByte();
         }
         freqInput.close();
-        
+
         // TODO:
         // Currently the last byte has extra characters that are read, resulting in extra letters at the end.
         // Fix by inserting an EOF-character.
-
         HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);
         FileInput coderInput = new FileInput(sourcePath);
         FileOutput out = new FileOutput(destinationPath);
@@ -113,11 +117,11 @@ public class Main {
     }
 
     /**
-     * Prints usage instructions.
+     * Returns usage instructions.
      */
-    public static void printUsage() {
-        System.out.println("Usage: [hc|hd] [source] [destination]");
-        System.out.println("hc = Huffman compress");
-        System.out.println("hd = Huffman decompress");
+    public static String usageInstructions() {
+        return "Usage: [hc|hd] [source] [destination]\n"
+                + "hc = Huffman compress\n"
+                + "hd = Huffman decompress\n";
     }
 }
