@@ -61,32 +61,32 @@ public class FileInput {
      * @return
      */
     public int readBit() {
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (currentByte == -1) {</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (currentByte == -1) {</span>
 <span class="nc" id="L65">            return -1;</span>
         }
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (numBitsRemaining == 0) {</span>
-<span class="nc" id="L68">            currentByte = in.read();</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">            if (currentByte == -1) {</span>
-<span class="nc" id="L70">                return -1;</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (numBitsRemaining == 0) {</span>
+<span class="fc" id="L68">            currentByte = in.read();</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            if (currentByte == -1) {</span>
+<span class="fc" id="L70">                return -1;</span>
             }
-<span class="nc" id="L72">            numBitsRemaining = 8;</span>
+<span class="fc" id="L72">            numBitsRemaining = 8;</span>
         }
-<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (numBitsRemaining &lt;= 0) {</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (numBitsRemaining &lt;= 0) {</span>
 <span class="nc" id="L75">            throw new AssertionError();</span>
         }
-<span class="nc" id="L77">        numBitsRemaining--;</span>
-<span class="nc" id="L78">        return (currentByte &gt;&gt;&gt; numBitsRemaining) &amp; 1;</span>
+<span class="fc" id="L77">        numBitsRemaining--;</span>
+<span class="fc" id="L78">        return (currentByte &gt;&gt;&gt; numBitsRemaining) &amp; 1;</span>
     }
 
     /**
-     * Advance to the beginning of the next byte, and don't read the rest of the
-     * current byte.
+     * If currently in the middle of a byte, advance to the beginning of the
+     * next byte, and don't read the rest of the current byte.
      */
     public void advanceToNextByte() {
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        while (numBitsRemaining != 0) {</span>
-<span class="nc" id="L87">            readBit();</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        while (numBitsRemaining != 0) {</span>
+<span class="fc" id="L87">            readBit();</span>
         }
-<span class="nc" id="L89">    }</span>
+<span class="fc" id="L89">    }</span>
 
     /**
      * Closes the input.

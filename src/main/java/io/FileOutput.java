@@ -89,7 +89,6 @@ public class FileOutput {
         if (bitCount != 0) {
             throw new RuntimeException("Tried to write a byte when the previos byte was not yet completed and written.");
         }
-        System.out.println("byte to be written: "+byteToWrite);
         out.write(byteToWrite);
     }
     

@@ -102,7 +102,6 @@ public class HuffmanCoder {
     public void writeTreeLeaves(FileOutput out, HuffmanTree tree) {
         if (tree instanceof HuffmanLeaf) {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
-            System.out.println("value to write: "+leaf.value);
             out.writeByte(leaf.value);
         } else {
             HuffmanInternalNode node = (HuffmanInternalNode) tree;

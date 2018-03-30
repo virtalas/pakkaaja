@@ -73,9 +73,11 @@ public class FileOutputTest {
         out.writeBit(1);
         out.writeBit(1);
         out.writeBit(1);
+        
+        assertEquals(0, mockOut.output.size());
+        
         out.writeBit(0);
 
-        System.out.println(mockOut.output.toString());
         assertEquals(1, mockOut.output.size());
     }
 

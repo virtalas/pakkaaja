@@ -17,13 +17,10 @@ public class HuffmanDecoder {
      * @param sourcePath path of the compressed file
      * @param destinationPath path of the file to be decompressed
      */
-    public void decompress(String sourcePath, String destinationPath) {
-        FileInput in = new FileInput(sourcePath);
+    public void decompress(FileInput in, FileOutput out) {
         HuffmanTree root = readHuffmanTreeStructure(in);
-
         readTreeLeaves(in, root);
-
-        FileOutput out = new FileOutput(destinationPath);
+        
         writeDecompressedContent(in, out, root);
         out.close();
     }
@@ -37,7 +34,7 @@ public class HuffmanDecoder {
      * @return the root of the HuffmanTree that contains the structure with
      * empty leaves.
      */
-    private HuffmanTree readHuffmanTreeStructure(FileInput in) {
+    public HuffmanTree readHuffmanTreeStructure(FileInput in) {
         HuffmanTree root = readTreeStructure(in);
         in.advanceToNextByte();
         return root;

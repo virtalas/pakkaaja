@@ -88,6 +88,10 @@ public class Main {
             readByte = freqInput.readByte();
         }
         freqInput.close();
+        
+        // TODO:
+        // Currently the last byte has extra characters that are read, resulting in extra letters at the end.
+        // Fix by inserting an EOF-character.
 
         HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);
         FileInput coderInput = new FileInput(sourcePath);
@@ -103,7 +107,9 @@ public class Main {
      */
     public static void huffmanDecompress(String sourcePath, String destinationPath) {
         HuffmanDecoder decoder = new HuffmanDecoder();
-        decoder.decompress(sourcePath, destinationPath);
+        FileInput in = new FileInput(sourcePath);
+        FileOutput out = new FileOutput(destinationPath);
+        decoder.decompress(in, out);
     }
 
     /**

@@ -79,8 +79,8 @@ public class FileInput {
     }
 
     /**
-     * Advance to the beginning of the next byte, and don't read the rest of the
-     * current byte.
+     * If currently in the middle of a byte, advance to the beginning of the
+     * next byte, and don't read the rest of the current byte.
      */
     public void advanceToNextByte() {
         while (numBitsRemaining != 0) {

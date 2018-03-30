@@ -88,12 +88,16 @@ import main.java.io.FileOutput;
 <span class="nc" id="L88">            readByte = freqInput.readByte();</span>
         }
 <span class="nc" id="L90">        freqInput.close();</span>
+        
+        // TODO:
+        // Currently the last byte has extra characters that are read, resulting in extra letters at the end.
+        // Fix by inserting an EOF-character.
 
-<span class="nc" id="L92">        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);</span>
-<span class="nc" id="L93">        FileInput coderInput = new FileInput(sourcePath);</span>
-<span class="nc" id="L94">        FileOutput out = new FileOutput(destinationPath);</span>
-<span class="nc" id="L95">        coder.compress(coderInput, out);</span>
-<span class="nc" id="L96">    }</span>
+<span class="nc" id="L96">        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);</span>
+<span class="nc" id="L97">        FileInput coderInput = new FileInput(sourcePath);</span>
+<span class="nc" id="L98">        FileOutput out = new FileOutput(destinationPath);</span>
+<span class="nc" id="L99">        coder.compress(coderInput, out);</span>
+<span class="nc" id="L100">    }</span>
 
     /**
      * Initiates the huffman decompressing.
@@ -102,17 +106,19 @@ import main.java.io.FileOutput;
      * @param destinationPath
      */
     public static void huffmanDecompress(String sourcePath, String destinationPath) {
-<span class="nc" id="L105">        HuffmanDecoder decoder = new HuffmanDecoder();</span>
-<span class="nc" id="L106">        decoder.decompress(sourcePath, destinationPath);</span>
-<span class="nc" id="L107">    }</span>
+<span class="nc" id="L109">        HuffmanDecoder decoder = new HuffmanDecoder();</span>
+<span class="nc" id="L110">        FileInput in = new FileInput(sourcePath);</span>
+<span class="nc" id="L111">        FileOutput out = new FileOutput(destinationPath);</span>
+<span class="nc" id="L112">        decoder.decompress(in, out);</span>
+<span class="nc" id="L113">    }</span>
 
     /**
      * Prints usage instructions.
      */
     public static void printUsage() {
-<span class="nc" id="L113">        System.out.println(&quot;Usage: [hc|hd] [source] [destination]&quot;);</span>
-<span class="nc" id="L114">        System.out.println(&quot;hc = Huffman compress&quot;);</span>
-<span class="nc" id="L115">        System.out.println(&quot;hd = Huffman decompress&quot;);</span>
-<span class="nc" id="L116">    }</span>
+<span class="nc" id="L119">        System.out.println(&quot;Usage: [hc|hd] [source] [destination]&quot;);</span>
+<span class="nc" id="L120">        System.out.println(&quot;hc = Huffman compress&quot;);</span>
+<span class="nc" id="L121">        System.out.println(&quot;hd = Huffman decompress&quot;);</span>
+<span class="nc" id="L122">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
