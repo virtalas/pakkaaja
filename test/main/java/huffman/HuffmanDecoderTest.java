@@ -41,10 +41,7 @@ public class HuffmanDecoderTest {
     public void testDecompress() {
         MockInStream in = new MockInStream(simpleCompressedContent(), false);
         decoder.decompress(new FileInput(in), new FileOutput(out));
-
-        // Currently the last byte has extra characters that are read, resulting in extra letters at the end.
-        // Fix by inserting an EOF-character.
-        assertEquals("[01110100, 01100101, 01110011, 01110100, 01110100, 01110100]", out.output.toString()); // = "testtt"
+        assertEquals("[01110100, 01100101, 01110011, 01110100, 01110100, 01110100]", out.output.toString()); // = "test"
     }
 
     @Test

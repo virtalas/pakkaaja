@@ -38,6 +38,7 @@ public class HuffmanCoder {
      * the Huffman tree first and then the compressed content.
      */
     public void compress(FileInput in, FileOutput out) {
+        byteFrequencies[0] = 1; // Used as the end of file character.
         HuffmanTree root = buildTree();
         buildCodeList(root, new StringBuffer());
 
@@ -57,6 +58,8 @@ public class HuffmanCoder {
             out.writeBits(codes[readByte]);
             readByte = in.readByte();
         }
+        
+        out.writeBits(codes[0]); // Write the end of file character at the end.
         in.close();
     }
 

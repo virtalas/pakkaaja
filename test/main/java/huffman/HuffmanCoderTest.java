@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class HuffmanCoderTest {
 
-    private final int[] bFreq = new int[]{5, 10, 15, 1};
+    private final int[] bFreq = new int[]{1, 5, 10, 15, 1};
 
     private MockOutStream out;
 
@@ -42,16 +42,19 @@ public class HuffmanCoderTest {
     }
 
     /*
-    Huffman tree shoud look like:
+    Huffman tree shoud look like (index 0 gets frequency of 1):
     
-           31
+           32
           / \
-         15  16
-        '2' / \
-           6   10
-          / \  '1'
-         1   5
-        '3' '0'
+         15  17
+        '3' / \
+           7   10
+          / \  '2'
+         2   5
+        / \ '1'
+       1   1
+      '0' '4'
+      EOF
     
      */
     @Test
@@ -64,7 +67,7 @@ public class HuffmanCoderTest {
         assertEquals(15, leaf15.frequency);
 
         HuffmanTree node16 = node31.right;
-        assertEquals(16, node16.frequency);
+        assertEquals(17, node16.frequency);
     }
 
     @Test
@@ -73,10 +76,11 @@ public class HuffmanCoderTest {
         HuffmanTree root = coder.buildTree();
         coder.buildCodeList(root, new StringBuffer());
 
-        assertEquals("100", coder.codes[3]);
-        assertEquals("101", coder.codes[0]);
-        assertEquals("11", coder.codes[1]);
-        assertEquals("0", coder.codes[2]);
+        assertEquals("1000", coder.codes[0]);
+        assertEquals("101", coder.codes[1]);
+        assertEquals("11", coder.codes[2]);
+        assertEquals("0", coder.codes[3]);
+        assertEquals("1001", coder.codes[4]);
     }
 
     @Test
@@ -117,7 +121,8 @@ public class HuffmanCoderTest {
         MockInStream in = new MockInStream("test");
         coder.compress(new FileInput(in), new FileOutput(out));
 
-        assertEquals("01011000", out.output.get(4)); // compressed content "010110"
+        assertEquals("01111001", out.output.get(5)); // compressed content "01111001" + "10" + padding("000000")
+        assertEquals("10000000", out.output.get(6));
     }
 
     @Test

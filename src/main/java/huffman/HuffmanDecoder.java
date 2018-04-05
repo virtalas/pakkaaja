@@ -81,15 +81,13 @@ public class HuffmanDecoder {
     /**
      * Reads the compressed content from the source file and writes the
      * corresonding decompressed content into the destination file.
-     *
-     * @param in
-     * @param out
-     * @param root
+     * 
+     * Stops writing at the end of file character (the NUL character with a value of 0).
      */
     private void writeDecompressedContent(FileInput in, FileOutput out, HuffmanTree root) {
         int readByte = readNextCharacterByte(in, root);
 
-        while (readByte != -1) {
+        while (readByte != -1 && readByte != 0) {
             out.writeByte(readByte);
             readByte = readNextCharacterByte(in, root);
         }
@@ -106,10 +104,10 @@ public class HuffmanDecoder {
      * @return
      */
     public int readNextCharacterByte(FileInput in, HuffmanTree tree) {
-        try {
+        if (tree instanceof HuffmanLeaf) {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
             return leaf.value;
-        } catch(Exception e) {}
+        }
         
         int readBit = in.readBit();
         if (readBit == -1) {

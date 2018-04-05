@@ -1,8 +1,5 @@
 package main.java.pakkaaja;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.URL;
 import main.java.io.FileInput;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -67,7 +64,7 @@ public class MainTest {
     public void testHuffmanCompressRuns() {
         Main.start(new String[]{"hc", "test/resources/simple.txt", "test/resources/output.txt"});
         FileInput in = new FileInput("test/resources/output.txt");
-        assertEquals(160, in.readByte()); // 10100000 first byte, tree structure
+        assertEquals(168, in.readByte()); // 10101000 first byte, tree structure
     }
 
     @Test
