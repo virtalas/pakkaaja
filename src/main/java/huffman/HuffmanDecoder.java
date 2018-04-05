@@ -87,11 +87,11 @@ public class HuffmanDecoder {
      * @param root
      */
     private void writeDecompressedContent(FileInput in, FileOutput out, HuffmanTree root) {
-        int readByte = readNextCharacterByte(in, root, in.readBit());
+        int readByte = readNextCharacterByte(in, root);
 
         while (readByte != -1) {
             out.writeByte(readByte);
-            readByte = readNextCharacterByte(in, root, in.readBit());
+            readByte = readNextCharacterByte(in, root);
         }
     }
 
@@ -105,22 +105,25 @@ public class HuffmanDecoder {
      * is found
      * @return
      */
-    public int readNextCharacterByte(FileInput in, HuffmanTree tree, int readBit) {
+    public int readNextCharacterByte(FileInput in, HuffmanTree tree) {
+        try {
+            HuffmanLeaf leaf = (HuffmanLeaf) tree;
+            return leaf.value;
+        } catch(Exception e) {}
+        
+        int readBit = in.readBit();
         if (readBit == -1) {
             return readBit;
         }
 
         int readByte = -1;
-
-        if (tree instanceof HuffmanLeaf) {
-            HuffmanLeaf leaf = (HuffmanLeaf) tree;
-            readByte = leaf.value;
-        } else if (readBit == 0) {
+        
+        if (readBit == 0) {
             HuffmanInternalNode node = (HuffmanInternalNode) tree;
-            readByte = readNextCharacterByte(in, node.left, readBit);
+            readByte = readNextCharacterByte(in, node.left);
         } else {
             HuffmanInternalNode node = (HuffmanInternalNode) tree;
-            readByte = readNextCharacterByte(in, node.right, in.readBit());
+            readByte = readNextCharacterByte(in, node.right);
         }
 
         return readByte;

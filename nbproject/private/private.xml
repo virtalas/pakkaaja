@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/lasvirt/NetBeansProjects/pakkaaja/build.gradle</file>
+            <file>file:/Users/lasvirt/NetBeansProjects/pakkaaja/src/main/java/huffman/HuffmanDecoder.java</file>
+            <file>file:/Users/lasvirt/NetBeansProjects/pakkaaja/src/main/java/pakkaaja/Main.java</file>
+            <file>file:/Users/lasvirt/NetBeansProjects/pakkaaja/test/main/java/pakkaaja/MainTest.java</file>
+            <file>file:/Users/lasvirt/NetBeansProjects/pakkaaja/src/main/java/io/OutputByteStream.java</file>
+            <file>file:/Users/lasvirt/NetBeansProjects/pakkaaja/test/main/java/io/OutputByteStreamTest.java</file>
+            <file>file:/Users/lasvirt/NetBeansProjects/pakkaaja/src/main/java/io/InputByteStream.java</file>
         </group>
     </open-files>
 </project-private>

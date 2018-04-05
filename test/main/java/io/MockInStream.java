@@ -46,7 +46,7 @@ public class MockInStream implements InStream {
         
         String readByte = input.substring(i, i+8);
         i += 8;
-        
+                
         return Integer.parseInt(readByte, 2);
     }
 

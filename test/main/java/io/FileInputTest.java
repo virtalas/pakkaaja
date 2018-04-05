@@ -36,4 +36,29 @@ public class FileInputTest {
         assertEquals(116, in.readByte());
         assertEquals(101, in.readByte());
     }
+    
+    @Test
+    public void testReadBit() {
+        FileInput in = new FileInput(new MockInStream("11110010"+"01100000", false));
+        
+        assertEquals(1, in.readBit());
+        assertEquals(1, in.readBit());
+        assertEquals(1, in.readBit());
+        assertEquals(1, in.readBit());
+        assertEquals(0, in.readBit());
+        assertEquals(0, in.readBit());
+        assertEquals(1, in.readBit());
+        assertEquals(0, in.readBit());
+        
+        assertEquals(0, in.readBit());
+        assertEquals(1, in.readBit());
+        assertEquals(1, in.readBit());
+        assertEquals(0, in.readBit());
+        assertEquals(0, in.readBit());
+        assertEquals(0, in.readBit());
+        assertEquals(0, in.readBit());
+        assertEquals(0, in.readBit());
+        
+        assertEquals(-1, in.readBit());
+    }
 }
