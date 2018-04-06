@@ -22,7 +22,17 @@ import main.java.io.FileOutput;
      */
     public static void main(String[] args) {
 <span class="nc" id="L24">        System.out.println(start(args));</span>
-<span class="nc" id="L25">    }</span>
+        
+        // View some of the destination content
+//        System.out.println(&quot;\n\nDestination content:&quot;);
+//        FileInput in2 = new FileInput(args[2]);
+//        int readByte2 = in2.readByte();
+//        for (int i = 0; i &lt; 30 &amp;&amp; readByte2 != -1; i++) {
+//            System.out.println(String.format(&quot;%8s&quot;, Integer.toBinaryString(readByte2 &amp; 0xFF)).replace(' ', '0'));
+//            readByte2 = in2.readByte();
+//        }
+//        in2.close();
+<span class="nc" id="L35">    }</span>
 
     /**
      * Main program for compressing. A character is assumed to be one byte long.
@@ -36,13 +46,13 @@ import main.java.io.FileOutput;
      */
     public static String start(String[] args) {
         // TODO: agruments for compression/decompression
-<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (args.length != 3) {</span>
-<span class="fc" id="L40">            return usageInstructions();</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (args.length != 3) {</span>
+<span class="fc" id="L50">            return usageInstructions();</span>
         }
 
-<span class="fc" id="L43">        String command = args[0];</span>
-<span class="fc" id="L44">        String sourcePath = args[1];</span>
-<span class="fc" id="L45">        String destinationPath = args[2];</span>
+<span class="fc" id="L53">        String command = args[0];</span>
+<span class="fc" id="L54">        String sourcePath = args[1];</span>
+<span class="fc" id="L55">        String destinationPath = args[2];</span>
 
         // Pre-coded content:
 //        FileInput in3 = new FileInput(sourcePath);
@@ -53,26 +63,16 @@ import main.java.io.FileOutput;
 //        }
 //        in3.close();
 
-<span class="pc bpc" id="L56" title="2 of 10 branches missed.">        switch (command) {</span>
+<span class="pc bpc" id="L66" title="2 of 10 branches missed.">        switch (command) {</span>
             case &quot;hc&quot;:
-<span class="fc" id="L58">                huffmanCompress(sourcePath, destinationPath);</span>
-<span class="fc" id="L59">                return &quot;Compressed using Huffman coding.&quot;;</span>
+<span class="fc" id="L68">                huffmanCompress(sourcePath, destinationPath);</span>
+<span class="fc" id="L69">                return &quot;Compressed using Huffman coding.&quot;;</span>
             case &quot;hd&quot;:
-<span class="fc" id="L61">                huffmanDecompress(sourcePath, destinationPath);</span>
-<span class="fc" id="L62">                return &quot;Decompressed using Huffman coding.&quot;;</span>
+<span class="fc" id="L71">                huffmanDecompress(sourcePath, destinationPath);</span>
+<span class="fc" id="L72">                return &quot;Decompressed using Huffman coding.&quot;;</span>
             default:
-<span class="fc" id="L64">                return usageInstructions();</span>
+<span class="fc" id="L74">                return usageInstructions();</span>
         }
-
-        // View some of the destination content
-//        System.out.println(&quot;\n\nDestination content:&quot;);
-//        FileInput in2 = new FileInput(destinationPath);
-//        int readByte2 = in2.readByte();
-//        for (int i = 0; i &lt; 30 &amp;&amp; readByte2 != -1; i++) {
-//            System.out.println(String.format(&quot;%8s&quot;, Integer.toBinaryString(readByte2 &amp; 0xFF)).replace(' ', '0'));
-//            readByte2 = in2.readByte();
-//        }
-//        in2.close();
     }
 
     /**

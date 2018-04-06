@@ -24,14 +24,14 @@ public class Main {
         System.out.println(start(args));
         
         // View some of the destination content
-        System.out.println("\n\nDestination content:");
-        FileInput in2 = new FileInput(args[2]);
-        int readByte2 = in2.readByte();
-        for (int i = 0; i < 30 && readByte2 != -1; i++) {
-            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
-            readByte2 = in2.readByte();
-        }
-        in2.close();
+//        System.out.println("\n\nDestination content:");
+//        FileInput in2 = new FileInput(args[2]);
+//        int readByte2 = in2.readByte();
+//        for (int i = 0; i < 30 && readByte2 != -1; i++) {
+//            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
+//            readByte2 = in2.readByte();
+//        }
+//        in2.close();
     }
 
     /**

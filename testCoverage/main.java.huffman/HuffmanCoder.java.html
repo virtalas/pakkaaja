@@ -38,27 +38,30 @@ public class HuffmanCoder {
      * the Huffman tree first and then the compressed content.
      */
     public void compress(FileInput in, FileOutput out) {
-<span class="fc" id="L41">        HuffmanTree root = buildTree();</span>
-<span class="fc" id="L42">        buildCodeList(root, new StringBuffer());</span>
+<span class="fc" id="L41">        byteFrequencies[0] = 1; // Used as the end of file character.</span>
+<span class="fc" id="L42">        HuffmanTree root = buildTree();</span>
+<span class="fc" id="L43">        buildCodeList(root, new StringBuffer());</span>
 
-<span class="fc" id="L44">        writeTree(out, root);</span>
-<span class="fc" id="L45">        writeCompressedContent(in, out);</span>
-<span class="fc" id="L46">        out.close();</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L45">        writeTree(out, root);</span>
+<span class="fc" id="L46">        writeCompressedContent(in, out);</span>
+<span class="fc" id="L47">        out.close();</span>
+<span class="fc" id="L48">    }</span>
 
     /**
      * Reads the source file and writes the compressed destination file using
      * huffman codes.
      */
     public void writeCompressedContent(FileInput in, FileOutput out) {
-<span class="fc" id="L54">        int readByte = in.readByte();</span>
+<span class="fc" id="L55">        int readByte = in.readByte();</span>
 
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        while (readByte != -1) {</span>
-<span class="fc" id="L57">            out.writeBits(codes[readByte]);</span>
-<span class="fc" id="L58">            readByte = in.readByte();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        while (readByte != -1) {</span>
+<span class="fc" id="L58">            out.writeBits(codes[readByte]);</span>
+<span class="fc" id="L59">            readByte = in.readByte();</span>
         }
-<span class="fc" id="L60">        in.close();</span>
-<span class="fc" id="L61">    }</span>
+        
+<span class="fc" id="L62">        out.writeBits(codes[0]); // Write the end of file character at the end.</span>
+<span class="fc" id="L63">        in.close();</span>
+<span class="fc" id="L64">    }</span>
 
     /**
      * First the structure of the tree is written, ending with the output at the
@@ -69,10 +72,10 @@ public class HuffmanCoder {
      * @param root Root of the tree to be written.
      */
     public void writeTree(FileOutput out, HuffmanTree root) {
-<span class="fc" id="L72">        writeTreeStructure(out, root);</span>
-<span class="fc" id="L73">        out.advanceToNextByte();</span>
-<span class="fc" id="L74">        writeTreeLeaves(out, root);</span>
-<span class="fc" id="L75">    }</span>
+<span class="fc" id="L75">        writeTreeStructure(out, root);</span>
+<span class="fc" id="L76">        out.advanceToNextByte();</span>
+<span class="fc" id="L77">        writeTreeLeaves(out, root);</span>
+<span class="fc" id="L78">    }</span>
 
     /**
      * Traverses the tree in pre-order and writes 0 for leaf, 1 for internal
@@ -82,15 +85,15 @@ public class HuffmanCoder {
      * @param tree subtree to be written and traversed
      */
     public void writeTreeStructure(FileOutput out, HuffmanTree tree) {
-<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
-<span class="fc" id="L86">            out.writeBit(0);</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
+<span class="fc" id="L89">            out.writeBit(0);</span>
         } else {
-<span class="fc" id="L88">            out.writeBit(1);</span>
-<span class="fc" id="L89">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
-<span class="fc" id="L90">            writeTreeStructure(out, node.left);</span>
-<span class="fc" id="L91">            writeTreeStructure(out, node.right);</span>
+<span class="fc" id="L91">            out.writeBit(1);</span>
+<span class="fc" id="L92">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
+<span class="fc" id="L93">            writeTreeStructure(out, node.left);</span>
+<span class="fc" id="L94">            writeTreeStructure(out, node.right);</span>
         }
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L96">    }</span>
 
     /**
      * Traverses the tree in pre-order and writes leaf values, one value/leaf
@@ -100,15 +103,15 @@ public class HuffmanCoder {
      * @param tree subtree to be written and traversed
      */
     public void writeTreeLeaves(FileOutput out, HuffmanTree tree) {
-<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
-<span class="fc" id="L104">            HuffmanLeaf leaf = (HuffmanLeaf) tree;</span>
-<span class="fc" id="L105">            out.writeByte(leaf.value);</span>
-<span class="fc" id="L106">        } else {</span>
-<span class="fc" id="L107">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
-<span class="fc" id="L108">            writeTreeLeaves(out, node.left);</span>
-<span class="fc" id="L109">            writeTreeLeaves(out, node.right);</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
+<span class="fc" id="L107">            HuffmanLeaf leaf = (HuffmanLeaf) tree;</span>
+<span class="fc" id="L108">            out.writeByte(leaf.value);</span>
+<span class="fc" id="L109">        } else {</span>
+<span class="fc" id="L110">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
+<span class="fc" id="L111">            writeTreeLeaves(out, node.left);</span>
+<span class="fc" id="L112">            writeTreeLeaves(out, node.right);</span>
         }
-<span class="fc" id="L111">    }</span>
+<span class="fc" id="L114">    }</span>
 
     /**
      * Builds the Huffman tree by combining the least frequent trees until the
@@ -117,24 +120,24 @@ public class HuffmanCoder {
      * @return the root of the tree
      */
     public HuffmanTree buildTree() {
-<span class="fc" id="L120">        PriorityQueue&lt;HuffmanTree&gt; trees = new PriorityQueue&lt;HuffmanTree&gt;();</span>
+<span class="fc" id="L123">        PriorityQueue&lt;HuffmanTree&gt; trees = new PriorityQueue&lt;HuffmanTree&gt;();</span>
         // Initially, there are only leaves, one for each non-empty character
-<span class="fc bfc" id="L122" title="All 2 branches covered.">        for (int i = 0; i &lt; byteFrequencies.length; i++) {</span>
-<span class="fc bfc" id="L123" title="All 2 branches covered.">            if (byteFrequencies[i] &gt; 0) {</span>
-<span class="fc" id="L124">                trees.offer(new HuffmanLeaf(byteFrequencies[i], (char) i));</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        for (int i = 0; i &lt; byteFrequencies.length; i++) {</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">            if (byteFrequencies[i] &gt; 0) {</span>
+<span class="fc" id="L127">                trees.offer(new HuffmanLeaf(byteFrequencies[i], (char) i));</span>
             }
         }
 
         // Loop until there is only one tree left
-<span class="fc bfc" id="L129" title="All 2 branches covered.">        while (trees.size() &gt; 1) {</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        while (trees.size() &gt; 1) {</span>
             // two trees with least frequency
-<span class="fc" id="L131">            HuffmanTree a = trees.poll();</span>
-<span class="fc" id="L132">            HuffmanTree b = trees.poll();</span>
+<span class="fc" id="L134">            HuffmanTree a = trees.poll();</span>
+<span class="fc" id="L135">            HuffmanTree b = trees.poll();</span>
 
             // Put into new node and re-insert into queue
-<span class="fc" id="L135">            trees.offer(new HuffmanInternalNode(a, b));</span>
-<span class="fc" id="L136">        }</span>
-<span class="fc" id="L137">        return trees.poll();</span>
+<span class="fc" id="L138">            trees.offer(new HuffmanInternalNode(a, b));</span>
+<span class="fc" id="L139">        }</span>
+<span class="fc" id="L140">        return trees.poll();</span>
     }
 
     /**
@@ -144,26 +147,26 @@ public class HuffmanCoder {
      * @param prefix initializes the prefix/code
      */
     public void buildCodeList(HuffmanTree tree, StringBuffer prefix) {
-<span class="fc bfc" id="L147" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
-<span class="fc" id="L148">            HuffmanLeaf leaf = (HuffmanLeaf) tree;</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
+<span class="fc" id="L151">            HuffmanLeaf leaf = (HuffmanLeaf) tree;</span>
 
-<span class="fc" id="L150">            System.out.println(leaf.value + &quot;\t&quot; + leaf.frequency + &quot;\t&quot; + prefix);</span>
+<span class="fc" id="L153">            System.out.println(leaf.value + &quot;\t&quot; + leaf.frequency + &quot;\t&quot; + prefix);</span>
 
-<span class="fc" id="L152">            codes[leaf.value] = prefix.toString();</span>
+<span class="fc" id="L155">            codes[leaf.value] = prefix.toString();</span>
 
-<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        } else if (tree instanceof HuffmanInternalNode) {</span>
-<span class="fc" id="L155">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        } else if (tree instanceof HuffmanInternalNode) {</span>
+<span class="fc" id="L158">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
 
             // Traverse left
-<span class="fc" id="L158">            prefix.append('0');</span>
-<span class="fc" id="L159">            buildCodeList(node.left, prefix);</span>
-<span class="fc" id="L160">            prefix.deleteCharAt(prefix.length() - 1);</span>
+<span class="fc" id="L161">            prefix.append('0');</span>
+<span class="fc" id="L162">            buildCodeList(node.left, prefix);</span>
+<span class="fc" id="L163">            prefix.deleteCharAt(prefix.length() - 1);</span>
 
             // Traverse right
-<span class="fc" id="L163">            prefix.append('1');</span>
-<span class="fc" id="L164">            buildCodeList(node.right, prefix);</span>
-<span class="fc" id="L165">            prefix.deleteCharAt(prefix.length() - 1);</span>
+<span class="fc" id="L166">            prefix.append('1');</span>
+<span class="fc" id="L167">            buildCodeList(node.right, prefix);</span>
+<span class="fc" id="L168">            prefix.deleteCharAt(prefix.length() - 1);</span>
         }
-<span class="fc" id="L167">    }</span>
+<span class="fc" id="L170">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

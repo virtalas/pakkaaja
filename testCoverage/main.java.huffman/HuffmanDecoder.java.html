@@ -81,19 +81,17 @@ import main.java.io.FileOutput;
     /**
      * Reads the compressed content from the source file and writes the
      * corresonding decompressed content into the destination file.
-     *
-     * @param in
-     * @param out
-     * @param root
+     * 
+     * Stops writing at the end of file character (the NUL character with a value of 0).
      */
     private void writeDecompressedContent(FileInput in, FileOutput out, HuffmanTree root) {
-<span class="fc" id="L90">        int readByte = readNextCharacterByte(in, root, in.readBit());</span>
+<span class="fc" id="L88">        int readByte = readNextCharacterByte(in, root);</span>
 
-<span class="fc bfc" id="L92" title="All 2 branches covered.">        while (readByte != -1) {</span>
-<span class="fc" id="L93">            out.writeByte(readByte);</span>
-<span class="fc" id="L94">            readByte = readNextCharacterByte(in, root, in.readBit());</span>
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">        while (readByte != -1 &amp;&amp; readByte != 0) {</span>
+<span class="fc" id="L91">            out.writeByte(readByte);</span>
+<span class="fc" id="L92">            readByte = readNextCharacterByte(in, root);</span>
         }
-<span class="fc" id="L96">    }</span>
+<span class="fc" id="L94">    }</span>
 
     /**
      * Traverses the tree according to the Huffman coding. 0 means traversing
@@ -105,25 +103,28 @@ import main.java.io.FileOutput;
      * is found
      * @return
      */
-    public int readNextCharacterByte(FileInput in, HuffmanTree tree, int readBit) {
-<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (readBit == -1) {</span>
-<span class="fc" id="L110">            return readBit;</span>
+    public int readNextCharacterByte(FileInput in, HuffmanTree tree) {
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
+<span class="fc" id="L108">            HuffmanLeaf leaf = (HuffmanLeaf) tree;</span>
+<span class="fc" id="L109">            return leaf.value;</span>
+        }
+        
+<span class="fc" id="L112">        int readBit = in.readBit();</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (readBit == -1) {</span>
+<span class="fc" id="L114">            return readBit;</span>
         }
 
-<span class="fc" id="L113">        int readByte = -1;</span>
-
-<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (tree instanceof HuffmanLeaf) {</span>
-<span class="fc" id="L116">            HuffmanLeaf leaf = (HuffmanLeaf) tree;</span>
-<span class="fc" id="L117">            readByte = leaf.value;</span>
-<span class="fc bfc" id="L118" title="All 2 branches covered.">        } else if (readBit == 0) {</span>
-<span class="fc" id="L119">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
-<span class="fc" id="L120">            readByte = readNextCharacterByte(in, node.left, readBit);</span>
-<span class="fc" id="L121">        } else {</span>
-<span class="fc" id="L122">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
-<span class="fc" id="L123">            readByte = readNextCharacterByte(in, node.right, in.readBit());</span>
+<span class="fc" id="L117">        int readByte = -1;</span>
+        
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (readBit == 0) {</span>
+<span class="fc" id="L120">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
+<span class="fc" id="L121">            readByte = readNextCharacterByte(in, node.left);</span>
+<span class="fc" id="L122">        } else {</span>
+<span class="fc" id="L123">            HuffmanInternalNode node = (HuffmanInternalNode) tree;</span>
+<span class="fc" id="L124">            readByte = readNextCharacterByte(in, node.right);</span>
         }
 
-<span class="fc" id="L126">        return readByte;</span>
+<span class="fc" id="L127">        return readByte;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
