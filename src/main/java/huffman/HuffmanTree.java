@@ -3,7 +3,7 @@ package main.java.huffman;
 /**
  * Used for HuffmanLeaf and HuffmanInternalNode.
  */
-abstract class HuffmanTree implements Comparable<HuffmanTree> {
+public abstract class HuffmanTree implements Comparable<HuffmanTree> {
 
     /**
      * How many times the character was found in the source, or combined frequency of subtrees.

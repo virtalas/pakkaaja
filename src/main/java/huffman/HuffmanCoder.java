@@ -1,8 +1,8 @@
 package main.java.huffman;
 
-import java.util.PriorityQueue;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
+import main.java.structures.MinHeap;
 
 /**
  * Implements the Huffman coding and writes the compressed file.
@@ -14,6 +14,8 @@ public class HuffmanCoder {
      * value represents the frequency of the character/byte.
      */
     private final int[] byteFrequencies;
+    
+    private final int alphabetSize;
 
     /**
      * A string array where the index represents the character/byte, and the
@@ -31,6 +33,7 @@ public class HuffmanCoder {
     public HuffmanCoder(int[] bytes, int alphabetSize) {
         this.byteFrequencies = bytes;
         this.codes = new String[alphabetSize];
+        this.alphabetSize = alphabetSize;
     }
 
     /**
@@ -38,13 +41,20 @@ public class HuffmanCoder {
      * the Huffman tree first and then the compressed content.
      */
     public void compress(FileInput in, FileOutput out) {
-        byteFrequencies[0] = 1; // Used as the end of file character.
+        initEndOfFileCharacterFrequency();
         HuffmanTree root = buildTree();
         buildCodeList(root, new StringBuffer());
 
         writeTree(out, root);
         writeCompressedContent(in, out);
-        out.close();
+    }
+
+    /**
+     * 0 = NUL, used as the end of file character. Frequency is once at the end
+     * of the file.
+     */
+    public void initEndOfFileCharacterFrequency() {
+        byteFrequencies[0] = 1;
     }
 
     /**
@@ -58,9 +68,10 @@ public class HuffmanCoder {
             out.writeBits(codes[readByte]);
             readByte = in.readByte();
         }
-        
+
         out.writeBits(codes[0]); // Write the end of file character at the end.
         in.close();
+        out.close();
     }
 
     /**
@@ -120,24 +131,24 @@ public class HuffmanCoder {
      * @return the root of the tree
      */
     public HuffmanTree buildTree() {
-        PriorityQueue<HuffmanTree> trees = new PriorityQueue<HuffmanTree>();
+        MinHeap trees = new MinHeap(alphabetSize);
         // Initially, there are only leaves, one for each non-empty character
         for (int i = 0; i < byteFrequencies.length; i++) {
             if (byteFrequencies[i] > 0) {
-                trees.offer(new HuffmanLeaf(byteFrequencies[i], (char) i));
+                trees.insert(new HuffmanLeaf(byteFrequencies[i], (char) i));
             }
         }
 
         // Loop until there is only one tree left
-        while (trees.size() > 1) {
+        while (trees.getHeapSize() > 1) {
             // two trees with least frequency
-            HuffmanTree a = trees.poll();
-            HuffmanTree b = trees.poll();
+            HuffmanTree a = trees.delMin();
+            HuffmanTree b = trees.delMin();
 
             // Put into new node and re-insert into queue
-            trees.offer(new HuffmanInternalNode(a, b));
+            trees.insert(new HuffmanInternalNode(a, b));
         }
-        return trees.poll();
+        return trees.min();
     }
 
     /**

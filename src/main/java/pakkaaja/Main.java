@@ -94,9 +94,6 @@ public class Main {
         }
         freqInput.close();
 
-        // TODO:
-        // Currently the last byte has extra characters that are read, resulting in extra letters at the end.
-        // Fix by inserting an EOF-character.
         HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);
         FileInput coderInput = new FileInput(sourcePath);
         FileOutput out = new FileOutput(destinationPath);
