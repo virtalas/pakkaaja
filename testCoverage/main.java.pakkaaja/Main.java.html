@@ -24,14 +24,14 @@ import main.java.io.FileOutput;
 <span class="nc" id="L24">        System.out.println(start(args));</span>
         
         // View some of the destination content
-//        System.out.println(&quot;\n\nDestination content:&quot;);
-//        FileInput in2 = new FileInput(args[2]);
-//        int readByte2 = in2.readByte();
-//        for (int i = 0; i &lt; 30 &amp;&amp; readByte2 != -1; i++) {
-//            System.out.println(String.format(&quot;%8s&quot;, Integer.toBinaryString(readByte2 &amp; 0xFF)).replace(' ', '0'));
-//            readByte2 = in2.readByte();
-//        }
-//        in2.close();
+<span class="nc" id="L27">        System.out.println(&quot;\n\nDestination content:&quot;);</span>
+<span class="nc" id="L28">        FileInput in2 = new FileInput(args[2]);</span>
+<span class="nc" id="L29">        int readByte2 = in2.readByte();</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        for (int i = 0; i &lt; 30 &amp;&amp; readByte2 != -1; i++) {</span>
+<span class="nc" id="L31">            System.out.println(String.format(&quot;%8s&quot;, Integer.toBinaryString(readByte2 &amp; 0xFF)).replace(' ', '0'));</span>
+<span class="nc" id="L32">            readByte2 = in2.readByte();</span>
+        }
+<span class="nc" id="L34">        in2.close();</span>
 <span class="nc" id="L35">    }</span>
 
     /**
@@ -94,14 +94,11 @@ import main.java.io.FileOutput;
         }
 <span class="fc" id="L95">        freqInput.close();</span>
 
-        // TODO:
-        // Currently the last byte has extra characters that are read, resulting in extra letters at the end.
-        // Fix by inserting an EOF-character.
-<span class="fc" id="L100">        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);</span>
-<span class="fc" id="L101">        FileInput coderInput = new FileInput(sourcePath);</span>
-<span class="fc" id="L102">        FileOutput out = new FileOutput(destinationPath);</span>
-<span class="fc" id="L103">        coder.compress(coderInput, out);</span>
-<span class="fc" id="L104">    }</span>
+<span class="fc" id="L97">        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);</span>
+<span class="fc" id="L98">        FileInput coderInput = new FileInput(sourcePath);</span>
+<span class="fc" id="L99">        FileOutput out = new FileOutput(destinationPath);</span>
+<span class="fc" id="L100">        coder.compress(coderInput, out);</span>
+<span class="fc" id="L101">    }</span>
 
     /**
      * Initiates the huffman decompressing.
@@ -110,17 +107,17 @@ import main.java.io.FileOutput;
      * @param destinationPath
      */
     public static void huffmanDecompress(String sourcePath, String destinationPath) {
-<span class="fc" id="L113">        HuffmanDecoder decoder = new HuffmanDecoder();</span>
-<span class="fc" id="L114">        FileInput in = new FileInput(sourcePath);</span>
-<span class="fc" id="L115">        FileOutput out = new FileOutput(destinationPath);</span>
-<span class="fc" id="L116">        decoder.decompress(in, out);</span>
-<span class="fc" id="L117">    }</span>
+<span class="fc" id="L110">        HuffmanDecoder decoder = new HuffmanDecoder();</span>
+<span class="fc" id="L111">        FileInput in = new FileInput(sourcePath);</span>
+<span class="fc" id="L112">        FileOutput out = new FileOutput(destinationPath);</span>
+<span class="fc" id="L113">        decoder.decompress(in, out);</span>
+<span class="fc" id="L114">    }</span>
 
     /**
      * Returns usage instructions.
      */
     public static String usageInstructions() {
-<span class="fc" id="L123">        return &quot;Usage: [hc|hd] [source] [destination]\n&quot;</span>
+<span class="fc" id="L120">        return &quot;Usage: [hc|hd] [source] [destination]\n&quot;</span>
                 + &quot;hc = Huffman compress\n&quot;
                 + &quot;hd = Huffman decompress\n&quot;;
     }

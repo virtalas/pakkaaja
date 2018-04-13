@@ -121,7 +121,7 @@ public class HuffmanCoderTest {
         MockInStream in = new MockInStream("test");
         coder.compress(new FileInput(in), new FileOutput(out));
 
-        assertEquals("01111001", out.output.get(5)); // compressed content "01111001" + "10" + padding("000000")
+        assertEquals("01011101", out.output.get(5)); // compressed content "01011101" + "10" + padding("000000")
         assertEquals("10000000", out.output.get(6));
     }
 

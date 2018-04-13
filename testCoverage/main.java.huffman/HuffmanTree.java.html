@@ -3,7 +3,7 @@
 /**
  * Used for HuffmanLeaf and HuffmanInternalNode.
  */
-abstract class HuffmanTree implements Comparable&lt;HuffmanTree&gt; {
+public abstract class HuffmanTree implements Comparable&lt;HuffmanTree&gt; {
 
     /**
      * How many times the character was found in the source, or combined frequency of subtrees.
@@ -27,7 +27,7 @@ abstract class HuffmanTree implements Comparable&lt;HuffmanTree&gt; {
      * @return positive or negative comparison
      */
     public int compareTo(HuffmanTree tree) {
-<span class="fc" id="L30">        return frequency - tree.frequency;</span>
+<span class="nc" id="L30">        return frequency - tree.frequency;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

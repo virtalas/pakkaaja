@@ -4,7 +4,7 @@ package main.java.huffman;
 /**
  * A node in the Huffman tree that has two subtrees and their combined frequency.
  */
-class HuffmanInternalNode extends HuffmanTree {
+public class HuffmanInternalNode extends HuffmanTree {
     
     /**
      * Left subtree.

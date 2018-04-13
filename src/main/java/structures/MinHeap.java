@@ -4,7 +4,7 @@ import main.java.huffman.HuffmanTree;
 
 public class MinHeap {
 
-    private HuffmanTree A[];
+    public HuffmanTree A[];
     private int heapSize;
 
     public MinHeap(int alphabetSize) {
@@ -12,7 +12,7 @@ public class MinHeap {
         A = new HuffmanTree[alphabetSize];
     }
 
-    public int getHeapSize() {
+    public int size() {
         return heapSize + 1;
     }
 
@@ -21,6 +21,10 @@ public class MinHeap {
     }
 
     public HuffmanTree delMin() {
+        if (heapSize == -1) {
+            return null;
+        }
+        
         HuffmanTree max = A[0];
         A[0] = A[heapSize];
         heapSize--;
@@ -38,19 +42,19 @@ public class MinHeap {
         A[i] = k;
     }
 
-    private int parent(int i) {
-        return i / 2;
+    public int parent(int i) {
+        return (i+1) / 2 - 1;
     }
 
-    private int left(int i) {
-        return 2 * i;
+    public int left(int i) {
+        return 2 * (i+1) - 1;
     }
 
-    private int right(int i) {
-        return 2 * i + 1;
+    public int right(int i) {
+        return 2 * (i+1);
     }
 
-    private void heapify(int i) {
+    public void heapify(int i) {
         int l = left(i);
         int r = right(i);
         int smallest;
@@ -70,7 +74,7 @@ public class MinHeap {
         }
     }
 
-    private void swap(int a, int b) {
+    public void swap(int a, int b) {
         HuffmanTree aTree = A[a];
         HuffmanTree bTree = A[b];
         A[a] = bTree;
