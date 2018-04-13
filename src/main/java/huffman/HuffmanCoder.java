@@ -141,7 +141,7 @@ public class HuffmanCoder {
 
         // Loop until there is only one tree left
         while (trees.size() > 1) {
-            // two trees with least frequency
+            // Two trees with least frequency
             HuffmanTree a = trees.delMin();
             HuffmanTree b = trees.delMin();
 

@@ -83,6 +83,14 @@ public class Main {
      * @param destinationPath
      */
     public static void huffmanCompress(String sourcePath, String destinationPath) {
+        int[] byteFrequencies = byteFrequencies(sourcePath);
+        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);
+        FileInput coderInput = new FileInput(sourcePath);
+        FileOutput out = new FileOutput(destinationPath);
+        coder.compress(coderInput, out);
+    }
+    
+    public static int[] byteFrequencies(String sourcePath) {
         int[] byteFrequencies = new int[ALPHABET_SIZE];
 
         FileInput freqInput = new FileInput(sourcePath);
@@ -92,12 +100,9 @@ public class Main {
             byteFrequencies[readByte]++; // Character as index, frequency count as value.
             readByte = freqInput.readByte();
         }
+        
         freqInput.close();
-
-        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);
-        FileInput coderInput = new FileInput(sourcePath);
-        FileOutput out = new FileOutput(destinationPath);
-        coder.compress(coderInput, out);
+        return byteFrequencies;
     }
 
     /**

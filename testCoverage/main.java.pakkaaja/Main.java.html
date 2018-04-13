@@ -83,22 +83,27 @@ import main.java.io.FileOutput;
      * @param destinationPath
      */
     public static void huffmanCompress(String sourcePath, String destinationPath) {
-<span class="fc" id="L86">        int[] byteFrequencies = new int[ALPHABET_SIZE];</span>
+<span class="fc" id="L86">        int[] byteFrequencies = byteFrequencies(sourcePath);</span>
+<span class="fc" id="L87">        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);</span>
+<span class="fc" id="L88">        FileInput coderInput = new FileInput(sourcePath);</span>
+<span class="fc" id="L89">        FileOutput out = new FileOutput(destinationPath);</span>
+<span class="fc" id="L90">        coder.compress(coderInput, out);</span>
+<span class="fc" id="L91">    }</span>
+    
+    public static int[] byteFrequencies(String sourcePath) {
+<span class="fc" id="L94">        int[] byteFrequencies = new int[ALPHABET_SIZE];</span>
 
-<span class="fc" id="L88">        FileInput freqInput = new FileInput(sourcePath);</span>
-<span class="fc" id="L89">        int readByte = freqInput.readByte();</span>
+<span class="fc" id="L96">        FileInput freqInput = new FileInput(sourcePath);</span>
+<span class="fc" id="L97">        int readByte = freqInput.readByte();</span>
 
-<span class="fc bfc" id="L91" title="All 2 branches covered.">        while (readByte != -1) {</span>
-<span class="fc" id="L92">            byteFrequencies[readByte]++; // Character as index, frequency count as value.</span>
-<span class="fc" id="L93">            readByte = freqInput.readByte();</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        while (readByte != -1) {</span>
+<span class="fc" id="L100">            byteFrequencies[readByte]++; // Character as index, frequency count as value.</span>
+<span class="fc" id="L101">            readByte = freqInput.readByte();</span>
         }
-<span class="fc" id="L95">        freqInput.close();</span>
-
-<span class="fc" id="L97">        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);</span>
-<span class="fc" id="L98">        FileInput coderInput = new FileInput(sourcePath);</span>
-<span class="fc" id="L99">        FileOutput out = new FileOutput(destinationPath);</span>
-<span class="fc" id="L100">        coder.compress(coderInput, out);</span>
-<span class="fc" id="L101">    }</span>
+        
+<span class="fc" id="L104">        freqInput.close();</span>
+<span class="fc" id="L105">        return byteFrequencies;</span>
+    }
 
     /**
      * Initiates the huffman decompressing.
@@ -107,17 +112,17 @@ import main.java.io.FileOutput;
      * @param destinationPath
      */
     public static void huffmanDecompress(String sourcePath, String destinationPath) {
-<span class="fc" id="L110">        HuffmanDecoder decoder = new HuffmanDecoder();</span>
-<span class="fc" id="L111">        FileInput in = new FileInput(sourcePath);</span>
-<span class="fc" id="L112">        FileOutput out = new FileOutput(destinationPath);</span>
-<span class="fc" id="L113">        decoder.decompress(in, out);</span>
-<span class="fc" id="L114">    }</span>
+<span class="fc" id="L115">        HuffmanDecoder decoder = new HuffmanDecoder();</span>
+<span class="fc" id="L116">        FileInput in = new FileInput(sourcePath);</span>
+<span class="fc" id="L117">        FileOutput out = new FileOutput(destinationPath);</span>
+<span class="fc" id="L118">        decoder.decompress(in, out);</span>
+<span class="fc" id="L119">    }</span>
 
     /**
      * Returns usage instructions.
      */
     public static String usageInstructions() {
-<span class="fc" id="L120">        return &quot;Usage: [hc|hd] [source] [destination]\n&quot;</span>
+<span class="fc" id="L125">        return &quot;Usage: [hc|hd] [source] [destination]\n&quot;</span>
                 + &quot;hc = Huffman compress\n&quot;
                 + &quot;hd = Huffman decompress\n&quot;;
     }
