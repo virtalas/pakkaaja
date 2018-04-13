@@ -12,10 +12,8 @@ Testisyötteet löytyvät kansiosta "test/resources/".
 
 Testit voi ajaa projektin juuresta komennolla
 
-```shell
-gradle test jacocoTestReport
-```
+    gradle test jacocoTestReport
 
-Samalla generoidaan jacoco testikattavuusraportti jota voi tarkastella testCoverage/index.html.
+Samalla generoidaan jacoco testikattavuusraportti jota voi tarkastella "testCoverage/index.html".
 
 ## Tulokset

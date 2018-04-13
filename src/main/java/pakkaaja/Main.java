@@ -4,6 +4,7 @@ import main.java.huffman.HuffmanCoder;
 import main.java.huffman.HuffmanDecoder;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
+import main.java.lempelZivWelch.LempelZivWelchCoder;
 
 /**
  * Main class.
@@ -22,16 +23,16 @@ public class Main {
      */
     public static void main(String[] args) {
         System.out.println(start(args));
-        
+
         // View some of the destination content
-        System.out.println("\n\nDestination content:");
-        FileInput in2 = new FileInput(args[2]);
-        int readByte2 = in2.readByte();
-        for (int i = 0; i < 30 && readByte2 != -1; i++) {
-            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
-            readByte2 = in2.readByte();
-        }
-        in2.close();
+//        System.out.println("\n\nDestination content:");
+//        FileInput in2 = new FileInput(args[2]);
+//        int readByte2 = in2.readByte();
+//        for (int i = 0; i < 30 && readByte2 != -1; i++) {
+//            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
+//            readByte2 = in2.readByte();
+//        }
+//        in2.close();
     }
 
     /**
@@ -39,8 +40,8 @@ public class Main {
      * In the case it is not, the program will still work, just not as
      * efficiently space saving wise.
      *
-     * The command argument is either hc for huffman compress or hd for huffman
-     * decompress.
+     * The command argument is either hc/hd for Huffman compress/decompress, or
+     * lc/ld for Lempel-Ziv-Welch compress/decompress.
      *
      * @param args the command line arguments are: command, source, destination.
      */
@@ -62,7 +63,6 @@ public class Main {
 //            readByte3 = in3.readByte();
 //        }
 //        in3.close();
-
         switch (command) {
             case "hc":
                 huffmanCompress(sourcePath, destinationPath);
@@ -70,6 +70,12 @@ public class Main {
             case "hd":
                 huffmanDecompress(sourcePath, destinationPath);
                 return "Decompressed using Huffman coding.";
+            case "lc":
+                lempelZivWelchCompress(sourcePath, destinationPath);
+                return "Compressed using Lempel-Ziv-Welch.";
+            case "ld":
+                lempelZivWelchDecompress(sourcePath, destinationPath);
+                return "Decompressed using Lempel-Ziv-Welch.";
             default:
                 return usageInstructions();
         }
@@ -89,7 +95,7 @@ public class Main {
         FileOutput out = new FileOutput(destinationPath);
         coder.compress(coderInput, out);
     }
-    
+
     public static int[] byteFrequencies(String sourcePath) {
         int[] byteFrequencies = new int[ALPHABET_SIZE];
 
@@ -100,7 +106,7 @@ public class Main {
             byteFrequencies[readByte]++; // Character as index, frequency count as value.
             readByte = freqInput.readByte();
         }
-        
+
         freqInput.close();
         return byteFrequencies;
     }
@@ -118,12 +124,25 @@ public class Main {
         decoder.decompress(in, out);
     }
 
+    public static void lempelZivWelchCompress(String sourcePath, String destinationPath) {
+        FileInput in = new FileInput(sourcePath);
+        FileOutput out = new FileOutput(destinationPath);
+        LempelZivWelchCoder coder = new LempelZivWelchCoder();
+        coder.compress(in, out);
+    }
+
+    public static void lempelZivWelchDecompress(String sourcePath, String destinationPath) {
+
+    }
+
     /**
      * Returns usage instructions.
      */
     public static String usageInstructions() {
-        return "Usage: [hc|hd] [source] [destination]\n"
+        return "Usage: [hc|hd|lc|ld] [source] [destination]\n"
                 + "hc = Huffman compress\n"
-                + "hd = Huffman decompress\n";
+                + "hd = Huffman decompress\n"
+                + "lc = Lempel-Ziv-Welch compress\n"
+                + "ld = Lempel-Ziv-Welch decompress\n";
     }
 }

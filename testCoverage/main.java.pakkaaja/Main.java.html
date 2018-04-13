@@ -4,11 +4,12 @@ import main.java.huffman.HuffmanCoder;
 import main.java.huffman.HuffmanDecoder;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
+import main.java.lempelZivWelch.LempelZivWelchCoder;
 
 /**
  * Main class.
  */
-<span class="nc" id="L11">public class Main {</span>
+<span class="nc" id="L12">public class Main {</span>
 
     /**
      * Size of the array used to store character frequencies, or how many unique
@@ -21,38 +22,38 @@ import main.java.io.FileOutput;
      * Starts the program. Used for testing.
      */
     public static void main(String[] args) {
-<span class="nc" id="L24">        System.out.println(start(args));</span>
-        
+<span class="nc" id="L25">        System.out.println(start(args));</span>
+
         // View some of the destination content
-<span class="nc" id="L27">        System.out.println(&quot;\n\nDestination content:&quot;);</span>
-<span class="nc" id="L28">        FileInput in2 = new FileInput(args[2]);</span>
-<span class="nc" id="L29">        int readByte2 = in2.readByte();</span>
-<span class="nc bnc" id="L30" title="All 4 branches missed.">        for (int i = 0; i &lt; 30 &amp;&amp; readByte2 != -1; i++) {</span>
-<span class="nc" id="L31">            System.out.println(String.format(&quot;%8s&quot;, Integer.toBinaryString(readByte2 &amp; 0xFF)).replace(' ', '0'));</span>
-<span class="nc" id="L32">            readByte2 = in2.readByte();</span>
-        }
-<span class="nc" id="L34">        in2.close();</span>
-<span class="nc" id="L35">    }</span>
+//        System.out.println(&quot;\n\nDestination content:&quot;);
+//        FileInput in2 = new FileInput(args[2]);
+//        int readByte2 = in2.readByte();
+//        for (int i = 0; i &lt; 30 &amp;&amp; readByte2 != -1; i++) {
+//            System.out.println(String.format(&quot;%8s&quot;, Integer.toBinaryString(readByte2 &amp; 0xFF)).replace(' ', '0'));
+//            readByte2 = in2.readByte();
+//        }
+//        in2.close();
+<span class="nc" id="L36">    }</span>
 
     /**
      * Main program for compressing. A character is assumed to be one byte long.
      * In the case it is not, the program will still work, just not as
      * efficiently space saving wise.
      *
-     * The command argument is either hc for huffman compress or hd for huffman
-     * decompress.
+     * The command argument is either hc/hd for Huffman compress/decompress, or
+     * lc/ld for Lempel-Ziv-Welch compress/decompress.
      *
      * @param args the command line arguments are: command, source, destination.
      */
     public static String start(String[] args) {
         // TODO: agruments for compression/decompression
-<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (args.length != 3) {</span>
-<span class="fc" id="L50">            return usageInstructions();</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (args.length != 3) {</span>
+<span class="fc" id="L51">            return usageInstructions();</span>
         }
 
-<span class="fc" id="L53">        String command = args[0];</span>
-<span class="fc" id="L54">        String sourcePath = args[1];</span>
-<span class="fc" id="L55">        String destinationPath = args[2];</span>
+<span class="fc" id="L54">        String command = args[0];</span>
+<span class="fc" id="L55">        String sourcePath = args[1];</span>
+<span class="fc" id="L56">        String destinationPath = args[2];</span>
 
         // Pre-coded content:
 //        FileInput in3 = new FileInput(sourcePath);
@@ -62,16 +63,21 @@ import main.java.io.FileOutput;
 //            readByte3 = in3.readByte();
 //        }
 //        in3.close();
-
-<span class="pc bpc" id="L66" title="2 of 10 branches missed.">        switch (command) {</span>
+<span class="pc bpc" id="L66" title="10 of 18 branches missed.">        switch (command) {</span>
             case &quot;hc&quot;:
 <span class="fc" id="L68">                huffmanCompress(sourcePath, destinationPath);</span>
 <span class="fc" id="L69">                return &quot;Compressed using Huffman coding.&quot;;</span>
             case &quot;hd&quot;:
 <span class="fc" id="L71">                huffmanDecompress(sourcePath, destinationPath);</span>
 <span class="fc" id="L72">                return &quot;Decompressed using Huffman coding.&quot;;</span>
+            case &quot;lc&quot;:
+<span class="nc" id="L74">                lempelZivWelchCompress(sourcePath, destinationPath);</span>
+<span class="nc" id="L75">                return &quot;Compressed using Lempel-Ziv-Welch.&quot;;</span>
+            case &quot;ld&quot;:
+<span class="nc" id="L77">                lempelZivWelchDecompress(sourcePath, destinationPath);</span>
+<span class="nc" id="L78">                return &quot;Decompressed using Lempel-Ziv-Welch.&quot;;</span>
             default:
-<span class="fc" id="L74">                return usageInstructions();</span>
+<span class="fc" id="L80">                return usageInstructions();</span>
         }
     }
 
@@ -83,26 +89,26 @@ import main.java.io.FileOutput;
      * @param destinationPath
      */
     public static void huffmanCompress(String sourcePath, String destinationPath) {
-<span class="fc" id="L86">        int[] byteFrequencies = byteFrequencies(sourcePath);</span>
-<span class="fc" id="L87">        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);</span>
-<span class="fc" id="L88">        FileInput coderInput = new FileInput(sourcePath);</span>
-<span class="fc" id="L89">        FileOutput out = new FileOutput(destinationPath);</span>
-<span class="fc" id="L90">        coder.compress(coderInput, out);</span>
-<span class="fc" id="L91">    }</span>
-    
+<span class="fc" id="L92">        int[] byteFrequencies = byteFrequencies(sourcePath);</span>
+<span class="fc" id="L93">        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);</span>
+<span class="fc" id="L94">        FileInput coderInput = new FileInput(sourcePath);</span>
+<span class="fc" id="L95">        FileOutput out = new FileOutput(destinationPath);</span>
+<span class="fc" id="L96">        coder.compress(coderInput, out);</span>
+<span class="fc" id="L97">    }</span>
+
     public static int[] byteFrequencies(String sourcePath) {
-<span class="fc" id="L94">        int[] byteFrequencies = new int[ALPHABET_SIZE];</span>
+<span class="fc" id="L100">        int[] byteFrequencies = new int[ALPHABET_SIZE];</span>
 
-<span class="fc" id="L96">        FileInput freqInput = new FileInput(sourcePath);</span>
-<span class="fc" id="L97">        int readByte = freqInput.readByte();</span>
+<span class="fc" id="L102">        FileInput freqInput = new FileInput(sourcePath);</span>
+<span class="fc" id="L103">        int readByte = freqInput.readByte();</span>
 
-<span class="fc bfc" id="L99" title="All 2 branches covered.">        while (readByte != -1) {</span>
-<span class="fc" id="L100">            byteFrequencies[readByte]++; // Character as index, frequency count as value.</span>
-<span class="fc" id="L101">            readByte = freqInput.readByte();</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        while (readByte != -1) {</span>
+<span class="fc" id="L106">            byteFrequencies[readByte]++; // Character as index, frequency count as value.</span>
+<span class="fc" id="L107">            readByte = freqInput.readByte();</span>
         }
-        
-<span class="fc" id="L104">        freqInput.close();</span>
-<span class="fc" id="L105">        return byteFrequencies;</span>
+
+<span class="fc" id="L110">        freqInput.close();</span>
+<span class="fc" id="L111">        return byteFrequencies;</span>
     }
 
     /**
@@ -112,19 +118,32 @@ import main.java.io.FileOutput;
      * @param destinationPath
      */
     public static void huffmanDecompress(String sourcePath, String destinationPath) {
-<span class="fc" id="L115">        HuffmanDecoder decoder = new HuffmanDecoder();</span>
-<span class="fc" id="L116">        FileInput in = new FileInput(sourcePath);</span>
-<span class="fc" id="L117">        FileOutput out = new FileOutput(destinationPath);</span>
-<span class="fc" id="L118">        decoder.decompress(in, out);</span>
-<span class="fc" id="L119">    }</span>
+<span class="fc" id="L121">        HuffmanDecoder decoder = new HuffmanDecoder();</span>
+<span class="fc" id="L122">        FileInput in = new FileInput(sourcePath);</span>
+<span class="fc" id="L123">        FileOutput out = new FileOutput(destinationPath);</span>
+<span class="fc" id="L124">        decoder.decompress(in, out);</span>
+<span class="fc" id="L125">    }</span>
+
+    public static void lempelZivWelchCompress(String sourcePath, String destinationPath) {
+<span class="nc" id="L128">        FileInput in = new FileInput(sourcePath);</span>
+<span class="nc" id="L129">        FileOutput out = new FileOutput(destinationPath);</span>
+<span class="nc" id="L130">        LempelZivWelchCoder coder = new LempelZivWelchCoder();</span>
+<span class="nc" id="L131">        coder.compress(in, out);</span>
+<span class="nc" id="L132">    }</span>
+
+    public static void lempelZivWelchDecompress(String sourcePath, String destinationPath) {
+
+<span class="nc" id="L136">    }</span>
 
     /**
      * Returns usage instructions.
      */
     public static String usageInstructions() {
-<span class="fc" id="L125">        return &quot;Usage: [hc|hd] [source] [destination]\n&quot;</span>
+<span class="fc" id="L142">        return &quot;Usage: [hc|hd|lc|ld] [source] [destination]\n&quot;</span>
                 + &quot;hc = Huffman compress\n&quot;
-                + &quot;hd = Huffman decompress\n&quot;;
+                + &quot;hd = Huffman decompress\n&quot;
+                + &quot;lc = Lempel-Ziv-Welch compress\n&quot;
+                + &quot;ld = Lempel-Ziv-Welch decompress\n&quot;;
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
