@@ -4,7 +4,7 @@ import main.java.huffman.HuffmanCoder;
 import main.java.huffman.HuffmanDecoder;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
-import main.java.lempelZivWelch.LempelZivWelchCoder;
+import main.java.LZW.LZWCoder;
 
 /**
  * Main class.
@@ -25,14 +25,14 @@ import main.java.lempelZivWelch.LempelZivWelchCoder;
 <span class="nc" id="L25">        System.out.println(start(args));</span>
 
         // View some of the destination content
-//        System.out.println(&quot;\n\nDestination content:&quot;);
-//        FileInput in2 = new FileInput(args[2]);
-//        int readByte2 = in2.readByte();
-//        for (int i = 0; i &lt; 30 &amp;&amp; readByte2 != -1; i++) {
-//            System.out.println(String.format(&quot;%8s&quot;, Integer.toBinaryString(readByte2 &amp; 0xFF)).replace(' ', '0'));
-//            readByte2 = in2.readByte();
-//        }
-//        in2.close();
+<span class="nc" id="L28">        System.out.println(&quot;\n\nDestination content:&quot;);</span>
+<span class="nc" id="L29">        FileInput in2 = new FileInput(args[2]);</span>
+<span class="nc" id="L30">        int readByte2 = in2.readByte();</span>
+<span class="nc bnc" id="L31" title="All 4 branches missed.">        for (int i = 0; i &lt; 30 &amp;&amp; readByte2 != -1; i++) {</span>
+<span class="nc" id="L32">            System.out.println(String.format(&quot;%8s&quot;, Integer.toBinaryString(readByte2 &amp; 0xFF)).replace(' ', '0'));</span>
+<span class="nc" id="L33">            readByte2 = in2.readByte();</span>
+        }
+<span class="nc" id="L35">        in2.close();</span>
 <span class="nc" id="L36">    }</span>
 
     /**
@@ -127,7 +127,7 @@ import main.java.lempelZivWelch.LempelZivWelchCoder;
     public static void lempelZivWelchCompress(String sourcePath, String destinationPath) {
 <span class="nc" id="L128">        FileInput in = new FileInput(sourcePath);</span>
 <span class="nc" id="L129">        FileOutput out = new FileOutput(destinationPath);</span>
-<span class="nc" id="L130">        LempelZivWelchCoder coder = new LempelZivWelchCoder();</span>
+<span class="nc" id="L130">        LZWCoder coder = new LZWCoder(ALPHABET_SIZE);</span>
 <span class="nc" id="L131">        coder.compress(in, out);</span>
 <span class="nc" id="L132">    }</span>
 

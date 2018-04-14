@@ -4,7 +4,7 @@ import main.java.huffman.HuffmanCoder;
 import main.java.huffman.HuffmanDecoder;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
-import main.java.lempelZivWelch.LempelZivWelchCoder;
+import main.java.LZW.LZWCoder;
 
 /**
  * Main class.
@@ -25,14 +25,14 @@ public class Main {
         System.out.println(start(args));
 
         // View some of the destination content
-//        System.out.println("\n\nDestination content:");
-//        FileInput in2 = new FileInput(args[2]);
-//        int readByte2 = in2.readByte();
-//        for (int i = 0; i < 30 && readByte2 != -1; i++) {
-//            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
-//            readByte2 = in2.readByte();
-//        }
-//        in2.close();
+        System.out.println("\n\nDestination content:");
+        FileInput in2 = new FileInput(args[2]);
+        int readByte2 = in2.readByte();
+        for (int i = 0; i < 30 && readByte2 != -1; i++) {
+            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
+            readByte2 = in2.readByte();
+        }
+        in2.close();
     }
 
     /**
@@ -127,7 +127,7 @@ public class Main {
     public static void lempelZivWelchCompress(String sourcePath, String destinationPath) {
         FileInput in = new FileInput(sourcePath);
         FileOutput out = new FileOutput(destinationPath);
-        LempelZivWelchCoder coder = new LempelZivWelchCoder();
+        LZWCoder coder = new LZWCoder(ALPHABET_SIZE);
         coder.compress(in, out);
     }
 
