@@ -10,3 +10,7 @@
 [Viikkoraportti 2](https://github.com/virtalas/pakkaaja/blob/master/dokumentaatio/viikkoraportti2.md)
 
 [Viikkoraportti 3](https://github.com/virtalas/pakkaaja/blob/master/dokumentaatio/viikkoraportti3.md)
+
+[Viikkoraportti 4](https://github.com/virtalas/pakkaaja/blob/master/dokumentaatio/viikkoraportti4.md)
+
+[Viikkoraportti 5](https://github.com/virtalas/pakkaaja/blob/master/dokumentaatio/viikkoraportti5.md)

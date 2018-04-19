@@ -47,17 +47,4 @@ jacocoTestReport {
     }
 }
 
-//sourceSets {
-//    main {
-//        java {
-//            srcDir 'src'
-//        }
-//    }
-//    test {
-//        java {
-//            srcDir 'test'
-//        }
-//    }
-//}
-
 check.dependsOn jacocoTestReport
