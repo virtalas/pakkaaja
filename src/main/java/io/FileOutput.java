@@ -49,7 +49,6 @@ public class FileOutput {
      * @param bitsToWrite a string representation of the bits to be written
      */
     public void writeBits(String bitsToWrite) {
-        System.out.println("writeBits: "+bitsToWrite);
         for (int i = 0; i < bitsToWrite.length(); i++) {
             char c = bitsToWrite.charAt(i);
             // Convert char to integer
