@@ -3,6 +3,7 @@ package main.java.LZW;
 import java.util.HashMap;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
+import main.java.pakkaaja.Main;
 
 public class LZWCoder {
 
@@ -12,11 +13,7 @@ public class LZWCoder {
     
     public LZWCoder(int alphabetSize, int codeLength) {
         ALPHABET_SIZE = alphabetSize;
-        int length = 1;
-        for (int i = 1; i <= codeLength; i++) {
-            length *= 2;
-        }
-        MAX_TABLE_SIZE = length;
+        MAX_TABLE_SIZE = Main.twoToPower(codeLength);
     }
 
     public void compress(FileInput in, FileOutput out) {

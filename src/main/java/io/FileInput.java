@@ -1,5 +1,7 @@
 package main.java.io;
 
+import main.java.pakkaaja.Main;
+
 /**
  * Class for reading bytes from the source file.
  */
@@ -76,6 +78,18 @@ public class FileInput {
         }
         numBitsRemaining--;
         return (currentByte >>> numBitsRemaining) & 1;
+    }
+    
+    public int readNumberOfBits(int length) {
+        int value = 0;
+        for (int i = length - 1; i >= 0; i--) {
+            int readBit = readBit();
+            if (readBit == -1) {
+                return -1;
+            }
+            value += readBit * Math.pow(2, i);
+        }
+        return value;
     }
 
     /**

@@ -5,6 +5,7 @@ import main.java.huffman.HuffmanDecoder;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
 import main.java.LZW.LZWCoder;
+import main.java.LZW.LZWDecoder;
 
 /**
  * Main class.
@@ -19,10 +20,10 @@ public class Main {
     public static final int ALPHABET_SIZE = 256;
 
     /**
-     * (LZW) Maximum size of the table. Also specifies how many bits are read at
+     * (LZW) Specifies how many bits are read at
      * one time as one value.
      */
-    public static final int MAX_TABLE_SIZE = 12;
+    public static final int CODE_LENGTH = 12;
 
     /**
      * Starts the program. Used for testing.
@@ -133,12 +134,23 @@ public class Main {
     public static void lempelZivWelchCompress(String sourcePath, String destinationPath) {
         FileInput in = new FileInput(sourcePath);
         FileOutput out = new FileOutput(destinationPath);
-        LZWCoder coder = new LZWCoder(ALPHABET_SIZE, MAX_TABLE_SIZE);
+        LZWCoder coder = new LZWCoder(ALPHABET_SIZE, CODE_LENGTH);
         coder.compress(in, out);
     }
 
     public static void lempelZivWelchDecompress(String sourcePath, String destinationPath) {
-
+        FileInput in = new FileInput(sourcePath);
+        FileOutput out = new FileOutput(destinationPath);
+        LZWDecoder decoder = new LZWDecoder(ALPHABET_SIZE, CODE_LENGTH);
+        decoder.decompress(in, out);
+    }
+    
+    public static int twoToPower(int power) {
+        int n = 1;
+        for (int i = 1; i <= power; i++) {
+            n *= 2;
+        }
+        return n;
     }
 
     /**

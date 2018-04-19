@@ -62,14 +62,14 @@ public class MainTest {
 
     @Test
     public void testHuffmanCompressRuns() {
-        Main.start(new String[]{"hc", "test/resources/simple.txt", "test/resources/output.txt"});
+        Main.start(new String[]{"hc", "test/resources/h_simple.txt", "test/resources/output.txt"});
         FileInput in = new FileInput("test/resources/output.txt");
         assertEquals(168, in.readByte()); // 10101000 first byte, tree structure
     }
 
     @Test
     public void testHuffmanDecompressRuns() {
-        Main.start(new String[]{"hd", "test/resources/simple_coded.txt", "test/resources/output.txt"});
+        Main.start(new String[]{"hd", "test/resources/h_simple_coded.txt", "test/resources/output.txt"});
         FileInput in = new FileInput("test/resources/output.txt");
         assertEquals(116, in.readByte()); // 01110100 first byte, "t"
     }

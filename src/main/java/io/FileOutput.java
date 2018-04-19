@@ -92,6 +92,27 @@ public class FileOutput {
         }
         out.write(byteToWrite);
     }
+    
+    /**
+     * Writes the value with a specific amount of bits with leading zeros.
+     *
+     * @param length amount of bits to use to write the value
+     * @param value value to write
+     */
+    public void writeNumberOfBits(int length, int value) {
+        StringBuilder finishedBitSequence = new StringBuilder();
+        for (int i = 1; i < length; i = i << 1) {
+            int nextBit = (value & i) > 0 ? 1 : 0;
+            finishedBitSequence.insert(0, nextBit);
+        }
+        writeBits(finishedBitSequence.toString());
+    }
+    
+    public void writeCharacters(String value) {
+        for (char c : value.toCharArray()) {
+            writeByte(c);
+        }
+    }
 
     /**
      * If the current byte is not full, write zeros until the beginning of the
@@ -110,20 +131,5 @@ public class FileOutput {
     public void close() {
         advanceToNextByte();
         out.close();
-    }
-
-    /**
-     * Writes the value with a specific amount of bits with leading zeros.
-     *
-     * @param length amount of bits to use to write the value
-     * @param value value to write
-     */
-    public void writeNumberOfBits(int length, int value) {
-        StringBuilder finishedBitSequence = new StringBuilder();
-        for (int i = 1; i < length; i = i << 1) {
-            int nextBit = (value & i) > 0 ? 1 : 0;
-            finishedBitSequence.insert(0, nextBit);
-        }
-        writeBits(finishedBitSequence.toString());
     }
 }
