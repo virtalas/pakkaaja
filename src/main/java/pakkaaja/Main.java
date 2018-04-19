@@ -12,11 +12,17 @@ import main.java.LZW.LZWCoder;
 public class Main {
 
     /**
-     * Size of the array used to store character frequencies, or how many unique
-     * characters there are. In this case it is the different values of one
-     * byte.
+     * (Huffman coding) Size of the array used to store character frequencies,
+     * or how many unique characters there are. In this case it is the different
+     * values of one byte.
      */
     public static final int ALPHABET_SIZE = 256;
+
+    /**
+     * (LZW) Maximum size of the table. Also specifies how many bits are read at
+     * one time as one value.
+     */
+    public static final int MAX_TABLE_SIZE = 12;
 
     /**
      * Starts the program. Used for testing.
@@ -28,7 +34,7 @@ public class Main {
         System.out.println("\n\nDestination content:");
         FileInput in2 = new FileInput(args[2]);
         int readByte2 = in2.readByte();
-        for (int i = 0; i < 30 && readByte2 != -1; i++) {
+        for (int i = 0; i < 40 && readByte2 != -1; i++) {
             System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
             readByte2 = in2.readByte();
         }
@@ -127,7 +133,7 @@ public class Main {
     public static void lempelZivWelchCompress(String sourcePath, String destinationPath) {
         FileInput in = new FileInput(sourcePath);
         FileOutput out = new FileOutput(destinationPath);
-        LZWCoder coder = new LZWCoder(ALPHABET_SIZE);
+        LZWCoder coder = new LZWCoder(ALPHABET_SIZE, MAX_TABLE_SIZE);
         coder.compress(in, out);
     }
 

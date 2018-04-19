@@ -8,9 +8,15 @@ public class LZWCoder {
 
     private HashMap<String, Integer> dictionary;
     private final int ALPHABET_SIZE;
+    private final int MAX_TABLE_SIZE;
     
-    public LZWCoder(int alphabetSize) {
+    public LZWCoder(int alphabetSize, int codeLength) {
         ALPHABET_SIZE = alphabetSize;
+        int length = 1;
+        for (int i = 1; i <= codeLength; i++) {
+            length *= 2;
+        }
+        MAX_TABLE_SIZE = length;
     }
 
     public void compress(FileInput in, FileOutput out) {
@@ -24,17 +30,28 @@ public class LZWCoder {
 
         while (true) {
             int readByte = in.readByte();
-            if (readByte == -1) {
-                break;
-            }
-            int k = (char) readByte;
+            
+            char k = (char) readByte;
             if (dictionary.containsKey(w.toString() + k)) {
                 w.append(k);
             } else {
                 // output code for w
+                out.writeNumberOfBits(MAX_TABLE_SIZE, dictionary.get(w.toString()));
                 w.append(k);
-                dictionary.put(w.toString(), ++tableSize);
+                if (tableSize < MAX_TABLE_SIZE) {
+                    dictionary.put(w.toString(), tableSize++);
+                }
+                // ehkä:
+                w.setLength(0);
+                w.append(k);
+            }
+            
+            if (readByte == -1) {
+                break;
             }
         }
+        
+        in.close();
+        out.close();
     }
 }

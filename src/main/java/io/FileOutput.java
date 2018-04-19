@@ -23,14 +23,15 @@ public class FileOutput {
 
     /**
      * Default constroctor that initializes an OutputByteStream.
-     * @param destinationPath 
+     *
+     * @param destinationPath
      */
     public FileOutput(String destinationPath) {
         out = new OutputByteStream(destinationPath);
         bitCount = 0;
         currentByte = 0;
     }
-    
+
     /**
      * Initializes OutputStream, bitCount and currentByte.
      *
@@ -75,11 +76,11 @@ public class FileOutput {
             bitCount = 0;
         }
     }
-    
+
     /**
-     * Writes a full byte at once.
-     * En error is produced if a previos byte is not completed and written yet.
-     * 
+     * Writes a full byte at once. En error is produced if a previos byte is not
+     * completed and written yet.
+     *
      * @param byteToWrite byte to be written, must be <= 256
      */
     public void writeByte(int byteToWrite) {
@@ -91,9 +92,10 @@ public class FileOutput {
         }
         out.write(byteToWrite);
     }
-    
+
     /**
-     * If the current byte is not full, write zeros until the beginning of the next byte.
+     * If the current byte is not full, write zeros until the beginning of the
+     * next byte.
      */
     public void advanceToNextByte() {
         while (bitCount != 0) {
@@ -110,4 +112,18 @@ public class FileOutput {
         out.close();
     }
 
+    /**
+     * Writes the value with a specific amount of bits with leading zeros.
+     *
+     * @param length amount of bits to use to write the value
+     * @param value value to write
+     */
+    public void writeNumberOfBits(int length, int value) {
+        StringBuilder finishedBitSequence = new StringBuilder();
+        for (int i = 1; i < length; i = i << 1) {
+            int nextBit = (value & i) > 0 ? 1 : 0;
+            finishedBitSequence.insert(0, nextBit);
+        }
+        writeBits(finishedBitSequence.toString());
+    }
 }
