@@ -20,35 +20,34 @@ public class LZWDecoder {
 
     public void decompress(FileInput in, FileOutput out) {
         dictionary = new HashMap<>();
-        StringBuffer w = new StringBuffer();
         int tableSize = ALPHABET_SIZE;
 
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             dictionary.put(i, "" + (char) i);
         }
 
-        String Encode_values = "";
+        String previosCharacters = "";
 
         while (true) {
             int readByte = in.readNumberOfBits(CODE_LENGTH);
             if (readByte == -1) {
                 break;
             }
-            String get_value_from_table = null;
+            String charactersToWrite = null;
 
             if (dictionary.containsKey(readByte)) {
-                get_value_from_table = dictionary.get(readByte);
+                charactersToWrite = dictionary.get(readByte);
             } else if (readByte == tableSize) {
-                get_value_from_table = Encode_values + Encode_values.charAt(0);
+                charactersToWrite = previosCharacters + previosCharacters.charAt(0);
             }
 
-            out.writeCharacters(get_value_from_table);
+            out.writeCharacters(charactersToWrite);
 
-            if (tableSize < MAX_TABLE_SIZE && !Encode_values.isEmpty()) {
-                dictionary.put(tableSize++, Encode_values + get_value_from_table.charAt(0));
+            if (tableSize < MAX_TABLE_SIZE && !previosCharacters.isEmpty()) {
+                dictionary.put(tableSize++, previosCharacters + charactersToWrite.charAt(0));
             }
 
-            Encode_values = get_value_from_table;
+            previosCharacters = charactersToWrite;
         }
 
         in.close();

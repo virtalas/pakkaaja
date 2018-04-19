@@ -73,4 +73,36 @@ public class MainTest {
         FileInput in = new FileInput("test/resources/output.txt");
         assertEquals(116, in.readByte()); // 01110100 first byte, "t"
     }
+    
+    @Test
+    public void testLZWCompressRuns() {
+        Main.start(new String[]{"lc", "test/resources/lzw_simple.txt", "test/resources/output.txt"});
+        FileInput in = new FileInput("test/resources/output.txt");
+        assertEquals(7, in.readByte()); // 00000111
+        assertEquals(64, in.readByte()); // + 01000000: first char, uses 12 bits; 000001110100 = 116 = "t"
+    }
+    
+    @Test
+    public void testLZWDecompressRuns() {
+        Main.start(new String[]{"ld", "test/resources/lzw_simple_coded.txt", "test/resources/output.txt"});
+        FileInput in = new FileInput("test/resources/output.txt");
+        assertEquals(116, in.readByte()); // 01110100 first byte, "t"
+    }
+    
+    @Test
+    public void testTwoToPower() {
+        assertEquals(1, Main.twoToPower(0));
+        assertEquals(2, Main.twoToPower(1));
+        assertEquals(4, Main.twoToPower(2));
+        assertEquals(8, Main.twoToPower(3));
+        assertEquals(256, Main.twoToPower(8));
+        assertEquals(4096, Main.twoToPower(12));
+    }
+    
+    @Test
+    public void testTwoToPowerNegativeArgumentReturnsZero() {
+        assertEquals(0, Main.twoToPower(-1));
+        assertEquals(0, Main.twoToPower(-7));
+        assertEquals(0, Main.twoToPower(-6543));
+    }
 }

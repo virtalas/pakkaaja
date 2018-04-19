@@ -105,4 +105,14 @@ public class FileOutputTest {
 
         assertEquals(0, mockOut.output.size());
     }
+    
+    @Test
+    public void testWriteNumberOfBits() {
+//        MockOutStream mockOut = new MockOutStream();
+//        FileOutput out = new FileOutput(mockOut);
+//        System.out.println("start");
+//        out.writeNumberOfBits(12, 1);
+//        
+//        assertEquals(0, mockOut.output.get(0));
+    }
 }

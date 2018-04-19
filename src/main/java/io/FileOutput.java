@@ -49,6 +49,7 @@ public class FileOutput {
      * @param bitsToWrite a string representation of the bits to be written
      */
     public void writeBits(String bitsToWrite) {
+        System.out.println("writeBits: "+bitsToWrite);
         for (int i = 0; i < bitsToWrite.length(); i++) {
             char c = bitsToWrite.charAt(i);
             // Convert char to integer
@@ -81,11 +82,11 @@ public class FileOutput {
      * Writes a full byte at once. En error is produced if a previos byte is not
      * completed and written yet.
      *
-     * @param byteToWrite byte to be written, must be <= 256
+     * @param byteToWrite byte to be written, must be < 256
      */
     public void writeByte(int byteToWrite) {
-        if (byteToWrite > 256) {
-            throw new RuntimeException("Tried to write an integer bigger than 256 into one byte.");
+        if (byteToWrite > 255) {
+            throw new RuntimeException("Tried to write an integer bigger than 255 into one byte.");
         }
         if (bitCount != 0) {
             throw new RuntimeException("Tried to write a byte when the previos byte was not yet completed and written.");
@@ -100,6 +101,10 @@ public class FileOutput {
      * @param value value to write
      */
     public void writeNumberOfBits(int length, int value) {
+        if (length == 1) {
+            writeBit(value);
+            return;
+        }
         StringBuilder finishedBitSequence = new StringBuilder();
         for (int i = 1; i < length; i = i << 1) {
             int nextBit = (value & i) > 0 ? 1 : 0;

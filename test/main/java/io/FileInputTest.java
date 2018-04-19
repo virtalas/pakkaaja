@@ -61,4 +61,14 @@ public class FileInputTest {
         
         assertEquals(-1, in.readBit());
     }
+    
+    @Test
+    public void testReadNumberOfBits() {
+        FileInput in = new FileInput(new MockInStream("10010011", false));
+        
+        assertEquals(1, in.readNumberOfBits(1));
+        assertEquals(9, in.readNumberOfBits(6));
+        assertEquals(1, in.readNumberOfBits(1));
+        assertEquals(-1, in.readNumberOfBits(1));
+    }
 }

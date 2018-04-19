@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fi"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LZWDecoder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pakkaaja</a> &gt; <a href="index.source.html" class="el_package">main.java.LZW</a> &gt; <span class="el_source">LZWDecoder.java</span></div><h1>LZWDecoder.java</h1><pre class="source lang-java linenums">package main.java.LZW;
+
+import java.util.HashMap;
+import main.java.io.FileInput;
+import main.java.io.FileOutput;
+import main.java.pakkaaja.Main;
+
+public class LZWDecoder {
+
+    private HashMap&lt;Integer, String&gt; dictionary;
+    private final int ALPHABET_SIZE;
+    private final int MAX_TABLE_SIZE;
+    private final int CODE_LENGTH;
+
+<span class="fc" id="L15">    public LZWDecoder(int alphabetSize, int codeLength) {</span>
+<span class="fc" id="L16">        ALPHABET_SIZE = alphabetSize;</span>
+<span class="fc" id="L17">        CODE_LENGTH = codeLength;</span>
+<span class="fc" id="L18">        MAX_TABLE_SIZE = Main.twoToPower(codeLength);</span>
+<span class="fc" id="L19">    }</span>
+
+    public void decompress(FileInput in, FileOutput out) {
+<span class="fc" id="L22">        dictionary = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L23">        int tableSize = ALPHABET_SIZE;</span>
+
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        for (int i = 0; i &lt; ALPHABET_SIZE; i++) {</span>
+<span class="fc" id="L26">            dictionary.put(i, &quot;&quot; + (char) i);</span>
+        }
+
+<span class="fc" id="L29">        String previosCharacters = &quot;&quot;;</span>
+
+        while (true) {
+<span class="fc" id="L32">            int readByte = in.readNumberOfBits(CODE_LENGTH);</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            if (readByte == -1) {</span>
+<span class="fc" id="L34">                break;</span>
+            }
+<span class="fc" id="L36">            String charactersToWrite = null;</span>
+
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">            if (dictionary.containsKey(readByte)) {</span>
+<span class="fc" id="L39">                charactersToWrite = dictionary.get(readByte);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            } else if (readByte == tableSize) {</span>
+<span class="nc" id="L41">                charactersToWrite = previosCharacters + previosCharacters.charAt(0);</span>
+            }
+
+<span class="fc" id="L44">            out.writeCharacters(charactersToWrite);</span>
+
+<span class="pc bpc" id="L46" title="1 of 4 branches missed.">            if (tableSize &lt; MAX_TABLE_SIZE &amp;&amp; !previosCharacters.isEmpty()) {</span>
+<span class="fc" id="L47">                dictionary.put(tableSize++, previosCharacters + charactersToWrite.charAt(0));</span>
+            }
+
+<span class="fc" id="L50">            previosCharacters = charactersToWrite;</span>
+<span class="fc" id="L51">        }</span>
+
+<span class="fc" id="L53">        in.close();</span>
+<span class="fc" id="L54">        out.close();</span>
+<span class="fc" id="L55">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

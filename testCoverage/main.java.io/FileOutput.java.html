@@ -23,24 +23,25 @@ public class FileOutput {
 
     /**
      * Default constroctor that initializes an OutputByteStream.
-     * @param destinationPath 
+     *
+     * @param destinationPath
      */
-<span class="fc" id="L28">    public FileOutput(String destinationPath) {</span>
-<span class="fc" id="L29">        out = new OutputByteStream(destinationPath);</span>
-<span class="fc" id="L30">        bitCount = 0;</span>
-<span class="fc" id="L31">        currentByte = 0;</span>
-<span class="fc" id="L32">    }</span>
-    
+<span class="fc" id="L29">    public FileOutput(String destinationPath) {</span>
+<span class="fc" id="L30">        out = new OutputByteStream(destinationPath);</span>
+<span class="fc" id="L31">        bitCount = 0;</span>
+<span class="fc" id="L32">        currentByte = 0;</span>
+<span class="fc" id="L33">    }</span>
+
     /**
      * Initializes OutputStream, bitCount and currentByte.
      *
      * @param output used for writing to the destination file
      */
-<span class="fc" id="L39">    public FileOutput(OutStream output) {</span>
-<span class="fc" id="L40">        out = output;</span>
-<span class="fc" id="L41">        bitCount = 0;</span>
-<span class="fc" id="L42">        currentByte = 0;</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L40">    public FileOutput(OutStream output) {</span>
+<span class="fc" id="L41">        out = output;</span>
+<span class="fc" id="L42">        bitCount = 0;</span>
+<span class="fc" id="L43">        currentByte = 0;</span>
+<span class="fc" id="L44">    }</span>
 
     /**
      * Write a string of bits to the destination file.
@@ -48,12 +49,12 @@ public class FileOutput {
      * @param bitsToWrite a string representation of the bits to be written
      */
     public void writeBits(String bitsToWrite) {
-<span class="fc bfc" id="L51" title="All 2 branches covered.">        for (int i = 0; i &lt; bitsToWrite.length(); i++) {</span>
-<span class="fc" id="L52">            char c = bitsToWrite.charAt(i);</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (int i = 0; i &lt; bitsToWrite.length(); i++) {</span>
+<span class="fc" id="L53">            char c = bitsToWrite.charAt(i);</span>
             // Convert char to integer
-<span class="fc" id="L54">            writeBit(c - '0');</span>
+<span class="fc" id="L55">            writeBit(c - '0');</span>
         }
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L57">    }</span>
 
     /**
      * Method for writing a single bit.
@@ -61,54 +62,75 @@ public class FileOutput {
      * @param bitToWrite bit to write as an integer that must be 0 or 1
      */
     public void writeBit(int bitToWrite) {
-<span class="fc bfc" id="L64" title="All 4 branches covered.">        if (bitToWrite != 0 &amp;&amp; bitToWrite != 1) {</span>
-<span class="fc" id="L65">            throw new IllegalArgumentException(&quot;bitToWrite must be 0 or 1&quot;);</span>
+<span class="fc bfc" id="L65" title="All 4 branches covered.">        if (bitToWrite != 0 &amp;&amp; bitToWrite != 1) {</span>
+<span class="fc" id="L66">            throw new IllegalArgumentException(&quot;bitToWrite must be 0 or 1&quot;);</span>
         }
 
-<span class="fc" id="L68">        currentByte = (currentByte &lt;&lt; 1) | bitToWrite; // Shift bits to the left by one and place the new bit to the end.</span>
-<span class="fc" id="L69">        bitCount++;</span>
+<span class="fc" id="L69">        currentByte = (currentByte &lt;&lt; 1) | bitToWrite; // Shift bits to the left by one and place the new bit to the end.</span>
+<span class="fc" id="L70">        bitCount++;</span>
 
-<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (bitCount == 8) {</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (bitCount == 8) {</span>
             // Full byte reached, write byte and start again.
-<span class="fc" id="L73">            out.write(currentByte);</span>
-<span class="fc" id="L74">            currentByte = 0;</span>
-<span class="fc" id="L75">            bitCount = 0;</span>
+<span class="fc" id="L74">            out.write(currentByte);</span>
+<span class="fc" id="L75">            currentByte = 0;</span>
+<span class="fc" id="L76">            bitCount = 0;</span>
         }
-<span class="fc" id="L77">    }</span>
-    
+<span class="fc" id="L78">    }</span>
+
     /**
-     * Writes a full byte at once.
-     * En error is produced if a previos byte is not completed and written yet.
-     * 
+     * Writes a full byte at once. En error is produced if a previos byte is not
+     * completed and written yet.
+     *
      * @param byteToWrite byte to be written, must be &lt;= 256
      */
     public void writeByte(int byteToWrite) {
-<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (byteToWrite &gt; 256) {</span>
-<span class="fc" id="L87">            throw new RuntimeException(&quot;Tried to write an integer bigger than 256 into one byte.&quot;);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (byteToWrite &gt; 256) {</span>
+<span class="fc" id="L88">            throw new RuntimeException(&quot;Tried to write an integer bigger than 256 into one byte.&quot;);</span>
         }
-<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (bitCount != 0) {</span>
-<span class="nc" id="L90">            throw new RuntimeException(&quot;Tried to write a byte when the previos byte was not yet completed and written.&quot;);</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (bitCount != 0) {</span>
+<span class="nc" id="L91">            throw new RuntimeException(&quot;Tried to write a byte when the previos byte was not yet completed and written.&quot;);</span>
         }
-<span class="fc" id="L92">        out.write(byteToWrite);</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L93">        out.write(byteToWrite);</span>
+<span class="fc" id="L94">    }</span>
     
     /**
-     * If the current byte is not full, write zeros until the beginning of the next byte.
+     * Writes the value with a specific amount of bits with leading zeros.
+     *
+     * @param length amount of bits to use to write the value
+     * @param value value to write
+     */
+    public void writeNumberOfBits(int length, int value) {
+<span class="fc" id="L103">        StringBuilder finishedBitSequence = new StringBuilder();</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        for (int i = 1; i &lt; length; i = i &lt;&lt; 1) {</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">            int nextBit = (value &amp; i) &gt; 0 ? 1 : 0;</span>
+<span class="fc" id="L106">            finishedBitSequence.insert(0, nextBit);</span>
+        }
+<span class="fc" id="L108">        writeBits(finishedBitSequence.toString());</span>
+<span class="fc" id="L109">    }</span>
+    
+    public void writeCharacters(String value) {
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        for (char c : value.toCharArray()) {</span>
+<span class="fc" id="L113">            writeByte(c);</span>
+        }
+<span class="fc" id="L115">    }</span>
+
+    /**
+     * If the current byte is not full, write zeros until the beginning of the
+     * next byte.
      */
     public void advanceToNextByte() {
-<span class="fc bfc" id="L99" title="All 2 branches covered.">        while (bitCount != 0) {</span>
-<span class="fc" id="L100">            writeBit(0);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        while (bitCount != 0) {</span>
+<span class="fc" id="L123">            writeBit(0);</span>
         }
-<span class="fc" id="L102">    }</span>
+<span class="fc" id="L125">    }</span>
 
     /**
      * Closes the OutputStream. If the current byte is not full, zeros are
      * written to the end so the final byte can be written.
      */
     public void close() {
-<span class="fc" id="L109">        advanceToNextByte();</span>
-<span class="fc" id="L110">        out.close();</span>
-<span class="fc" id="L111">    }</span>
-
+<span class="fc" id="L132">        advanceToNextByte();</span>
+<span class="fc" id="L133">        out.close();</span>
+<span class="fc" id="L134">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
