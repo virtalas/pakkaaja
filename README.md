@@ -5,7 +5,13 @@
 
 Java implementaatio Huffmanin koodauksesta ja Lempel-Ziw-Welch-algoritmistä.
 
-Aja gradlella: `gradle run -Parguments="['hc', 'file.txt', 'output']"` or `gradle run -Parguments="['test']"`
+Aja gradlella:
+
+    gradle run -Parguments="['hc', 'file.txt', 'output']"
+
+tai
+
+    gradle run -Parguments="['test']"
 
 [Määrittelydokumentaatio](https://github.com/virtalas/pakkaaja/tree/master/dokumentaatio/määrittelydokumentti.md)
 

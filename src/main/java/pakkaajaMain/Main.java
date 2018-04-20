@@ -185,10 +185,10 @@ public class Main {
 
         System.out.println("\n=== Huffman coding ===\n");
         HuffmanCoder huffmanCoder = new HuffmanCoder(byteFrequencies(wizardOfOzSource), ALPHABET_SIZE);
-        compressDecompressBenchmark(wizardOfOzSource, "Wizard Of Oz", huffmanCoder, new HuffmanDecoder());
+        compressDecompressBenchmark(wizardOfOzSource, "Wizard of Oz", huffmanCoder, new HuffmanDecoder());
 
         System.out.println("\n=== Lempel-Ziv-Welch ===\n");
-        compressDecompressBenchmark(wizardOfOzSource, "Wizard Of Oz",
+        compressDecompressBenchmark(wizardOfOzSource, "Wizard of Oz",
                 new LZWCoder(ALPHABET_SIZE, CODE_LENGTH), new LZWDecoder(ALPHABET_SIZE, CODE_LENGTH));
     }
 
