@@ -1,5 +1,6 @@
-package main.java.pakkaaja;
+package pakkaajaMain;
 
+import java.io.File;
 import main.java.huffman.HuffmanCoder;
 import main.java.huffman.HuffmanDecoder;
 import main.java.io.FileInput;
@@ -20,8 +21,7 @@ public class Main {
     public static final int ALPHABET_SIZE = 256;
 
     /**
-     * (LZW) Specifies how many bits are read at
-     * one time as one value.
+     * (LZW) Specifies how many bits are read at one time as one value.
      */
     public static final int CODE_LENGTH = 12;
 
@@ -32,14 +32,14 @@ public class Main {
         System.out.println(start(args));
 
         // View some of the destination content
-        System.out.println("\n\nDestination content:");
-        FileInput in2 = new FileInput(args[2]);
-        int readByte2 = in2.readByte();
-        for (int i = 0; i < 40 && readByte2 != -1; i++) {
-            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
-            readByte2 = in2.readByte();
-        }
-        in2.close();
+//        System.out.println("\n\nDestination content:");
+//        FileInput in2 = new FileInput(args[2]);
+//        int readByte2 = in2.readByte();
+//        for (int i = 0; i < 40 && readByte2 != -1; i++) {
+//            System.out.println(String.format("%8s", Integer.toBinaryString(readByte2 & 0xFF)).replace(' ', '0'));
+//            readByte2 = in2.readByte();
+//        }
+//        in2.close();
     }
 
     /**
@@ -53,14 +53,18 @@ public class Main {
      * @param args the command line arguments are: command, source, destination.
      */
     public static String start(String[] args) {
-        // TODO: agruments for compression/decompression
-        if (args.length != 3) {
+        if (args.length == 0) {
             return usageInstructions();
         }
 
         String command = args[0];
-        String sourcePath = args[1];
-        String destinationPath = args[2];
+        String sourcePath = null;
+        String destinationPath = null;
+
+        if (args.length >= 3) {
+            sourcePath = args[1];
+            destinationPath = args[2];
+        }
 
         // Pre-coded content:
 //        FileInput in3 = new FileInput(sourcePath);
@@ -83,6 +87,9 @@ public class Main {
             case "ld":
                 lempelZivWelchDecompress(sourcePath, destinationPath);
                 return "Decompressed using Lempel-Ziv-Welch.";
+            case "test":
+                runBenchmarkTests();
+                return "";
             default:
                 return usageInstructions();
         }
@@ -144,7 +151,7 @@ public class Main {
         LZWDecoder decoder = new LZWDecoder(ALPHABET_SIZE, CODE_LENGTH);
         decoder.decompress(in, out);
     }
-    
+
     public static int twoToPower(int power) {
         if (power < 0) {
             return 0;
@@ -165,5 +172,46 @@ public class Main {
                 + "hd = Huffman decompress\n"
                 + "lc = Lempel-Ziv-Welch compress\n"
                 + "ld = Lempel-Ziv-Welch decompress\n";
+    }
+
+    private static void runBenchmarkTests() {
+        System.out.println("\n=== Huffman coding ===\n");
+        huffmanBenchmark("src/test/resources/WizardOfOz.txt");
+        lzwBenchmark();
+    }
+
+    private static void huffmanBenchmark(String testFileSource) {
+        long wizardOfOzSize = new File(testFileSource).length();
+        
+        System.out.println("\"Wizard Of Oz\", " + wizardOfOzSize + " bytes:");
+
+        long totalTime = 0;
+        for (int i = 0; i < 100; i++) {
+            long hcStartTime = System.currentTimeMillis();
+            huffmanCompress(testFileSource, "src/test/resources/output.txt");
+            long hcEndTime = System.currentTimeMillis();
+            totalTime += hcEndTime - hcStartTime;
+        }
+
+        long wizardOfOzCompressedSize = new File("src/test/resources/output.txt").length();
+        int efficiency = (int) (((double) wizardOfOzCompressedSize / wizardOfOzSize) * 100);
+
+        System.out.println("Compress time: " + (totalTime / 100) + " ms");
+        System.out.println("Compressed size: " + wizardOfOzCompressedSize + " bytes (" + efficiency + "%)");
+    }
+
+    private static void lzwBenchmark() {
+        long wizardOfOzSize = new File("src/test/resources/WizardOfOz.txt").length();
+        long totalTime = 0;
+        for (int i = 0; i < 100; i++) {
+            long hcStartTime = System.currentTimeMillis();
+            huffmanDecompress("src/test/resources/output.txt", "src/test/resources/output2.txt");
+            long hcEndTime = System.currentTimeMillis();
+            totalTime += hcEndTime - hcStartTime;
+        }
+        System.out.println("Decompress time: " + (totalTime / 100) + " ms");
+
+        System.out.println("\n=== Lempel-Ziv-Welch ===\n");
+        System.out.println("\"Wizard Of Oz\", 232 776 bytes:");
     }
 }

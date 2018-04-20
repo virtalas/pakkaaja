@@ -3,7 +3,7 @@ package main.java.LZW;
 import java.util.HashMap;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
-import main.java.pakkaaja.Main;
+import pakkaajaMain.Main;
 
 public class LZWDecoder {
 

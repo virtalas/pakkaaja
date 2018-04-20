@@ -161,7 +161,7 @@ public class HuffmanCoder {
         if (tree instanceof HuffmanLeaf) {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
 
-            System.out.println(leaf.value + "\t" + leaf.frequency + "\t" + prefix);
+//            System.out.println(leaf.value + "\t" + leaf.frequency + "\t" + prefix);
 
             codes[leaf.value] = prefix.toString();
 

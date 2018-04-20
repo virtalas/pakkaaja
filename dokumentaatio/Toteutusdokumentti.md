@@ -2,7 +2,7 @@
 
 ## Ohjelman yleisrakenne
 
-### main.java.pakkaaja
+### main.java.pakkaajaMain
 
 Main-luokassa tulkitaan käyttäjän antamat parametrit ja käynnistetään niiden mukainen pakkaus/purku.
 

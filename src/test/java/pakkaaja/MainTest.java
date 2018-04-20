@@ -1,5 +1,6 @@
 package main.java.pakkaaja;
 
+import pakkaajaMain.Main;
 import main.java.io.FileInput;
 import org.junit.After;
 import org.junit.AfterClass;

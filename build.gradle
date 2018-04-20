@@ -10,7 +10,7 @@
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = 'pakkaaja.Main'
+mainClassName = 'pakkaajaMain.Main'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -31,6 +31,14 @@ dependencies {
 jar {
     manifest {
         attributes 'Main-Class': 'pakkaaja.Main'
+    }
+}
+
+// Run with arguments:
+// gradle run -Parguments="['hc', 'file1', 'file2']"
+run {
+    if ( project.hasProperty("arguments") ) {
+        args Eval.me(arguments)
     }
 }
 
