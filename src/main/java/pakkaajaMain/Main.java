@@ -206,13 +206,13 @@ public class Main {
             totalCompressTime += endTime - startTime;
         }
 
-        System.out.println("Compress time: " + (totalCompressTime / 100) + " ms");
+        System.out.println("  Compress time: " + (totalCompressTime / 100) + " ms");
 
         // Decompress 100 times
         long totalDecompressTime = 0;
         for (int i = 0; i < 100; i++) {
             long startTime = System.currentTimeMillis();
-            coder.compress(new FileInput(testFileSource), new FileOutput("src/test/resources/output2.txt"));
+            decoder.decompress(new FileInput("src/test/resources/output.txt"), new FileOutput("src/test/resources/output2.txt"));
             long endTime = System.currentTimeMillis();
             totalDecompressTime += endTime - startTime;
         }
@@ -220,7 +220,7 @@ public class Main {
         long fileCompressedSize = new File("src/test/resources/output.txt").length();
         int efficiency = (int) (((double) fileCompressedSize / fileSize) * 100);
 
-        System.out.println("Decompress time: " + (totalDecompressTime / 100) + " ms");
-        System.out.println("Compressed size: " + fileCompressedSize + " bytes (" + efficiency + "%)");
+        System.out.println("  Decompress time: " + (totalDecompressTime / 100) + " ms");
+        System.out.println("  Compressed size: " + fileCompressedSize + " bytes (" + efficiency + "%)");
     }
 }
