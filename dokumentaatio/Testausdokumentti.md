@@ -8,7 +8,8 @@ Suorituskykytestit testaavat pakkausalgoritmien nopeutta ja pakkaustehokkuutta.
 
 ## Testisyötteet
 
-Testisyötteet löytyvät kansiosta "test/resources/".
+Testisyötteet löytyvät kansiosta "test/resources/". WizardOfOz.txt on keskikokoinen, englanninkielinen kirja
+ASCII-tekstitiedostona.
 
 ## Testien ajaminen
 
@@ -28,7 +29,7 @@ Tulokset ovat tietokonekohtaisia.
 Niiden laskemisessa on käytetty metodia `System.currentTimeMillis()` ja tuloksiin vaikutti tietokoneella
 sillä hetkellä käynnissä olleet muut prosessit. Jokainen pakkaus ja purku suoritettiin 100 kertaa peräkkäin
 ja otettiin tulokseksi yhden tapauksen keskimääräinen aika. Kaikki tulokset on otettu samalta
-suorituskykytestien ajokerralta.
+suorituskykytestien ajokerralta. Pakkaustehokkuus ilmaisee tulosta (pakatun tiedoston koko / alkuperäinen koko).
 
 ### Pakkaus
 
