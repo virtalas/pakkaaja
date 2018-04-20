@@ -26,13 +26,13 @@ Suorituskykytestit voi ajaa komennolla
 
 Tulokset ovat tietokonekohtaisia.
 Niiden laskemisessa on käytetty metodia `System.currentTimeMillis()` ja tuloksiin vaikutti tietokoneella
-sillä hetkellä käynnissä olleet muut prosessit. Jokainen pakkaus- ja purku suoritettiin 100 kertaa peräkkäin
+sillä hetkellä käynnissä olleet muut prosessit. Jokainen pakkaus ja purku suoritettiin 100 kertaa peräkkäin
 ja otettiin tulokseksi yhden tapauksen keskimääräinen aika. Kaikki tulokset on otettu samalta
 suorituskykytestien ajokerralta.
 
 ### Pakkaus
 
-Algoritmi | Syöte | Syötteen koko (tavu) | Aika (ms) | Pakkaustehokkuus
+Algoritmi | Syöte | Syötteen koko (tavuissa) | Aika (ms) | Pakkaustehokkuus
 --- | --- | --- | --- | ---
 Huffman | Wizard of Oz | 232776 | 21 | 57%
 LZW | Wizard of Oz | 232776 | 78 | 48%
@@ -43,7 +43,7 @@ vaihtokauppa laskenta-ajan ja käytetyn tilan välillä.
 
 ### Purkaminen
 
-Algoritmi | Syöte | Syötteen koko (tavu) | Aika (ms)
+Algoritmi | Syöte | Syötteen koko (tavuissa) | Aika (ms)
 --- | --- | --- | ---
 Huffman | Wizard of Oz | 232776 | 19
 LZW | Wizard of Oz | 232776 | 92
