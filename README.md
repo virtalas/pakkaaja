@@ -3,6 +3,10 @@
 ![travis](https://travis-ci.org/virtalas/pakkaaja.svg?branch=master)
 [![Code Coverage](https://img.shields.io/codecov/c/github/virtalas/pakkaaja/master.svg)](https://codecov.io/github/virtalas/pakkaaja/)
 
+A Java implemetation of Huffman coding and Lempel-Ziw-Welch.
+
+Run with gradle: `gradle run -Parguments="['hc', 'file.txt', 'output']"` or `gradle run -Parguments="['test']"`
+
 [Määrittelydokumentaatio](https://github.com/virtalas/pakkaaja/tree/master/dokumentaatio/määrittelydokumentti.md)
 
 [Viikkoraportti 1](https://github.com/virtalas/pakkaaja/tree/master/dokumentaatio/viikkoraportti1.md)
