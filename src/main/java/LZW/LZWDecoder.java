@@ -1,11 +1,12 @@
 package main.java.LZW;
 
+import coder.Decoder;
 import java.util.HashMap;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
 import pakkaajaMain.Main;
 
-public class LZWDecoder {
+public class LZWDecoder implements Decoder {
 
     private HashMap<Integer, String> dictionary;
     private final int ALPHABET_SIZE;
@@ -18,6 +19,7 @@ public class LZWDecoder {
         MAX_TABLE_SIZE = Main.twoToPower(codeLength);
     }
 
+    @Override
     public void decompress(FileInput in, FileOutput out) {
         dictionary = new HashMap<>();
         int tableSize = ALPHABET_SIZE;

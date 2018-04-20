@@ -1,11 +1,12 @@
 package main.java.LZW;
 
+import coder.Coder;
 import java.util.HashMap;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
 import pakkaajaMain.Main;
 
-public class LZWCoder {
+public class LZWCoder implements Coder {
 
     private HashMap<String, Integer> dictionary;
     private final int ALPHABET_SIZE;
@@ -16,6 +17,7 @@ public class LZWCoder {
         MAX_TABLE_SIZE = Main.twoToPower(codeLength);
     }
 
+    @Override
     public void compress(FileInput in, FileOutput out) {
         dictionary = new HashMap<>();
         StringBuffer w = new StringBuffer();

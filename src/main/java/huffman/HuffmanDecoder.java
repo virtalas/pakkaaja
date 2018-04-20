@@ -1,12 +1,13 @@
 package main.java.huffman;
 
+import coder.Decoder;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
 
 /**
  * Implements decompressing a huffman coded file.
  */
-public class HuffmanDecoder {
+public class HuffmanDecoder implements Decoder {
 
     /**
      * Creates the Huffman tree and writes the decompressed file. First the tree
@@ -16,6 +17,7 @@ public class HuffmanDecoder {
      * @param sourcePath path of the compressed file
      * @param destinationPath path of the file to be decompressed
      */
+    @Override
     public void decompress(FileInput in, FileOutput out) {
         HuffmanTree root = readHuffmanTree(in);
 

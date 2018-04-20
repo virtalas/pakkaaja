@@ -34,7 +34,6 @@ public class MainTest {
 
     @Test
     public void testStartPrintsUsageWhenIncorrectNumberOfParameters() {
-        assertEquals(Main.usageInstructions(), Main.start(new String[]{"hc"}));
         assertEquals(Main.usageInstructions(), Main.start(new String[]{"hc", "src/test/resources/file1"}));
         assertEquals(Main.usageInstructions(), Main.start(new String[]{"hc", "src/test/resources/file1", "src/test/resources/file2", "src/test/resources/file3"}));
     }

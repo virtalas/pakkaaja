@@ -1,5 +1,6 @@
 package main.java.huffman;
 
+import coder.Coder;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
 import main.java.structures.MinHeap;
@@ -7,7 +8,7 @@ import main.java.structures.MinHeap;
 /**
  * Implements the Huffman coding and writes the compressed file.
  */
-public class HuffmanCoder {
+public class HuffmanCoder implements Coder {
 
     /**
      * An integer array where the index represents the character/byte, and the
@@ -40,6 +41,7 @@ public class HuffmanCoder {
      * Run the Huffman coding algorithm and write the compressed file. Writes
      * the Huffman tree first and then the compressed content.
      */
+    @Override
     public void compress(FileInput in, FileOutput out) {
         initEndOfFileCharacterFrequency();
         HuffmanTree root = buildTree();
