@@ -1,33 +1,12 @@
 
-package main.java.huffman;
+package huffman;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import main.java.huffman.HuffmanInternalNode;
+import main.java.huffman.HuffmanLeaf;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class HuffmanTreeTest {
-    
-    public HuffmanTreeTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void testCanCreateHuffmanLeaf() {

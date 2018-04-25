@@ -1,36 +1,19 @@
-package main.java.structures;
+package structures;
 
 import main.java.huffman.*;
-import org.junit.After;
-import org.junit.AfterClass;
+import main.java.structures.MinHeap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MinHeapTest {
 
     private MinHeap heap;
 
-    public MinHeapTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     @Before
     public void setUp() {
         heap = new MinHeap(256);
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test

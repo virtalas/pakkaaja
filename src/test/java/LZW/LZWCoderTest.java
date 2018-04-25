@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.java.LZW;
+package LZW;
 
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
@@ -19,28 +19,6 @@ import static org.junit.Assert.*;
  * @author lasvirt
  */
 public class LZWCoderTest {
-    
-    public LZWCoderTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
-    @Test
-    public void testCompress() {
-    }
     
 }

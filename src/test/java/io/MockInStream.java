@@ -1,5 +1,7 @@
 
-package main.java.io;
+package io;
+
+import main.java.io.InStream;
 
 public class MockInStream implements InStream {
     

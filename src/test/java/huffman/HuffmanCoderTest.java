@@ -1,4 +1,4 @@
-package main.java.huffman;
+package huffman;
 
 import main.java.huffman.HuffmanLeaf;
 import main.java.huffman.HuffmanTree;
@@ -6,12 +6,9 @@ import main.java.huffman.HuffmanCoder;
 import main.java.huffman.HuffmanInternalNode;
 import main.java.io.FileInput;
 import main.java.io.FileOutput;
-import main.java.io.MockInStream;
-import main.java.io.MockOutStream;
-import org.junit.After;
-import org.junit.AfterClass;
+import io.MockInStream;
+import io.MockOutStream;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -21,24 +18,9 @@ public class HuffmanCoderTest {
 
     private MockOutStream out;
 
-    public HuffmanCoderTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     @Before
     public void setUp() {
         out = new MockOutStream();
-    }
-
-    @After
-    public void tearDown() {
     }
 
     /*

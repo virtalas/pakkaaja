@@ -1,7 +1,8 @@
 
-package main.java.io;
+package io;
 
 import java.util.ArrayList;
+import main.java.io.OutStream;
 
 public class MockOutStream implements OutStream {
     
