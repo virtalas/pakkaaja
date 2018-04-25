@@ -1,9 +1,9 @@
-package main.java.LZW;
+package LZW;
 
 import coder.Coder;
 import java.util.HashMap;
-import main.java.io.FileInput;
-import main.java.io.FileOutput;
+import io.FileInput;
+import io.FileOutput;
 import pakkaajaMain.Main;
 
 public class LZWCoder implements Coder {

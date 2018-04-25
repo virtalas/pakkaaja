@@ -2,7 +2,7 @@
 package io;
 
 import java.util.ArrayList;
-import main.java.io.OutStream;
+import io.OutStream;
 
 public class MockOutStream implements OutStream {
     

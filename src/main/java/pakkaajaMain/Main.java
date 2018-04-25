@@ -3,12 +3,12 @@ package pakkaajaMain;
 import coder.Coder;
 import coder.Decoder;
 import java.io.File;
-import main.java.huffman.HuffmanCoder;
-import main.java.huffman.HuffmanDecoder;
-import main.java.io.FileInput;
-import main.java.io.FileOutput;
-import main.java.LZW.LZWCoder;
-import main.java.LZW.LZWDecoder;
+import huffman.HuffmanCoder;
+import huffman.HuffmanDecoder;
+import io.FileInput;
+import io.FileOutput;
+import LZW.LZWCoder;
+import LZW.LZWDecoder;
 
 /**
  * Main class.

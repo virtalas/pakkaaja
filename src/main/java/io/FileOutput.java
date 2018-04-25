@@ -1,4 +1,4 @@
-package main.java.io;
+package io;
 
 /**
  * Class for writing bytes to the destination file.

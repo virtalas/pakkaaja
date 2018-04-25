@@ -1,6 +1,5 @@
 package io;
 
-import main.java.io.FileOutput;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

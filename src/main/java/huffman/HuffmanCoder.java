@@ -1,9 +1,9 @@
-package main.java.huffman;
+package huffman;
 
 import coder.Coder;
-import main.java.io.FileInput;
-import main.java.io.FileOutput;
-import main.java.structures.MinHeap;
+import io.FileInput;
+import io.FileOutput;
+import structures.MinHeap;
 
 /**
  * Implements the Huffman coding and writes the compressed file.

@@ -1,6 +1,4 @@
-package main.java.io;
-
-import pakkaajaMain.Main;
+package io;
 
 /**
  * Class for reading bytes from the source file.

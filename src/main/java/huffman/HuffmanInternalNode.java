@@ -1,5 +1,5 @@
 
-package main.java.huffman;
+package huffman;
 
 /**
  * A node in the Huffman tree that has two subtrees and their combined frequency.

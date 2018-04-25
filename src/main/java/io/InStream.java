@@ -1,5 +1,5 @@
 
-package main.java.io;
+package io;
 
 public interface InStream {
     public int read();

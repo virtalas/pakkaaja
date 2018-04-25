@@ -1,7 +1,7 @@
 package pakkaaja;
 
 import pakkaajaMain.Main;
-import main.java.io.FileInput;
+import io.FileInput;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;

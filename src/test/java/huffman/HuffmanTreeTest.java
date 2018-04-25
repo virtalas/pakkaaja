@@ -1,8 +1,8 @@
 
 package huffman;
 
-import main.java.huffman.HuffmanInternalNode;
-import main.java.huffman.HuffmanLeaf;
+import huffman.HuffmanInternalNode;
+import huffman.HuffmanLeaf;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

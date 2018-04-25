@@ -1,6 +1,6 @@
-package main.java.structures;
+package structures;
 
-import main.java.huffman.HuffmanTree;
+import huffman.HuffmanTree;
 
 public class MinHeap {
 

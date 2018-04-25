@@ -1,20 +1,20 @@
 package io;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import io.FileInput;
+import io.OutputByteStream;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class OutputByteStreamTest {
+    
+    private OutputByteStream out;
 
     @Test
     public void testWrite() {
+        out = new OutputByteStream("src/test/resources/output.txt");
+        out.write(116);
+        out.close();
+        FileInput in = new FileInput("src/test/resources/output.txt");
+        assertEquals(116, in.readByte());
     }
-
-    @Test
-    public void testClose() {
-    }
-    
 }

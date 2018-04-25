@@ -1,11 +1,11 @@
 package huffman;
 
-import main.java.huffman.HuffmanDecoder;
-import main.java.huffman.HuffmanInternalNode;
-import main.java.huffman.HuffmanLeaf;
-import main.java.huffman.HuffmanTree;
-import main.java.io.FileInput;
-import main.java.io.FileOutput;
+import huffman.HuffmanDecoder;
+import huffman.HuffmanInternalNode;
+import huffman.HuffmanLeaf;
+import huffman.HuffmanTree;
+import io.FileInput;
+import io.FileOutput;
 import io.MockInStream;
 import io.MockOutStream;
 import org.junit.Before;

@@ -1,7 +1,7 @@
 package structures;
 
-import main.java.huffman.*;
-import main.java.structures.MinHeap;
+import huffman.*;
+import structures.MinHeap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import org.junit.Before;

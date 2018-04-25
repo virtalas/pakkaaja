@@ -1,8 +1,8 @@
-package main.java.huffman;
+package huffman;
 
 import coder.Decoder;
-import main.java.io.FileInput;
-import main.java.io.FileOutput;
+import io.FileInput;
+import io.FileOutput;
 
 /**
  * Implements decompressing a huffman coded file.
