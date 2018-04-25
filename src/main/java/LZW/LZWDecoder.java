@@ -4,7 +4,7 @@ import coder.Decoder;
 import java.util.HashMap;
 import io.FileInput;
 import io.FileOutput;
-import pakkaajaMain.Main;
+import pakkaajaMain.MathUtils;
 
 public class LZWDecoder implements Decoder {
 
@@ -16,7 +16,7 @@ public class LZWDecoder implements Decoder {
     public LZWDecoder(int alphabetSize, int codeLength) {
         ALPHABET_SIZE = alphabetSize;
         CODE_LENGTH = codeLength;
-        MAX_TABLE_SIZE = Main.twoToPower(codeLength);
+        MAX_TABLE_SIZE = MathUtils.twoToPower(codeLength);
     }
 
     @Override

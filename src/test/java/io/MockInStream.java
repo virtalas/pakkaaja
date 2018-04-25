@@ -55,4 +55,9 @@ public class MockInStream implements InStream {
     @Override
     public void close() {
     }
+
+    @Override
+    public void resetToBeginning() {
+        i = 0;
+    }
 }

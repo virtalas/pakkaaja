@@ -1,8 +1,5 @@
 package pakkaajaMain;
 
-import coder.Coder;
-import coder.Decoder;
-import java.io.File;
 import huffman.HuffmanCoder;
 import huffman.HuffmanDecoder;
 import io.FileInput;
@@ -94,49 +91,20 @@ public class Main {
                 lempelZivWelchDecompress(sourcePath, destinationPath);
                 return "Decompressed using Lempel-Ziv-Welch.";
             case "test":
-                runBenchmarkTests();
+                Benchmark.runBenchmarkTests();
                 return "";
             default:
                 return usageInstructions();
         }
     }
 
-    /**
-     * Reads the file and generates the character frequencies into a list that
-     * is passed on to the coder that will huffman compress the file.
-     *
-     * @param sourcePath
-     * @param destinationPath
-     */
     public static void huffmanCompress(String sourcePath, String destinationPath) {
-        int[] byteFrequencies = byteFrequencies(sourcePath);
-        HuffmanCoder coder = new HuffmanCoder(byteFrequencies, ALPHABET_SIZE);
+        HuffmanCoder coder = new HuffmanCoder(ALPHABET_SIZE);
         FileInput coderInput = new FileInput(sourcePath);
         FileOutput out = new FileOutput(destinationPath);
         coder.compress(coderInput, out);
     }
 
-    public static int[] byteFrequencies(String sourcePath) {
-        int[] byteFrequencies = new int[ALPHABET_SIZE];
-
-        FileInput freqInput = new FileInput(sourcePath);
-        int readByte = freqInput.readByte();
-
-        while (readByte != -1) {
-            byteFrequencies[readByte]++; // Character as index, frequency count as value.
-            readByte = freqInput.readByte();
-        }
-
-        freqInput.close();
-        return byteFrequencies;
-    }
-
-    /**
-     * Initiates the huffman decompressing.
-     *
-     * @param sourcePath
-     * @param destinationPath
-     */
     public static void huffmanDecompress(String sourcePath, String destinationPath) {
         HuffmanDecoder decoder = new HuffmanDecoder();
         FileInput in = new FileInput(sourcePath);
@@ -158,17 +126,6 @@ public class Main {
         decoder.decompress(in, out);
     }
 
-    public static int twoToPower(int power) {
-        if (power < 0) {
-            return 0;
-        }
-        int n = 1;
-        for (int i = 1; i <= power; i++) {
-            n *= 2;
-        }
-        return n;
-    }
-
     /**
      * Returns usage instructions.
      */
@@ -178,49 +135,5 @@ public class Main {
                 + "hd = Huffman decompress\n"
                 + "lc = Lempel-Ziv-Welch compress\n"
                 + "ld = Lempel-Ziv-Welch decompress\n";
-    }
-
-    private static void runBenchmarkTests() {
-        String wizardOfOzSource = "src/test/resources/WizardOfOz.txt";
-
-        System.out.println("\n=== Huffman coding ===\n");
-        HuffmanCoder huffmanCoder = new HuffmanCoder(byteFrequencies(wizardOfOzSource), ALPHABET_SIZE);
-        compressDecompressBenchmark(wizardOfOzSource, "Wizard of Oz", huffmanCoder, new HuffmanDecoder());
-
-        System.out.println("\n=== Lempel-Ziv-Welch ===\n");
-        compressDecompressBenchmark(wizardOfOzSource, "Wizard of Oz",
-                new LZWCoder(ALPHABET_SIZE, CODE_LENGTH), new LZWDecoder(ALPHABET_SIZE, CODE_LENGTH));
-    }
-
-    private static void compressDecompressBenchmark(String testFileSource, String fileName, Coder coder, Decoder decoder) {
-        long fileSize = new File(testFileSource).length();
-
-        System.out.println("\"" + fileName + "\", " + fileSize + " bytes:");
-
-        // Compress 100 times
-        long totalCompressTime = 0;
-        for (int i = 0; i < 100; i++) {
-            long startTime = System.currentTimeMillis();
-            coder.compress(new FileInput(testFileSource), new FileOutput("src/test/resources/output.txt"));
-            long endTime = System.currentTimeMillis();
-            totalCompressTime += endTime - startTime;
-        }
-
-        System.out.println("  Compress time: " + (totalCompressTime / 100) + " ms");
-
-        // Decompress 100 times
-        long totalDecompressTime = 0;
-        for (int i = 0; i < 100; i++) {
-            long startTime = System.currentTimeMillis();
-            decoder.decompress(new FileInput("src/test/resources/output.txt"), new FileOutput("src/test/resources/output2.txt"));
-            long endTime = System.currentTimeMillis();
-            totalDecompressTime += endTime - startTime;
-        }
-
-        long fileCompressedSize = new File("src/test/resources/output.txt").length();
-        int efficiency = (int) (((double) fileCompressedSize / fileSize) * 100);
-
-        System.out.println("  Decompress time: " + (totalDecompressTime / 100) + " ms");
-        System.out.println("  Compressed size: " + fileCompressedSize + " bytes (" + efficiency + "%)");
     }
 }

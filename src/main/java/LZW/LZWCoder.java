@@ -4,7 +4,7 @@ import coder.Coder;
 import java.util.HashMap;
 import io.FileInput;
 import io.FileOutput;
-import pakkaajaMain.Main;
+import pakkaajaMain.MathUtils;
 
 public class LZWCoder implements Coder {
 
@@ -14,7 +14,7 @@ public class LZWCoder implements Coder {
     
     public LZWCoder(int alphabetSize, int codeLength) {
         ALPHABET_SIZE = alphabetSize;
-        MAX_TABLE_SIZE = Main.twoToPower(codeLength);
+        MAX_TABLE_SIZE = MathUtils.twoToPower(codeLength);
     }
 
     @Override

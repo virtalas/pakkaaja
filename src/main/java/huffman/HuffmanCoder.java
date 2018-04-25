@@ -14,9 +14,14 @@ public class HuffmanCoder implements Coder {
      * An integer array where the index represents the character/byte, and the
      * value represents the frequency of the character/byte.
      */
-    private final int[] byteFrequencies;
-    
-    private final int alphabetSize;
+    private int[] byteFrequencies;
+
+    /**
+     * Size of the array used to store character frequencies,
+     * or how many unique characters there are. In this case it is the different
+     * values of one byte.
+     */
+    private final int ALPHABET_SIZE;
 
     /**
      * A string array where the index represents the character/byte, and the
@@ -31,10 +36,21 @@ public class HuffmanCoder implements Coder {
      * @param alphabetSize size of the alphabet, or how many unique characters
      * there can be.
      */
-    public HuffmanCoder(int[] bytes, int alphabetSize) {
-        this.byteFrequencies = bytes;
+    public HuffmanCoder(int alphabetSize) {
         this.codes = new String[alphabetSize];
-        this.alphabetSize = alphabetSize;
+        this.ALPHABET_SIZE = alphabetSize;
+    }
+
+    /**
+     * Used for testing to insert the byte frequencies.
+     *
+     * @param frequencies
+     * @param alphabetSize
+     */
+    public HuffmanCoder(int[] frequencies, int alphabetSize) {
+        this.byteFrequencies = frequencies;
+        this.codes = new String[alphabetSize];
+        this.ALPHABET_SIZE = alphabetSize;
     }
 
     /**
@@ -43,6 +59,7 @@ public class HuffmanCoder implements Coder {
      */
     @Override
     public void compress(FileInput in, FileOutput out) {
+        generateByteFrequencies(in);
         initEndOfFileCharacterFrequency();
         HuffmanTree root = buildTree();
         buildCodeList(root, new StringBuffer());
@@ -57,6 +74,25 @@ public class HuffmanCoder implements Coder {
      */
     public void initEndOfFileCharacterFrequency() {
         byteFrequencies[0] = 1;
+    }
+
+    /**
+     * Reads through the whole file and generates a list of the frequencies of
+     * all unique characters/bytes in the file.
+     *
+     * @param in reads the file, and at the end is resetToBeginning to the beginning
+     */
+    public void generateByteFrequencies(FileInput in) {
+        byteFrequencies = new int[ALPHABET_SIZE];
+
+        int readByte = in.readByte();
+
+        while (readByte != -1) {
+            byteFrequencies[readByte]++; // Character as index, frequency count as value.
+            readByte = in.readByte();
+        }
+
+        in.resetToBeginning();
     }
 
     /**
@@ -133,7 +169,7 @@ public class HuffmanCoder implements Coder {
      * @return the root of the tree
      */
     public HuffmanTree buildTree() {
-        MinHeap trees = new MinHeap(alphabetSize);
+        MinHeap trees = new MinHeap(ALPHABET_SIZE);
         // Initially, there are only leaves, one for each non-empty character
         for (int i = 0; i < byteFrequencies.length; i++) {
             if (byteFrequencies[i] > 0) {
@@ -164,7 +200,6 @@ public class HuffmanCoder implements Coder {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
 
 //            System.out.println(leaf.value + "\t" + leaf.frequency + "\t" + prefix);
-
             codes[leaf.value] = prefix.toString();
 
         } else if (tree instanceof HuffmanInternalNode) {

@@ -99,6 +99,13 @@ public class FileInput {
             readBit();
         }
     }
+    
+    /**
+     * Resets the input to the beginning, so that the next byte read will be the first byte of the file.
+     */
+    public void resetToBeginning() {
+        in.resetToBeginning();
+    }
 
     /**
      * Closes the input.

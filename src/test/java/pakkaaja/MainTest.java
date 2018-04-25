@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+import pakkaajaMain.MathUtils;
 
 public class MainTest {
 
@@ -68,18 +69,18 @@ public class MainTest {
     
     @Test
     public void testTwoToPower() {
-        assertEquals(1, Main.twoToPower(0));
-        assertEquals(2, Main.twoToPower(1));
-        assertEquals(4, Main.twoToPower(2));
-        assertEquals(8, Main.twoToPower(3));
-        assertEquals(256, Main.twoToPower(8));
-        assertEquals(4096, Main.twoToPower(12));
+        assertEquals(1, MathUtils.twoToPower(0));
+        assertEquals(2, MathUtils.twoToPower(1));
+        assertEquals(4, MathUtils.twoToPower(2));
+        assertEquals(8, MathUtils.twoToPower(3));
+        assertEquals(256, MathUtils.twoToPower(8));
+        assertEquals(4096, MathUtils.twoToPower(12));
     }
     
     @Test
     public void testTwoToPowerNegativeArgumentReturnsZero() {
-        assertEquals(0, Main.twoToPower(-1));
-        assertEquals(0, Main.twoToPower(-7));
-        assertEquals(0, Main.twoToPower(-6543));
+        assertEquals(0, MathUtils.twoToPower(-1));
+        assertEquals(0, MathUtils.twoToPower(-7));
+        assertEquals(0, MathUtils.twoToPower(-6543));
     }
 }

@@ -23,12 +23,19 @@ public class InputByteStream implements InStream {
     private InputStream in;
 
     /**
-     * Initializes InputStream
+     * Initializes InputStream, and marks the beginning so the stream can be resetToBeginning.
      * @param path source file path
      */
     public InputByteStream(String path) {
         try {
-            in = new BufferedInputStream(new FileInputStream(new File(path)));
+            File file = new File(path);
+            in = new BufferedInputStream(new FileInputStream(file));
+            
+            try {
+                in.mark((int) file.length());
+            } catch (Exception e) {
+                System.out.println("The file is too large. " + e);
+            }
         } catch (FileNotFoundException ex) {
             System.out.println("File was not found: " + ex);
         }
@@ -46,6 +53,18 @@ public class InputByteStream implements InStream {
         } catch (IOException ex) {
             System.out.println("Could not read file: " + ex);
             return -1;
+        }
+    }
+    
+    /**
+     * Resets the input to the beginning, so that the next byte read will be the first byte of the file.
+     */
+    @Override
+    public void resetToBeginning() {
+        try {
+            in.reset();
+        } catch (IOException ex) {
+            System.out.println("InStream could not be reset: " + ex);
         }
     }
     
