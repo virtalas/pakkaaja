@@ -32,7 +32,7 @@ public class InputByteStream implements InStream {
             in = new BufferedInputStream(new FileInputStream(file));
             
             try {
-                in.mark((int) file.length());
+                in.mark((int) file.length() + 1);
             } catch (Exception e) {
                 System.out.println("The file is too large. " + e);
             }
