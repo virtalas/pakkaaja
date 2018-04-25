@@ -8,9 +8,24 @@ import pakkaajaMain.MathUtils;
 
 public class LZWDecoder implements Decoder {
 
+    /**
+     * The dictionary entries have a value and its character.
+     */
     private HashMap<Integer, String> dictionary;
+
     private final int ALPHABET_SIZE;
+
+    /**
+     * Specifies the maximum dictionary size, in other words the largest value
+     * one sequence of bits can have. Calculated as two to the power of (number
+     * of bits read at one time).
+     */
     private final int MAX_TABLE_SIZE;
+
+    /**
+     * Number of bits read at one time. This number of bits is treated as one
+     * 'character' (or code for a number of characters).
+     */
     private final int CODE_LENGTH;
 
     public LZWDecoder(int alphabetSize, int codeLength) {
@@ -21,13 +36,31 @@ public class LZWDecoder implements Decoder {
 
     @Override
     public void decompress(FileInput in, FileOutput out) {
+        initDictionary();
+        decompressByBuildingDictionary(in, out);
+        in.close();
+        out.close();
+    }
+
+    /**
+     * Initializes the dictionary by inputting every character code from 0 up to
+     * ALPHABET_SIZE.
+     */
+    private void initDictionary() {
         dictionary = new HashMap<>();
-        int tableSize = ALPHABET_SIZE;
 
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             dictionary.put(i, "" + (char) i);
         }
+    }
 
+    /**
+     * Builds the dictionary the same way the compressor did. Therefore the
+     * codes it encounters are by that point known as a character or a code for
+     * a combination of characters.
+     */
+    private void decompressByBuildingDictionary(FileInput in, FileOutput out) {
+        int tableSize = ALPHABET_SIZE;
         String previosCharacters = "";
 
         while (true) {
@@ -35,6 +68,7 @@ public class LZWDecoder implements Decoder {
             if (readByte == -1) {
                 break;
             }
+
             String charactersToWrite = null;
 
             if (dictionary.containsKey(readByte)) {
@@ -51,8 +85,5 @@ public class LZWDecoder implements Decoder {
 
             previosCharacters = charactersToWrite;
         }
-
-        in.close();
-        out.close();
     }
 }
