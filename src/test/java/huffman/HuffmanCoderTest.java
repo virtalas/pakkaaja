@@ -68,6 +68,19 @@ public class HuffmanCoderTest {
     @Test
     public void testCompress() {
         MockInStream in = new MockInStream("test");
+        HuffmanCoder coder = new HuffmanCoder(256);
+        coder.compress(new FileInput(in), new FileOutput(out));
+        
+        // First the tree structure is written
+        assertEquals("10101000", out.output.get(0)); // tree structure "1010100" + padding "0"
+        assertEquals("01110100", out.output.get(1)); // 116 = t
+        assertEquals("01100101", out.output.get(2)); // 101 = e
+        assertEquals("00000000", out.output.get(3)); //   0 = NUL
+        assertEquals("01110011", out.output.get(4)); // 115 = s
+        
+        // Next the compressed content
+        assertEquals("01011101", out.output.get(5)); // compressed content "01011101" + "10" + padding("000000")
+        assertEquals("10000000", out.output.get(6));
     }
 
     /*
