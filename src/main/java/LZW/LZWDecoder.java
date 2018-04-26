@@ -11,7 +11,7 @@ public class LZWDecoder implements Decoder {
     /**
      * The dictionary entries have a value and its character.
      */
-    private HashMap<Integer, String> dictionary;
+    public HashMap<Integer, String> dictionary;
 
     private final int ALPHABET_SIZE;
 
@@ -46,7 +46,7 @@ public class LZWDecoder implements Decoder {
      * Initializes the dictionary by inputting every character code from 0 up to
      * ALPHABET_SIZE.
      */
-    private void initDictionary() {
+    public void initDictionary() {
         dictionary = new HashMap<>();
 
         for (int i = 0; i < ALPHABET_SIZE; i++) {

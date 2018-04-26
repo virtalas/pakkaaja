@@ -11,7 +11,7 @@ public class LZWCoder implements Coder {
     /**
      * The dictionary entries have a character and its value.
      */
-    private HashMap<String, Integer> dictionary;
+    public HashMap<String, Integer> dictionary;
 
     private final int ALPHABET_SIZE;
 
