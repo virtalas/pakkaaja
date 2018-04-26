@@ -24,3 +24,5 @@ tai
 [Viikkoraportti 4](https://github.com/virtalas/pakkaaja/blob/master/dokumentaatio/viikkoraportti4.md)
 
 [Viikkoraportti 5](https://github.com/virtalas/pakkaaja/blob/master/dokumentaatio/viikkoraportti5.md)
+
+[Viikkoraportti 6](https://github.com/virtalas/pakkaaja/blob/master/dokumentaatio/viikkoraportti6.md)
