@@ -1,43 +1,36 @@
 package structures;
 
-import java.util.LinkedList;
-
 public class HashDictionary {
 
-    private LinkedList[] lists;
+    private LinkedDictionaryEntry[] lists;
 
     private int listSize;
-    private int numberOfElements;
 
     public HashDictionary(int initSize) {
         listSize = initSize;
-        numberOfElements = 0;
-        lists = new LinkedList[initSize];
+        lists = new LinkedDictionaryEntry[initSize];
         for (int i = 0; i < initSize; i++) {
-            lists[i] = new LinkedList();
+            lists[i] = new LinkedDictionaryEntry();
         }
     }
 
     public void put(Object key, Object value) {
-//        listFor(key).add(value).;
-        numberOfElements++;
+        listFor(key).add(key, value);
     }
 
-    public boolean contains(Object key) {
-        LinkedList list = listFor(key);
-        if (key == null || list == null) {
+    public boolean containsKey(Object key) {
+        if (key == null) {
             return false;
         }
-        return list.contains(key);
+        return listFor(key).contains(key);
     }
     
     public Object get(Object key) {
-        
-        return null;
+        return listFor(key).get(key);
     }
 
-    private LinkedList listFor(Object key) {
-        LinkedList list = null;
+    private LinkedDictionaryEntry listFor(Object key) {
+        LinkedDictionaryEntry list = null;
 
         if (key instanceof Integer) {
             list = lists[integerHashCode((int) key)];

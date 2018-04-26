@@ -1,23 +1,24 @@
 package LZW;
 
 import coder.Coder;
-import java.util.HashMap;
 import io.FileInput;
 import io.FileOutput;
 import pakkaajaMain.MathUtils;
+import structures.HashDictionary;
 
 public class LZWCoder implements Coder {
 
     /**
      * The dictionary entries have a character and its value.
      */
-    public HashMap<String, Integer> dictionary;
+    public HashDictionary dictionary;
 
     private final int ALPHABET_SIZE;
 
     /**
      * Specifies the maximum dictionary size, in other words the largest value
-     * one sequence of bits can have. Calculated as two to the power of (number of bits read at one time).
+     * one sequence of bits can have. Calculated as two to the power of (number
+     * of bits read at one time).
      */
     private final int MAX_TABLE_SIZE;
 
@@ -39,7 +40,7 @@ public class LZWCoder implements Coder {
      * ALPHABET_SIZE.
      */
     public void initDictionary() {
-        dictionary = new HashMap<>();
+        dictionary = new HashDictionary(ALPHABET_SIZE);
 
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             dictionary.put("" + (char) i, i);
@@ -63,7 +64,9 @@ public class LZWCoder implements Coder {
                 w.append(k);
             } else {
                 // Output dictionary code for w
-                out.writeNumberOfBits(MAX_TABLE_SIZE, dictionary.get(w.toString()));
+                if (dictionary.get(w.toString()) != null) {
+                    out.writeNumberOfBits(MAX_TABLE_SIZE, (int) dictionary.get(w.toString()));
+                }
                 w.append(k);
                 if (tableSize < MAX_TABLE_SIZE) {
                     dictionary.put(w.toString(), tableSize++);

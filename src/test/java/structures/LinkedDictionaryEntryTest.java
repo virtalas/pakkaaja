@@ -1,9 +1,6 @@
 package structures;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -86,5 +83,20 @@ public class LinkedDictionaryEntryTest {
         
         assertTrue(list.contains("three"));
         assertTrue(list.contains(1));
+    }
+    
+    @Test
+    public void testSameKeyOverridesValue() {
+        list.add(1, "one");
+        list.add(1, "two");
+        assertEquals("two", list.get(1));
+        assertNull(list.next);
+    }
+    
+    @Test
+    public void testEmpty() {
+        assertTrue(list.empty());
+        list.add(1, 1);
+        assertFalse(list.empty());
     }
 }

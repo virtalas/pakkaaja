@@ -36,7 +36,7 @@ public class LZWCoderTest {
         LZWCoder coder = new LZWCoder(256, 12);
         coder.initDictionary();
         
-        assertEquals(0, (int) coder.dictionary.get("" + (char) 0));
+        assertEquals(32, (int) coder.dictionary.get(" "));
         assertEquals(116, (int) coder.dictionary.get("t"));
         assertEquals(255, (int) coder.dictionary.get(("" + (char) 255)));
         assertNull(coder.dictionary.get("" + (char) 256));

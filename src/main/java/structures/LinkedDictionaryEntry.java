@@ -13,8 +13,10 @@ public class LinkedDictionaryEntry {
     }
     
     public void add(Object key, Object value) {
-        if (this.key == null && this.value == null && this.next == null) {
+        if (empty()) {
             this.key = key;
+            this.value = value;
+        } else if (this.key.equals(key)) {
             this.value = value;
         } else if (this.next == null) {
             this.next = new LinkedDictionaryEntry();
@@ -26,7 +28,10 @@ public class LinkedDictionaryEntry {
     }
     
     public Object get(Object key) {
-        if (this.key == key) {
+        if (key == null) {
+            return null;
+        }
+        if (this.key != null && this.key.equals(key)) {
             return this.value;
         } else if (this.next != null) {
             return this.next.get(key);
@@ -36,5 +41,9 @@ public class LinkedDictionaryEntry {
     
     public boolean contains(Object key) {
         return get(key) != null;
+    }
+    
+    public boolean empty() {
+        return key == null && value == null && next == null;
     }
 }

@@ -1,17 +1,17 @@
 package LZW;
 
 import coder.Decoder;
-import java.util.HashMap;
 import io.FileInput;
 import io.FileOutput;
 import pakkaajaMain.MathUtils;
+import structures.HashDictionary;
 
 public class LZWDecoder implements Decoder {
 
     /**
      * The dictionary entries have a value and its character.
      */
-    public HashMap<Integer, String> dictionary;
+    public HashDictionary dictionary;
 
     private final int ALPHABET_SIZE;
 
@@ -47,7 +47,7 @@ public class LZWDecoder implements Decoder {
      * ALPHABET_SIZE.
      */
     public void initDictionary() {
-        dictionary = new HashMap<>();
+        dictionary = new HashDictionary(ALPHABET_SIZE);
 
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             dictionary.put(i, "" + (char) i);
@@ -72,7 +72,7 @@ public class LZWDecoder implements Decoder {
             String charactersToWrite = null;
 
             if (dictionary.containsKey(readByte)) {
-                charactersToWrite = dictionary.get(readByte);
+                charactersToWrite = (String) dictionary.get(readByte);
             } else if (readByte == tableSize) {
                 charactersToWrite = previosCharacters + previosCharacters.charAt(0);
             }
