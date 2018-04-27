@@ -9,3 +9,5 @@ niitä ei tarvitse LZW:n kontekstissa. Näiden toteutus ja hashmapin korvaaminen
 Huomasin myös että LZW:n pakkaus- ja purkujat pitenivät kun vaihdoin Javan HashMapin omaani.
 
 Ignoresin Benchmark-luokan testikattavuudesta, koska siellä ei ole mitään varsinaista testattavaa.
+Lopuksi tein vertaisarvioinnin. Seuraavaksi parantelen dokumenttejä ja lisään vielä sekä huffmania että lzw:tä
+käyttävän pakkaus/purkamisen. Aikaa meni 8h.

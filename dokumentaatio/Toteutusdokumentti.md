@@ -5,6 +5,7 @@
 ### main.java.pakkaajaMain
 
 Main-luokassa tulkitaan käyttäjän antamat parametrit ja käynnistetään niiden mukainen pakkaus/purku.
+Paketti sisältää myös apuluokan `MathUtils` ja algoritmien suorituskykytestausluokan `Benchmark`.
 
 ### main.java.huffman
 
@@ -16,11 +17,14 @@ Algoritmin toteuttavat luokat `HuffmanCoder` ja `HuffmanDecoder`.
 
 Sisältää tiedoston lukemisen ja kirjoittamisen luokat.
 Testauksen helpottamista varten `FileInput` ja `FileOutput` käyttävät `InStream`/`OutStream` rajapinnan toteuttavia luokkia
-`InputByteStream` ja `OutputByteStream`. ByteStream-luokissa I/O bufferoidaan `BufferedOutputStream`/`BufferedInputStream`:llä.
+`InputByteStream` ja `OutputByteStream`. Luokat tarjoavat mahdollisuudet lukea/kirjoittaa myös yksittäisiä bittejä tai muun määrän bittejä kerrallaan.
+ByteStream-luokissa I/O bufferoidaan `BufferedOutputStream`/`BufferedInputStream`:llä.
 
 ### main.java.structures
 
-Sisältää työssä toteutetut tietorakenteet poislukien Huffmanin puu.
+Sisältää työssä toteutetut tietorakenteet poislukien Huffmanin puu. `HashDictionary` on hajautustaulu Integer-String-pareille
+LZW-algoritmin toteutusta varten. Se käyttää aputietorakenteenaan `LinkedDictionaryEntry`-luokkaa, joka on linkitetty lista.
+`MinHeap` toteuttaa Huffmanin koodauksen vaatiman prioriteettijonon minimikekona.
 
 ### Testipaketit
 
