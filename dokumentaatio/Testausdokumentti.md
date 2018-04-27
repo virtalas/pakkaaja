@@ -35,8 +35,8 @@ suorituskykytestien ajokerralta. Pakkaustehokkuus ilmaisee tulosta (pakatun tied
 
 Algoritmi | Syöte | Syötteen koko (tavuissa) | Aika (ms) | Pakkaustehokkuus
 --- | --- | --- | --- | ---
-Huffman | Wizard of Oz | 232776 | 21 | 57%
-LZW | Wizard of Oz | 232776 | 78 | 48%
+Huffman | Wizard of Oz | 232776 | 29 | 57%
+LZW | Wizard of Oz | 232776 | 124 | 48%
 
 Huffmanin koodaus suoriutui pakkauksesta huomattavasti nopeammin verrattuna LZW-algoritmiin,
 mutta pakkaustehokkuus oli LZW:n tapauksessa parempi. Tämä on luonnollinen
@@ -46,8 +46,8 @@ vaihtokauppa laskenta-ajan ja käytetyn tilan välillä.
 
 Algoritmi | Syöte | Syötteen koko (tavuissa) | Aika (ms)
 --- | --- | --- | ---
-Huffman | Wizard of Oz | 232776 | 19
-LZW | Wizard of Oz | 232776 | 92
+Huffman | Wizard of Oz | 232776 | 20
+LZW | Wizard of Oz | 232776 | 129
 
 Purkamisessa Huffman oli nopeampi kuin LZW samoin kuin pakkaamisessa.
 Saman algoritmin pakkaus- ja purkuaikoja verratessa ne olivat samat Huffmanin koodauksella virhemarginaalin ollessa melko suuri.
