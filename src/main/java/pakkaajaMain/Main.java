@@ -69,14 +69,6 @@ public class Main {
                 return usageInstructions();
         }
 
-        // Pre-coded content:
-//        FileInput in3 = new FileInput(sourcePath);
-//        int readByte3 = in3.readByte();
-//        while (readByte3 != -1) {
-//            System.out.println(String.format("%8s", Integer.toBinaryString(readByte3 & 0xFF)).replace(' ', '0'));
-//            readByte3 = in3.readByte();
-//        }
-//        in3.close();
         switch (command) {
             case "hc":
                 huffmanCompress(sourcePath, destinationPath);

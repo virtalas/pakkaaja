@@ -20,7 +20,6 @@ public class HuffmanDecoder implements Decoder {
     @Override
     public void decompress(FileInput in, FileOutput out) {
         HuffmanTree root = readHuffmanTree(in);
-
         writeDecompressedContent(in, out, root);
         out.close();
     }
@@ -50,8 +49,7 @@ public class HuffmanDecoder implements Decoder {
      * @return HuffmanTree with empty leaves
      */
     private HuffmanTree readTreeStructure(FileInput in) {
-        int nextBit = in.readBit();
-        if (nextBit == 0) {
+        if (in.readBit() == 0) {
             HuffmanLeaf leaf = new HuffmanLeaf();
             return leaf;
         } else {

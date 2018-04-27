@@ -198,10 +198,7 @@ public class HuffmanCoder implements Coder {
     public void buildCodeList(HuffmanTree tree, StringBuffer prefix) {
         if (tree instanceof HuffmanLeaf) {
             HuffmanLeaf leaf = (HuffmanLeaf) tree;
-
-//            System.out.println(leaf.value + "\t" + leaf.frequency + "\t" + prefix);
             codes[leaf.value] = prefix.toString();
-
         } else if (tree instanceof HuffmanInternalNode) {
             HuffmanInternalNode node = (HuffmanInternalNode) tree;
 

@@ -64,10 +64,9 @@ public class LZWCoder implements Coder {
                 w.append(k);
             } else {
                 // Output dictionary code for w
-                if (dictionary.get(w.toString()) != null) {
-                    out.writeNumberOfBits(MAX_TABLE_SIZE, (int) dictionary.get(w.toString()));
-                }
+                out.writeNumberOfBits(MAX_TABLE_SIZE, (int) dictionary.get(w.toString()));
                 w.append(k);
+                
                 if (tableSize < MAX_TABLE_SIZE) {
                     dictionary.put(w.toString(), tableSize++);
                 }

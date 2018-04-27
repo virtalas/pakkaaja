@@ -33,6 +33,13 @@ public class Benchmark {
         System.out.println("\"" + fileName + "\", " + fileSize + " bytes:");
 
         // Compress 100 times
+        compressBenchmark(testFileSource, coder);
+
+        // Decompress 100 times
+        decompressBenchmark(decoder, fileSize);
+    }
+
+    private static void compressBenchmark(String testFileSource, Coder coder) {
         long totalCompressTime = 0;
         for (int i = 0; i < 100; i++) {
             long startTime = System.currentTimeMillis();
@@ -42,8 +49,9 @@ public class Benchmark {
         }
 
         System.out.println("  Compress time: " + (totalCompressTime / 100) + " ms");
+    }
 
-        // Decompress 100 times
+    private static void decompressBenchmark(Decoder decoder, long fileSize) {
         long totalDecompressTime = 0;
         for (int i = 0; i < 100; i++) {
             long startTime = System.currentTimeMillis();
