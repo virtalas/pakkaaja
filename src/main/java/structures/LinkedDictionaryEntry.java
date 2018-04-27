@@ -1,17 +1,19 @@
-
 package structures;
 
-
+/**
+ * Implements a linked list structure with a key and a value.
+ */
 public class LinkedDictionaryEntry {
 
     public Object key;
     public Object value;
     public LinkedDictionaryEntry next;
-    
-    public LinkedDictionaryEntry() {
-        
-    }
-    
+
+    /**
+     * Adds a new key and its value to a new or empty LinkedDictionaryEntry. If
+     * it can't be added to the current one, it is passed to the next one. For
+     * already existing keys the value is overridden.
+     */
     public void add(Object key, Object value) {
         if (empty()) {
             this.key = key;
@@ -24,9 +26,13 @@ public class LinkedDictionaryEntry {
         } else {
             this.next.add(key, value);
         }
-        
+
     }
-    
+
+    /**
+     * Finds and returns the value by a key if it exists. If it is not found it
+     * the current entry, it is passed to the next entry.
+     */
     public Object get(Object key) {
         if (key == null) {
             return null;
@@ -38,11 +44,11 @@ public class LinkedDictionaryEntry {
         }
         return null;
     }
-    
+
     public boolean contains(Object key) {
         return get(key) != null;
     }
-    
+
     public boolean empty() {
         return key == null && value == null && next == null;
     }

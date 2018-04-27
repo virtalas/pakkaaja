@@ -1,19 +1,40 @@
 package structures;
 
+/**
+ * Implementation of a hashmap structure used by LZWCoder and LZWDecoder.
+ * Supports Integers and Strings as keys and values, as recuired by the LZW
+ * algorithm.
+ */
 public class HashDictionary {
 
+    /**
+     * Used to store the dictionary entries. Also handles collisions as it works
+     * as a linked list.
+     */
     private LinkedDictionaryEntry[] lists;
 
-    private int listSize;
+    /**
+     * The size of the hashmap, meaning how many lists there are.
+     */
+    private int numberOfLists;
 
+    /**
+     * Initializes the lists as empty.
+     *
+     * @param initSize how many individual lists there will be
+     */
     public HashDictionary(int initSize) {
-        listSize = initSize;
+        numberOfLists = initSize;
         lists = new LinkedDictionaryEntry[initSize];
         for (int i = 0; i < initSize; i++) {
             lists[i] = new LinkedDictionaryEntry();
         }
     }
 
+    /**
+     * Finds the list that corresponds with the key, and adds the key/value pair
+     * to it.
+     */
     public void put(Object key, Object value) {
         listFor(key).add(key, value);
     }
@@ -24,11 +45,19 @@ public class HashDictionary {
         }
         return listFor(key).contains(key);
     }
-    
+
+    /**
+     * Finds the list that corresponds with the key, and returns the search
+     * result from that list.
+     */
     public Object get(Object key) {
         return listFor(key).get(key);
     }
 
+    /**
+     * Returns the correct list for a key, according to the hash function and
+     * the class of the key.
+     */
     private LinkedDictionaryEntry listFor(Object key) {
         LinkedDictionaryEntry list = null;
 
@@ -42,10 +71,10 @@ public class HashDictionary {
     }
 
     private int integerHashCode(int x) {
-        return Math.abs(x) % listSize;
+        return Math.abs(x) % numberOfLists;
     }
 
     private int stringHashCode(String s) {
-        return Math.abs(s.hashCode()) % listSize;
+        return Math.abs(s.hashCode()) % numberOfLists;
     }
 }

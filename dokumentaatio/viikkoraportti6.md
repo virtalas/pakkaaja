@@ -6,4 +6,6 @@ Luokassa riittää vielä paranneltavaa, mm. pakkauksen onnistumisen/epäonnistu
 Refaktoroin ja kommentoin viimeksi toteuttamiani LZW-luokkia. Seuraavaksi implementoin oman hajautustaulurakenteen ja
 linkitetyn listan jota se käyttää. Jätin tarkoituksella niistä pois yleisiä toimintoja kuten poista etc, sillä
 niitä ei tarvitse LZW:n kontekstissa. Näiden toteutus ja hashmapin korvaaminen aiheutti jonkin verran debuggausta.
+Huomasin myös että LZW:n pakkaus- ja purkujat pitenivät kun vaihdoin Javan HashMapin omaani.
 
+Ignoresin Benchmark-luokan testikattavuudesta, koska siellä ei ole mitään varsinaista testattavaa.
