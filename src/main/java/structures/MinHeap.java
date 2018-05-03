@@ -2,9 +2,19 @@ package structures;
 
 import huffman.HuffmanTree;
 
+/**
+ * Implemetation of a minumum heap.
+ */
 public class MinHeap {
 
+    /**
+     * The values are stored in a list.
+     */
     public HuffmanTree A[];
+    
+    /**
+     * Determines where the last value / the end of the heap is in the list.
+     */
     private int heapSize;
 
     public MinHeap(int alphabetSize) {
@@ -16,10 +26,18 @@ public class MinHeap {
         return heapSize + 1;
     }
 
+    /**
+     * Get the minimum.
+     * @return the tree with the lowest frequency
+     */
     public HuffmanTree min() {
         return A[0];
     }
 
+    /**
+     * Get and delete the minimum.
+     * @return the deleted tree with the lowest frequency.
+     */
     public HuffmanTree delMin() {
         if (heapSize == -1) {
             return null;
@@ -42,18 +60,37 @@ public class MinHeap {
         A[i] = k;
     }
 
+    /**
+     * The parent of the node.
+     * @param i index of the element to inspect
+     * @return index of the parent
+     */
     public int parent(int i) {
         return (i+1) / 2 - 1;
     }
 
+    /**
+     * The left child of the node.
+     * @param i index of the element to inspect
+     * @return index of the left child
+     */
     public int left(int i) {
         return 2 * (i+1) - 1;
     }
-
+    
+    /**
+     * The right child of the node.
+     * @param i index of the element to inspect
+     * @return index of the right child
+     */
     public int right(int i) {
         return 2 * (i+1);
     }
 
+    /**
+     * Move the element to a correct position in the heap.
+     * @param i index of the element to move
+     */
     public void heapify(int i) {
         int l = left(i);
         int r = right(i);
