@@ -123,6 +123,7 @@ public class Main {
      */
     public static String usageInstructions() {
         return "Usage: [hc|hd|lc|ld] [source] [destination]\n"
+                + "Compress or decompress [source] into [destination] using:\n"
                 + "hc = Huffman compress\n"
                 + "hd = Huffman decompress\n"
                 + "lc = Lempel-Ziv-Welch compress\n"

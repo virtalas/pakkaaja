@@ -42,6 +42,22 @@ public class MainTest {
         FileInput in = new FileInput("src/test/resources/output.txt");
         assertEquals(168, in.readByte()); // 10101000 first byte, tree structure
     }
+    
+    @Test
+    public void testFileIsCorrectAfterHuffmanDecompress() {
+        Main.start(new String[]{"hc", "src/test/resources/WizardOfOz.txt", "src/test/resources/output.txt"});
+        Main.start(new String[]{"hd", "src/test/resources/output.txt", "src/test/resources/output2.txt"});
+        FileInput original = new FileInput("src/test/resources/WizardOfOz.txt");
+        FileInput decompressed = new FileInput("src/test/resources/output2.txt");
+        
+        int o = 0;
+        int d = 0;
+        while (o != -1) {
+            assertEquals(o, d);
+            o = original.readByte();
+            d = decompressed.readByte();
+        }
+    }
 
     @Test
     public void testHuffmanDecompressRuns() {
@@ -63,6 +79,22 @@ public class MainTest {
         Main.start(new String[]{"ld", "src/test/resources/lzw_simple_coded.txt", "src/test/resources/output.txt"});
         FileInput in = new FileInput("src/test/resources/output.txt");
         assertEquals(116, in.readByte()); // 01110100 first byte, "t"
+    }
+    
+    @Test
+    public void testFileIsCorrectAfterLZWDecompress() {
+        Main.start(new String[]{"lc", "src/test/resources/WizardOfOz.txt", "src/test/resources/output.txt"});
+        Main.start(new String[]{"ld", "src/test/resources/output.txt", "src/test/resources/output2.txt"});
+        FileInput original = new FileInput("src/test/resources/WizardOfOz.txt");
+        FileInput decompressed = new FileInput("src/test/resources/output2.txt");
+        
+        int o = 0;
+        int d = 0;
+        while (o != -1) {
+            assertEquals(o, d);
+            o = original.readByte();
+            d = decompressed.readByte();
+        }
     }
     
     @Test

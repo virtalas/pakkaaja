@@ -17,13 +17,16 @@ public class Benchmark {
 
     public static void runBenchmarkTests() {
         String wizardOfOzSource = "src/test/resources/WizardOfOz.txt";
+        String draculaCroppedSource = "src/test/resources/Dracula.txt";
 
         System.out.println("\n=== Huffman coding ===\n");
-        HuffmanCoder huffmanCoder = new HuffmanCoder(ALPHABET_SIZE);
-        compressDecompressBenchmark(wizardOfOzSource, "Wizard of Oz", huffmanCoder, new HuffmanDecoder());
+        compressDecompressBenchmark(wizardOfOzSource, "Wizard of Oz", new HuffmanCoder(ALPHABET_SIZE), new HuffmanDecoder());
+        compressDecompressBenchmark(draculaCroppedSource, "Dracula (cropped)", new HuffmanCoder(ALPHABET_SIZE), new HuffmanDecoder());
 
         System.out.println("\n=== Lempel-Ziv-Welch ===\n");
         compressDecompressBenchmark(wizardOfOzSource, "Wizard of Oz",
+                new LZWCoder(ALPHABET_SIZE, CODE_LENGTH), new LZWDecoder(ALPHABET_SIZE, CODE_LENGTH));
+        compressDecompressBenchmark(draculaCroppedSource, "Dracula (cropped)",
                 new LZWCoder(ALPHABET_SIZE, CODE_LENGTH), new LZWDecoder(ALPHABET_SIZE, CODE_LENGTH));
     }
 
