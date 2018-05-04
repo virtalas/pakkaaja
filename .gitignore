@@ -17,6 +17,8 @@ gradle/
 # Files generated from tests
 src/test/resources/output.txt
 src/test/resources/output2.txt
+src/test/resources/output.txt_temp
+src/test/resources/output2.txt_temp
 
 # Ignore Gradle GUI config
 gradle-app.setting

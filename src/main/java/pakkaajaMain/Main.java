@@ -82,6 +82,12 @@ public class Main {
             case "ld":
                 lempelZivWelchDecompress(sourcePath, destinationPath);
                 return "Decompressed using Lempel-Ziv-Welch.";
+            case "hlc":
+                lzwHuffmanCompress(sourcePath, destinationPath);
+                return "Compressed using Lempel-Ziv-Welch and Huffman coding.";
+            case "hld":
+                lzwHuffmanDecompress(sourcePath, destinationPath);
+                return "Decompressed using Lempel-Ziv-Welch and Huffman coding.";
             case "test":
                 Benchmark.runBenchmarkTests();
                 return "";
@@ -118,15 +124,29 @@ public class Main {
         decoder.decompress(in, out);
     }
 
+    public static void lzwHuffmanCompress(String sourcePath, String destinationPath) {
+        String tempFilePath = destinationPath + "_temp";
+        lempelZivWelchCompress(sourcePath, tempFilePath);
+        huffmanCompress(tempFilePath, destinationPath);
+    }
+
+    public static void lzwHuffmanDecompress(String sourcePath, String destinationPath) {
+        String tempFilePath = destinationPath + "_temp";
+        huffmanDecompress(sourcePath, tempFilePath);
+        lempelZivWelchDecompress(tempFilePath, destinationPath);
+    }
+
     /**
      * Returns usage instructions.
      */
     public static String usageInstructions() {
-        return "Usage: [hc|hd|lc|ld] [source] [destination]\n"
+        return "Usage: [hc|hd|lc|ld|lhc|lhd] [source] [destination]\n"
                 + "Compress or decompress [source] into [destination] using:\n"
                 + "hc = Huffman compress\n"
                 + "hd = Huffman decompress\n"
                 + "lc = Lempel-Ziv-Welch compress\n"
-                + "ld = Lempel-Ziv-Welch decompress\n";
+                + "ld = Lempel-Ziv-Welch decompress\n"
+                + "lhc = Lempel-Ziv-Welch and Huffman compress\n"
+                + "lhd = Lempel-Ziv-Welch and Huffman decompress\n";
     }
 }

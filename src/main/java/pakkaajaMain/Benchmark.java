@@ -14,6 +14,8 @@ import static pakkaajaMain.Main.ALPHABET_SIZE;
 import static pakkaajaMain.Main.CODE_LENGTH;
 
 public class Benchmark {
+    
+    private static final int T = 100;
 
     public static void runBenchmarkTests() {
         String wizardOfOzSource = "src/test/resources/WizardOfOz.txt";
@@ -28,6 +30,9 @@ public class Benchmark {
                 new LZWCoder(ALPHABET_SIZE, CODE_LENGTH), new LZWDecoder(ALPHABET_SIZE, CODE_LENGTH));
         compressDecompressBenchmark(draculaCroppedSource, "Dracula (cropped)",
                 new LZWCoder(ALPHABET_SIZE, CODE_LENGTH), new LZWDecoder(ALPHABET_SIZE, CODE_LENGTH));
+        
+        System.out.println("\n=== LZW & Huffman ===\n");
+        lzwHuffmanCompressDecompressBenchmark(draculaCroppedSource, "Dracula");
     }
 
     private static void compressDecompressBenchmark(String testFileSource, String fileName, Coder coder, Decoder decoder) {
@@ -35,28 +40,28 @@ public class Benchmark {
 
         System.out.println("\"" + fileName + "\", " + fileSize + " bytes:");
 
-        // Compress 100 times
+        // Compress x times
         compressBenchmark(testFileSource, coder);
 
-        // Decompress 100 times
+        // Decompress x times
         decompressBenchmark(decoder, fileSize);
     }
 
     private static void compressBenchmark(String testFileSource, Coder coder) {
         long totalCompressTime = 0;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < T; i++) {
             long startTime = System.currentTimeMillis();
             coder.compress(new FileInput(testFileSource), new FileOutput("src/test/resources/output.txt"));
             long endTime = System.currentTimeMillis();
             totalCompressTime += endTime - startTime;
         }
 
-        System.out.println("  Compress time: " + (totalCompressTime / 100) + " ms");
+        System.out.println("  Compress time: " + (totalCompressTime / T) + " ms");
     }
 
     private static void decompressBenchmark(Decoder decoder, long fileSize) {
         long totalDecompressTime = 0;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < T; i++) {
             long startTime = System.currentTimeMillis();
             decoder.decompress(new FileInput("src/test/resources/output.txt"), new FileOutput("src/test/resources/output2.txt"));
             long endTime = System.currentTimeMillis();
@@ -66,7 +71,38 @@ public class Benchmark {
         long fileCompressedSize = new File("src/test/resources/output.txt").length();
         int efficiency = (int) (((double) fileCompressedSize / fileSize) * 100);
 
-        System.out.println("  Decompress time: " + (totalDecompressTime / 100) + " ms");
+        System.out.println("  Decompress time: " + (totalDecompressTime / T) + " ms");
+        System.out.println("  Compressed size: " + fileCompressedSize + " bytes (" + efficiency + "%)");
+    }
+    
+    private static void lzwHuffmanCompressDecompressBenchmark(String testFileSource, String fileName) {
+        long fileSize = new File(testFileSource).length();
+        System.out.println("\"" + fileName + "\", " + fileSize + " bytes:");
+        
+        // Compress
+        long totalCompressTime = 0;
+        for (int i = 0; i < T; i++) {
+            long startTime = System.currentTimeMillis();
+            Main.lzwHuffmanCompress(testFileSource, "src/test/resources/output.txt");
+            long endTime = System.currentTimeMillis();
+            totalCompressTime += endTime - startTime;
+        }
+
+        System.out.println("  Compress time: " + (totalCompressTime / T) + " ms");
+        
+        // Decompress
+        long totalDecompressTime = 0;
+        for (int i = 0; i < T; i++) {
+            long startTime = System.currentTimeMillis();
+            Main.lzwHuffmanDecompress("src/test/resources/output.txt", "src/test/resources/output2.txt");
+            long endTime = System.currentTimeMillis();
+            totalDecompressTime += endTime - startTime;
+        }
+
+        long fileCompressedSize = new File("src/test/resources/output.txt").length();
+        int efficiency = (int) (((double) fileCompressedSize / fileSize) * 100);
+
+//        System.out.println("  Decompress time: " + (totalDecompressTime / T) + " ms");
         System.out.println("  Compressed size: " + fileCompressedSize + " bytes (" + efficiency + "%)");
     }
 }
