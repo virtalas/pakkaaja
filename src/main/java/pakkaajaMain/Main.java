@@ -1,5 +1,7 @@
 package pakkaajaMain;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import huffman.HuffmanCoder;
 import huffman.HuffmanDecoder;
 import io.FileInput;
@@ -128,12 +130,20 @@ public class Main {
         String tempFilePath = destinationPath + "_temp";
         lempelZivWelchCompress(sourcePath, tempFilePath);
         huffmanCompress(tempFilePath, destinationPath);
+        deleteFile(tempFilePath);
     }
 
     public static void lzwHuffmanDecompress(String sourcePath, String destinationPath) {
         String tempFilePath = destinationPath + "_temp";
         huffmanDecompress(sourcePath, tempFilePath);
         lempelZivWelchDecompress(tempFilePath, destinationPath);
+        deleteFile(tempFilePath);
+    }
+
+    private static void deleteFile(String tempFilePath) {
+        try {
+            Files.deleteIfExists(Paths.get(tempFilePath));
+        } catch(Exception e) {};
     }
 
     /**
