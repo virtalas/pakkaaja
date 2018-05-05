@@ -57,8 +57,11 @@ public class Main {
         String command = null;
         String sourcePath = null;
         String destinationPath = null;
+        int benchMarkRuns = -1;
 
         switch (args.length) {
+            case 2:
+                benchMarkRuns = Integer.parseInt(args[1]);
             case 1:
                 command = args[0];
                 break;
@@ -91,7 +94,7 @@ public class Main {
                 lzwHuffmanDecompress(sourcePath, destinationPath);
                 return "Decompressed using Lempel-Ziv-Welch and Huffman coding.";
             case "test":
-                Benchmark.runBenchmarkTests();
+                Benchmark.runBenchmarkTests(benchMarkRuns);
                 return "";
             default:
                 return usageInstructions();

@@ -13,7 +13,7 @@ Testisyötteet löytyvät kansiosta "test/resources/".
 
 WizardOfOz.txt on keskikokoinen, englanninkielinen kirja tekstitiedostona.
 
-Dracula.txt on iso englanninkielinen kirja, jonka koko on
+Dracula.txt on keskikokoinen englanninkielinen kirja, jonka koko on
 kolminkertainen Wizard of Oz -tiedostoon verrattuna.
 
 jpn.txt on japaninkielinen kirja, jonka koko vastaa Draculaa. Tiedoston koodaus on UTF-8,
@@ -21,6 +21,8 @@ ja yksittäiset merkit vievät kuusi tavua yhden tavun sijaan. Pakkausalgoritmit
 lukevat kuitenkin syötettä tavu kerrallaan, joten tällä on jonkin verran merkitystä
 pakkaustehokkuudessa. Merkkien toistuessa toistuvat samat kuusi tavua, kun taas
 englanninkielisessä tekstissä merkin toistuessa toistuu yksi sama tavu.
+
+10.txt on suuri tekstitiedosto, joka koostuu englanninkielisistä näytelmistä ja kirjoista, ja on kooltaan 10Mt.
 
 Testisyötteet ladattiin sivulta http://www.gutenberg.org.
 
