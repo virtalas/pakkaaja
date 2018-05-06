@@ -76,7 +76,17 @@ ja 2,77-kertaiseksi LZW-algoritmillä. Pakkaustehokkuus pysyi suurinpiirtein sam
 Huffmanin koodaus ei pakannut japania yhtä hyvin kuin englantia, mutta LZW-algoritmin
 tapauksessa pakkaustehokkuus oli samaa luokkaa.
 
+Kaavioissa on kuvattu Huffmanin koodauksen ja LZW-algoritmin pakkaustestitulokset.
+
 ![Huffman pakkaus](/dokumentaatio/graphs/huffman_pakkaus.png?raw=true)
+
+Huffmanin koodauksen käyrä muistuttaa aikavaativuutta O(n), sillä aakkoston koko on vakio (arvot 0-255)
+ja muuten koodaus lukee tiedostoa vaatimuksella O(n).
+
+![LZW pakkaus](/dokumentaatio/graphs/lzw_pakkaus.png?raw=true)
+
+LZW-algoritmin käyrä muistuttaa aikavaativuutta O(n), sillä jokainen tavu luetaan vain kerran ja sanakirjan
+muodostus vaatii joka kerta samat operaatiot.
 
 ### Purkaminen
 
@@ -93,6 +103,15 @@ LZW     | 10Mt tekstiä | 5367975 | 4436
 
 Purkamisessa Huffman oli nopeampi kuin LZW samoin kuin pakkaamisessa.
 Saman algoritmin pakkaus- ja purkuaikoja verratessa ne olivat samat molemmilla virhemarginaalin ollessa melko suuri.
+
+Kaavioissa on kuvattu Huffmanin koodauksen ja LZW-algoritmin purkutestitulokset.
+
+![Huffman purku](/dokumentaatio/graphs/huffman_purku.png?raw=true)
+
+![LZW purku](/dokumentaatio/graphs/lzw_purku.png?raw=true)
+
+Molemmissa tapauksissa käyrät vastaavat pakkaamisen aikavaativuutta O(n), sillä algoritmit toimivat lähes samalla
+periaatteella myös purkusuunnassa.
 
 ### Johtopäätökset
 

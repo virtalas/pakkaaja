@@ -6,7 +6,7 @@ Aiheena on tekstitiedoston pakkaus käyttäen pääasiassa Huffmanin koodausta. 
 
 ## Algoritmit ja tietorakenteet
 
-Huffmanin koodausta varten tiedoston merkit luetaan hajautustaulun avulla frekvenssilistaan, joka järjestetään esimerkiksi quicksort-algoritmillä merkkien yleisyyden mukaan. Listasta muodostetaan Huffman-puu, joka toteutetaan binääripuulla. Lempel-ziv-algoritmin sanakirjaa ja toimintaa varten tarvitaan ainakin listoja.
+Huffmanin koodausta varten tiedoston merkit luetaan hajautustaulun avulla frekvenssilistaan, joka järjestetään esimerkiksi minheap-rakenteella merkkien yleisyyden mukaan. Listasta muodostetaan Huffman-puu, joka toteutetaan binääripuulla. Lempel-ziv-algoritmin sanakirjaa ja toimintaa varten tarvitaan ainakin listoja.
 
 ## Syöte ja ohjelman toiminta
 
@@ -23,14 +23,14 @@ Mahdollisesti molempia algoritmeja käytettäessä ajetaan ensin Lempel-ziv-algo
 Huffmanin koodaus, pakkaaminen:
 
 1. Lähdetiedoston lukeminen ja frekvenssilistan muodostus käyttäen hajautustaulua O(n)
-2. Listan järjestäminen quicksort-algoritmilla O(n log n)
+2. Listan järjestäminen minheap-rakenteella O(n log n), jossa n aakkoston koko
 3. Huffman-puun muodostaminen O(n log n)
 4. Kohdetiedoston kirjoitus O(n)
 
 Huffmanin koodaus, purkaminen:
 
 1. Lähdetiedoston lukeminen O(n)
-2. Huffman-puun lukeminen O(log n) jokaista luettua koodia kohden eli O(n log n)
+2. Huffman-puun lukeminen O(log n) jokaista luettua koodia kohden eli O(n log n), jossa n aakkoston koko
 3. Kohdetiedoston kirjoitus O(n)
 
 Sekä pakkauksen että purkamisen tavoitteellinen aikavaativuus voisi siten olla O(n log n). Jos oletamme merkistön koon vakioksi, aikavaativuus voisi olla O(n). Tilavaativuus koostuu Huffman-puun koosta O(k) ja syötteen koosta O(n).
