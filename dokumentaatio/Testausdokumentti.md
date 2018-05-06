@@ -76,7 +76,7 @@ ja 2,77-kertaiseksi LZW-algoritmillä. Pakkaustehokkuus pysyi suurinpiirtein sam
 Huffmanin koodaus ei pakannut japania yhtä hyvin kuin englantia, mutta LZW-algoritmin
 tapauksessa pakkaustehokkuus oli samaa luokkaa.
 
-![Huffman pakkaus](/graphs/huffman_pakkaus.png?raw=true)
+![Huffman pakkaus](/dokumentaatio/graphs/huffman_pakkaus.png?raw=true)
 
 ### Purkaminen
 
