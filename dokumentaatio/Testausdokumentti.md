@@ -70,8 +70,9 @@ Huffmanin koodaus suoriutui pakkauksesta huomattavasti nopeammin verrattuna LZW-
 mutta pakkaustehokkuus oli LZW:n tapauksessa parempi. Tämä on luonnollinen
 vaihtokauppa laskenta-ajan ja käytetyn tilan välillä.
 
-Syötteen pituuden kasvaessa kolminkertaiseksi pakkausaika kasvoi 2,42-kertaiseksi Huffmanin koodauksella
-ja 2,77-kertaiseksi LZW-algoritmillä. Pakkaustehokkuus pysyi suurinpiirtein samana.
+Syötteen pituuden kasvaessa kolminkertaiseksi pakkausaika kasvoi 2,03-kertaiseksi Huffmanin koodauksella
+ja 2,47-kertaiseksi LZW-algoritmillä.
+Pakkaustehokkuus pysyi lähes samana.
 
 Huffmanin koodaus ei pakannut japania yhtä hyvin kuin englantia, mutta LZW-algoritmin
 tapauksessa pakkaustehokkuus oli samaa luokkaa.
