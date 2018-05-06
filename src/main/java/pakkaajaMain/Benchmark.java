@@ -18,7 +18,7 @@ public class Benchmark {
     private static int t;
 
     public static void runBenchmarkTests(int runTimes) {
-        t = runTimes != -1 ? runTimes : 100;
+        t = runTimes != -1 ? runTimes : 10;
         
         String wizardOfOzSource = "src/test/resources/WizardOfOz.txt";
         String draculaCroppedSource = "src/test/resources/Dracula.txt";

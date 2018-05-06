@@ -38,6 +38,10 @@ Suorituskykytestit voi ajaa komennolla
 
     gradle run -Parguments="['test']"
 
+Testit kertovat kymmenen ajokerran keskiarvot. Ajokertojen määrän voi antaa toisena parametrinä
+
+    gradle run -Parguments="['test', '100']"
+
 ## Tulokset
 
 Tulokset ovat tietokonekohtaisia.
@@ -53,12 +57,14 @@ suorituskykytestien ajokerralta. Pakkaustehokkuus ilmaisee tulosta (pakatun tied
 
 Algoritmi | Syöte | Pakkaamaton koko (tavuissa) | Aika (ms) | Pakkaustehokkuus
 --- | --- | --- | --- | ---
-Huffman | Wizard of Oz | 232776 | 22 | 57%
-Huffman | Dracula      | 698328 | 42 | 56%
-Huffman | 雲形紋章      | 698328 | 43 | 60%
-LZW     | Wizard of Oz | 232776 | 94 | 48%
-LZW     | Dracula      | 698328 | 269 | 50%
-LZW     | 雲形紋章      | 698328 | 277 | 49%
+Huffman | Wizard of Oz | 232776   | 26   | 57%
+Huffman | Dracula      | 698328   | 53   | 56%
+Huffman | 雲形紋章      | 698328   | 56   | 60%
+Huffman | 10Mt tekstiä | 10000275 |  785 | 58%
+LZW     | Wizard of Oz | 232776   | 139   | 48%
+LZW     | Dracula      | 698328   | 343  | 50%
+LZW     | 雲形紋章      | 698328   | 332  | 49%
+LZW     | 10Mt tekstiä | 10000275 | 4719 | 53%
 
 Huffmanin koodaus suoriutui pakkauksesta huomattavasti nopeammin verrattuna LZW-algoritmiin,
 mutta pakkaustehokkuus oli LZW:n tapauksessa parempi. Tämä on luonnollinen
@@ -70,16 +76,20 @@ ja 2,77-kertaiseksi LZW-algoritmillä. Pakkaustehokkuus pysyi suurinpiirtein sam
 Huffmanin koodaus ei pakannut japania yhtä hyvin kuin englantia, mutta LZW-algoritmin
 tapauksessa pakkaustehokkuus oli samaa luokkaa.
 
+![Huffman pakkaus](/graphs/huffman_pakkaus.png?raw=true)
+
 ### Purkaminen
 
 Algoritmi | Syöte | Pakattu koko (tavuissa) | Aika (ms)
 --- | --- | --- | ---
-Huffman | Wizard of Oz | 133311 | 15
-Huffman | Dracula      | 396939 | 36
-Huffman | 雲形紋章      | 424273 | 37
-LZW     | Wizard of Oz | 232776 | 102
-LZW     | Dracula      | 396939 | 313
-LZW     | 雲形紋章      | 347262 | 308
+Huffman | Wizard of Oz | 133311   | 18
+Huffman | Dracula      | 396939   | 45
+Huffman | 雲形紋章      | 424273   | 48
+Huffman | 10Mt tekstiä | 10000275 | 655
+LZW     | Wizard of Oz | 232776   | 105
+LZW     | Dracula      | 396939   | 335
+LZW     | 雲形紋章      | 347262   | 319
+LZW     | 10Mt tekstiä | 5367975 | 4436
 
 Purkamisessa Huffman oli nopeampi kuin LZW samoin kuin pakkaamisessa.
 Saman algoritmin pakkaus- ja purkuaikoja verratessa ne olivat samat molemmilla virhemarginaalin ollessa melko suuri.
