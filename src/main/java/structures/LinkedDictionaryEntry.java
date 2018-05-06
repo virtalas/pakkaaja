@@ -13,6 +13,8 @@ public class LinkedDictionaryEntry {
      * Adds a new key and its value to a new or empty LinkedDictionaryEntry. If
      * it can't be added to the current one, it is passed to the next one. For
      * already existing keys the value is overridden.
+     * @param key key to add
+     * @param value value to add
      */
     public void add(Object key, Object value) {
         if (empty()) {
@@ -32,6 +34,8 @@ public class LinkedDictionaryEntry {
     /**
      * Finds and returns the value by a key if it exists. If it is not found it
      * the current entry, it is passed to the next entry.
+     * @param key key
+     * @return the value
      */
     public Object get(Object key) {
         if (key == null) {

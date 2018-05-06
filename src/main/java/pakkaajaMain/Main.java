@@ -28,6 +28,7 @@ public class Main {
 
     /**
      * Starts the program. Used for testing.
+     * @param args arguments from the user
      */
     public static void main(String[] args) {
         System.out.println(start(args));
@@ -52,6 +53,7 @@ public class Main {
      * lc/ld for Lempel-Ziv-Welch compress/decompress.
      *
      * @param args the command line arguments are: command, source, destination.
+     * @return description of the events
      */
     public static String start(String[] args) {
         String command = null;
@@ -151,6 +153,7 @@ public class Main {
 
     /**
      * Returns usage instructions.
+     * @return instructions
      */
     public static String usageInstructions() {
         return "Usage: [hc|hd|lc|ld|lhc|lhd] [source] [destination]\n"

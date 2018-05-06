@@ -32,7 +32,6 @@ public class HuffmanCoder implements Coder {
     /**
      * Initializes byteFrequencies and codes.
      *
-     * @param bytes array of character/byte frequencies
      * @param alphabetSize size of the alphabet, or how many unique characters
      * there can be.
      */
@@ -44,8 +43,8 @@ public class HuffmanCoder implements Coder {
     /**
      * Used for testing to insert the byte frequencies.
      *
-     * @param frequencies
-     * @param alphabetSize
+     * @param frequencies frequencies of the characters
+     * @param alphabetSize size of the alphabet
      */
     public HuffmanCoder(int[] frequencies, int alphabetSize) {
         this.byteFrequencies = frequencies;
@@ -98,6 +97,10 @@ public class HuffmanCoder implements Coder {
     /**
      * Reads the source file and writes the compressed destination file using
      * huffman codes.
+     * 
+     * 
+     * @param in reads the file
+     * @param out writes the file
      */
     public void writeCompressedContent(FileInput in, FileOutput out) {
         int readByte = in.readByte();

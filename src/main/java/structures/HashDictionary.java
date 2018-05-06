@@ -34,6 +34,8 @@ public class HashDictionary {
     /**
      * Finds the list that corresponds with the key, and adds the key/value pair
      * to it.
+     * @param key key
+     * @param value value
      */
     public void put(Object key, Object value) {
         listFor(key).add(key, value);
@@ -49,6 +51,8 @@ public class HashDictionary {
     /**
      * Finds the list that corresponds with the key, and returns the search
      * result from that list.
+     * @param key key for the value to get
+     * @return the value
      */
     public Object get(Object key) {
         return listFor(key).get(key);

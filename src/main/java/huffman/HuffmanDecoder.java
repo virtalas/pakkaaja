@@ -14,8 +14,8 @@ public class HuffmanDecoder implements Decoder {
      * is read from the beginning of the file. Finally the file is read again
      * and decompressed and written out according to the tree.
      *
-     * @param sourcePath path of the compressed file
-     * @param destinationPath path of the file to be decompressed
+     * @param in reads the file
+     * @param out writes the file
      */
     @Override
     public void decompress(FileInput in, FileOutput out) {
@@ -99,9 +99,7 @@ public class HuffmanDecoder implements Decoder {
      *
      * @param in reads the file
      * @param tree Huffman tree to traverse
-     * @param readBit tells which direction to traverse to next, unless a leaf
-     * is found
-     * @return
+     * @return the next byte
      */
     public int readNextCharacterByte(FileInput in, HuffmanTree tree) {
         if (tree instanceof HuffmanLeaf) {

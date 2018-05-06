@@ -34,7 +34,7 @@ public class FileInput {
     /**
      * Initializes the InStream.
      *
-     * @param path path for the source file
+     * @param in reads the file
      */
     public FileInput(InStream in) {
         this.in = in;
@@ -58,7 +58,7 @@ public class FileInput {
      * Reads one bit from the current byte. If the end of the byte is reached, a
      * new byte is read into memory.
      *
-     * @return
+     * @return the next bit
      */
     public int readBit() {
         if (currentByte == -1) {

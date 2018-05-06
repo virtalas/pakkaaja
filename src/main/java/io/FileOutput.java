@@ -24,7 +24,7 @@ public class FileOutput {
     /**
      * Default constroctor that initializes an OutputByteStream.
      *
-     * @param destinationPath
+     * @param destinationPath path of the dest file
      */
     public FileOutput(String destinationPath) {
         out = new OutputByteStream(destinationPath);
@@ -81,7 +81,7 @@ public class FileOutput {
      * Writes a full byte at once. En error is produced if a previos byte is not
      * completed and written yet.
      *
-     * @param byteToWrite byte to be written, must be < 256
+     * @param byteToWrite byte to be written, must be less than 256
      */
     public void writeByte(int byteToWrite) {
         if (byteToWrite > 255) {

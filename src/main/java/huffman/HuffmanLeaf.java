@@ -21,8 +21,8 @@ public class HuffmanLeaf extends HuffmanTree {
     /**
      * Sets the value and its frequency.
      *
-     * @param frequency
-     * @param value
+     * @param frequency how many times the character appears
+     * @param value value of the character
      */
     public HuffmanLeaf(int frequency, int value) {
         super(frequency);
