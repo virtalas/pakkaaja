@@ -12,6 +12,8 @@ Aja gradlella:
 tai
 
     gradle run -Parguments="['test']"
+    
+Tarvittava Gradlen versio on 3.4 tai uudempi.
 
 [Määrittelydokumentaatio](https://github.com/virtalas/pakkaaja/tree/master/docs/määrittelydokumentti.md)
 
