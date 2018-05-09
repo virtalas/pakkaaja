@@ -12,19 +12,5 @@ Aja gradlella:
 tai
 
     gradle run -Parguments="['test']"
-    
+
 Tarvittava Gradlen versio on 3.4 tai uudempi.
-
-[Määrittelydokumentaatio](https://github.com/virtalas/pakkaaja/tree/master/docs/määrittelydokumentti.md)
-
-[Viikkoraportti 1](https://github.com/virtalas/pakkaaja/tree/master/docs/viikkoraportti1.md)
-
-[Viikkoraportti 2](https://github.com/virtalas/pakkaaja/blob/master/docs/viikkoraportti2.md)
-
-[Viikkoraportti 3](https://github.com/virtalas/pakkaaja/blob/master/docs/viikkoraportti3.md)
-
-[Viikkoraportti 4](https://github.com/virtalas/pakkaaja/blob/master/docs/viikkoraportti4.md)
-
-[Viikkoraportti 5](https://github.com/virtalas/pakkaaja/blob/master/docs/viikkoraportti5.md)
-
-[Viikkoraportti 6](https://github.com/virtalas/pakkaaja/blob/master/docs/viikkoraportti6.md)

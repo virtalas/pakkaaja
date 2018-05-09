@@ -86,25 +86,25 @@ Gzip oli huomattavasti molempia algoritmejä nopeampi ja pakkasi tiedoston tehok
 
 Kaavioissa on kuvattu Huffmanin koodauksen ja LZW-algoritmin pakkaustestitulokset.
 
-![Huffman pakkaus](/dokumentaatio/graphs/huffman_pakkaus.png?raw=true)
+![Huffman pakkaus](/docs/graphs/huffman_pakkaus.png?raw=true)
 
 Huffmanin koodauksen käyrä muistuttaa aikavaativuutta O(n), sillä aakkoston koko on vakio (arvot 0-255)
 ja muuten koodaus lukee tiedostoa vaatimuksella O(n).
 
-![LZW pakkaus](/dokumentaatio/graphs/lzw_pakkaus.png?raw=true)
+![LZW pakkaus](/docs/graphs/lzw_pakkaus.png?raw=true)
 
 LZW-algoritmin käyrä muistuttaa aikavaativuutta O(n), sillä jokainen tavu luetaan vain kerran ja sanakirjan
 muodostus vaatii joka kerta samat operaatiot.
 
 Seuraavissa kaavioissa on kuvattu pakkaustehokkuudet syötteen koon suhteen.
 
-![Huffman teho](/dokumentaatio/graphs/huffman_teho.png?raw=true)
+![Huffman teho](/docs/graphs/huffman_teho.png?raw=true)
 
 Huffmanin koodaus vaikuttaa pakkaavan suurin piirtein yhtä hyvin riippumatta syötteen koosta.
 Pienet vaihtelut johtuvat todennäköisesti syötteiden eroista, sillä ne eroavat mahdollisesti pituuden lisäksi
 myös sisällöltään ja käytetyiltä sanoiltaa.
 
-![LZW teho](/dokumentaatio/graphs/lzw_teho.png?raw=true)
+![LZW teho](/docs/graphs/lzw_teho.png?raw=true)
 
 Myös LZW:n pakkaustehokkuus on lähes riippumaton syötteen koosta.
 Käyrässä on kuitenkin havaittavissa pieni nousu, joka implikoi LZW:n pakkaustehokkuuden huonontuvan syötteen koon kasvaessa.
@@ -131,9 +131,9 @@ Gzip oli jälleen huomattavasti Huffmania ja LZW:tä nopeampi.
 
 Kaavioissa on kuvattu Huffmanin koodauksen ja LZW-algoritmin purkutestitulokset.
 
-![Huffman purku](/dokumentaatio/graphs/huffman_purku.png?raw=true)
+![Huffman purku](/docs/graphs/huffman_purku.png?raw=true)
 
-![LZW purku](/dokumentaatio/graphs/lzw_purku.png?raw=true)
+![LZW purku](/docs/graphs/lzw_purku.png?raw=true)
 
 Molemmissa tapauksissa käyrät vastaavat pakkaamisen aikavaativuutta O(n), sillä algoritmit toimivat lähes samalla
 periaatteella myös purkusuunnassa.
